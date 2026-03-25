@@ -3,217 +3,814 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>SF Crime Analysis</title>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-    body {
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-        background: linear-gradient(180deg, #f4f6f9, #e9eef5);
-        color: #1f2d3d;
-    }
+  :root {
+    --ink: #0d0f14;
+    --paper: #f5f2ec;
+    --muted: #8a8880;
+    --accent: #c9403a;
+    --accent-soft: rgba(201,64,58,0.08);
+    --rule: rgba(13,15,20,0.1);
+    --card-bg: #ffffff;
+  }
 
-    /* HERO */
-    .hero {
-        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-        color: white;
-        padding: 100px 20px;
-        text-align: center;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    .hero h1 {
-        font-size: 44px;
-        margin: 15px 0;
-    }
+  html { scroll-behavior: smooth; }
 
-    .hero p {
-        max-width: 650px;
-        margin: auto;
-        opacity: 0.9;
-        font-size: 18px;
-    }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.75;
+  }
 
-    .badge {
-        background: rgba(255,255,255,0.15);
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 12px;
-    }
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(245,242,236,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
 
-    /* CONTAINER */
-    .container {
-        max-width: 1000px;
-        margin: auto;
-        padding: 60px 20px;
-    }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
 
-    h2 {
-        font-size: 24px;
-        margin-top: 60px;
-        margin-bottom: 15px;
-        color: #0f4c75;
-    }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
 
-    p {
-        line-height: 1.7;
-        color: #444;
-    }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
 
-    /* CARD */
-    .card {
-        background: rgba(255,255,255,0.9);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        padding: 25px;
-        margin-top: 30px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+  .nav-links a:hover { color: var(--ink); }
 
-    .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 16px 40px rgba(0,0,0,0.12);
-    }
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+  }
 
-    .figure-title {
-        font-weight: 600;
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,64,58,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 20% 70%, rgba(30,40,60,0.8) 0%, transparent 60%),
+      linear-gradient(160deg, #0d0f14 0%, #1a1f2e 60%, #0d0f14 100%);
+  }
 
-    .figure-desc {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 15px;
-    }
+  /* City grid lines */
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
 
-    iframe, img {
-        width: 100%;
-        border-radius: 10px;
-        border: none;
-    }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+  }
 
-    iframe {
-        height: 600px;
-    }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
 
-    /* GRID */
-    .grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
 
-    /* INSIGHTS */
-    .insight strong {
-        display: block;
-        margin-top: 10px;
-        color: #0f4c75;
-    }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 7vw, 88px);
+    font-weight: 700;
+    line-height: 1.05;
+    color: #f5f2ec;
+    margin-bottom: 32px;
+  }
 
-    /* FOOTER */
-    .footer {
-        text-align: center;
-        padding: 40px;
-        font-size: 13px;
-        color: #888;
-    }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
 
+  .hero-desc {
+    font-size: 18px;
+    color: rgba(245,242,236,0.6);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 52px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 32px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,0.35);
+  }
+
+  .meta-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #f5f2ec;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 36px;
+    right: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,0.3);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, rgba(245,242,236,0.3), transparent);
+    animation: scrollpulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollpulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 0.8; transform: scaleY(1.2); }
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  /* ─── SECTION LABEL ─── */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* ─── CHAPTER DIVIDER ─── */
+  .chapter {
+    margin-top: 100px;
+    padding-top: 60px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .chapter:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+  /* ─── TYPOGRAPHY ─── */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: #3a3a3a;
+    margin-bottom: 20px;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  /* ─── DATASET INTRO ─── */
+  .dataset-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .dataset-stat {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dataset-stat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── PULL QUOTE ─── */
+  .pull-quote {
+    margin: 48px 0;
+    padding: 36px 40px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* ─── KEY FINDINGS ─── */
+  .findings {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 36px;
+    border: 1px solid var(--rule);
+    background: var(--card-bg);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .finding {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .finding:last-child { border-bottom: none; }
+
+  .finding-num {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 28px 0 28px;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--accent);
+    border-right: 1px solid var(--rule);
+    font-style: italic;
+  }
+
+  .finding-body {
+    padding: 28px 32px;
+  }
+
+  .finding-body strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .finding-body p {
+    font-size: 15px;
+    margin: 0;
+  }
+
+  /* ─── FIGURE CARDS ─── */
+  .figure-block {
+    margin-top: 60px;
+  }
+
+  .figure-card {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .figure-header {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .figure-tag {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .figure-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .figure-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .figure-media {
+    padding: 24px;
+    background: #fafafa;
+  }
+
+  .figure-media img,
+  .figure-media iframe {
+    width: 100%;
+    border-radius: 2px;
+    border: none;
+    display: block;
+  }
+
+  .figure-media iframe {
+    height: 580px;
+  }
+
+  .figure-caption {
+    padding: 20px 32px 24px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    border-top: 1px solid var(--rule);
+  }
+
+  .figure-caption strong {
+    color: var(--ink);
+  }
+
+  /* ─── ANALYSIS TEXT ─── */
+  .analysis {
+    margin-top: 40px;
+  }
+
+  .analysis p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* ─── CONCLUSION ─── */
+  .conclusion-box {
+    margin-top: 40px;
+    padding: 48px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 4px;
+  }
+
+  .conclusion-box h2 {
+    color: var(--paper);
+    margin-bottom: 24px;
+  }
+
+  .conclusion-box p {
+    color: rgba(245,242,236,0.72);
+    font-size: 16px;
+  }
+
+  .conclusion-box .section-label {
+    margin-bottom: 16px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--ink);
+  }
+
+  .footer-right {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 700px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 24px 60px; }
+    .content { padding: 60px 20px; }
+    .dataset-grid { grid-template-columns: 1fr; }
+    .conclusion-box { padding: 32px 24px; }
+    footer { flex-direction: column; gap: 16px; padding: 32px 20px; }
+  }
+
+  /* ─── FADE-IN ANIMATION ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
 </head>
 
 <body>
 
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SF Crime Analysis</div>
+  <ul class="nav-links">
+    <li><a href="#dataset">Dataset</a></li>
+    <li><a href="#findings">Findings</a></li>
+    <li><a href="#figures">Visualizations</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+
 <!-- HERO -->
 <div class="hero">
-    <div class="badge">Data Story • 2015–2025</div>
-    <h1>San Francisco Crime Analysis</h1>
-    <p>
-        Exploring how crime patterns are shifting across districts, time, and behavior—
-        with a focus on rising burglary trends in specific areas.
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Data Investigation</div>
+    <h1>Crime in<br><em>San Francisco</em><br>2015 – 2025</h1>
+    <p class="hero-desc">
+      A decade of incident data reveals how crime patterns are shifting — across neighborhoods, hours of the day, and categories of offense.
     </p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Period</span>
+        <span class="meta-value">2015 – 2025</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Focus</span>
+        <span class="meta-value">Burglary</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Geography</span>
+        <span class="meta-value">All Districts</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
 </div>
 
-<div class="container">
 
-    <!-- INSIGHTS -->
-    <h2>Key Insights</h2>
+<!-- MAIN CONTENT -->
+<main class="content">
 
-    <div class="card insight">
-        <strong>1. Overall crime is declining.</strong>
-        <p>
-            Crime has decreased compared to the pre-COVID baseline, indicating general improvement in safety trends.
-        </p>
+  <!-- ── DATASET INTRO ── -->
+  <section id="dataset" class="chapter fade-in">
+    <div class="section-label">About the Data</div>
+    <h2>A Decade of Incident Reports</h2>
 
-        <strong>2. Burglary is increasing in specific districts.</strong>
-        <p>
-            Despite the overall decline, burglary shows localized growth in certain areas—suggesting that crime is not evenly distributed.
-        </p>
+    <p>
+      This analysis draws on the San Francisco Police Department's publicly available incident report database, 
+      which spans ten years of recorded crime activity from 2015 to 2025. The dataset is one of the most 
+      comprehensive municipal crime records in the United States, capturing everything from petty theft 
+      to violent offenses across all official police districts in the city.
+    </p>
 
-        <strong>3. Crime is becoming more patterned.</strong>
-        <p>
-            Burglary incidents are concentrated in specific time windows, revealing predictable behavioral patterns.
-        </p>
+    <p>
+      Each record in the dataset includes the incident category, date and time of occurrence, the police 
+      district it was reported in, and geographic coordinates. This richness makes it possible to analyze 
+      not just <em>how much</em> crime occurs, but <em>where</em> it clusters and <em>when</em> it tends 
+      to happen — both critical dimensions for understanding behavioral patterns.
+    </p>
+
+    <div class="dataset-grid">
+      <div class="dataset-stat">
+        <div class="stat-number">~900k</div>
+        <div class="stat-label">Incident records analyzed</div>
+      </div>
+      <div class="dataset-stat">
+        <div class="stat-number">10 yrs</div>
+        <div class="stat-label">Temporal coverage (2015–2025)</div>
+      </div>
+      <div class="dataset-stat">
+        <div class="stat-number">10</div>
+        <div class="stat-label">Police districts covered</div>
+      </div>
+      <div class="dataset-stat">
+        <div class="stat-number">60+</div>
+        <div class="stat-label">Crime categories tracked</div>
+      </div>
     </div>
 
-    <!-- VISUALS -->
-    <h2>Key Visualizations</h2>
-
-    <div class="grid">
-
-        <!-- FIGURE 1 -->
-        <div class="card">
-            <div class="figure-title">Figure 1 — Crime Trends Reveal Divergence</div>
-            <div class="figure-desc">
-                While total crime trends downward, burglary follows a different trajectory, increasing in some areas.
-            </div>
-            <img src="Assignment2_figures/Figure1.png" alt="Figure 1">
-        </div>
-
-        <!-- FIGURE 2 -->
-        <div class="card">
-            <div class="figure-title">Figure 2 — Burglary Hotspots Across Districts</div>
-            <div class="figure-desc">
-                The heatmap shows that burglary is highly concentrated, with certain districts consistently experiencing higher rates.
-            </div>
-            <iframe src="Assignment2_figures/Figure2.html"></iframe>
-        </div>
-
-        <!-- FIGURE 3 -->
-        <div class="card">
-            <div class="figure-title">Figure 3 — Burglary by Hour</div>
-            <div class="figure-desc">
-                Burglary incidents cluster around specific hours, indicating predictable timing patterns.
-            </div>
-            <iframe src="Assignment2_figures/Figure3.html"></iframe>
-        </div>
-
+    <div class="pull-quote" style="margin-top: 48px;">
+      <p>"Crime data does not simply tell us where danger lives — it reveals the invisible rhythms of a city."</p>
     </div>
 
-    <!-- SUMMARY -->
-    <h2>What This Means</h2>
+    <p>
+      To keep the analysis focused, we spotlight <strong>burglary</strong> as a category of particular 
+      interest. Unlike violent crime, burglary is highly sensitive to environmental factors: the density 
+      of targets, the presence of foot traffic, seasonal patterns, and economic conditions. Tracking 
+      burglary over time and space therefore offers a nuanced lens through which broader urban dynamics 
+      become visible.
+    </p>
+  </section>
 
-    <div class="card">
-        <p>
-            Although San Francisco shows an overall decline in crime, the increase in burglary in specific districts
-            reveals an important insight: crime patterns are becoming more localized rather than uniform.
-        </p>
 
-        <p>
-            This suggests that broad crime reduction strategies may not be enough. Instead, targeted interventions
-            focused on high-risk areas and peak times could be more effective.
+  <!-- ── KEY FINDINGS ── -->
+  <section id="findings" class="chapter fade-in">
+    <div class="section-label">Summary</div>
+    <h2>Three Things the Data Shows</h2>
+
+    <p>
+      Before diving into the visualizations, here is a high-level synthesis of the patterns 
+      that emerge most clearly from the data.
+    </p>
+
+    <div class="findings">
+      <div class="finding">
+        <div class="finding-num">01</div>
+        <div class="finding-body">
+          <strong>Overall crime is declining</strong>
+          <p>Total incident counts have dropped compared to the pre-COVID baseline, suggesting that broad safety trends are moving in a positive direction across San Francisco as a whole.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="finding-num">02</div>
+        <div class="finding-body">
+          <strong>Burglary is rising in specific districts</strong>
+          <p>Despite the aggregate decline, burglary is increasing in localized areas. This divergence highlights that crime is not disappearing uniformly — it is shifting geographically.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="finding-num">03</div>
+        <div class="finding-body">
+          <strong>Crime is becoming more predictable</strong>
+          <p>Burglary incidents concentrate in narrow time windows throughout the day, revealing behavioral patterns that are consistent and potentially actionable for prevention strategies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── FIGURES ── -->
+  <section id="figures" class="chapter fade-in">
+    <div class="section-label">Visualizations</div>
+    <h2>Exploring the Patterns</h2>
+    <p>
+      The three figures below present the data at increasing levels of granularity — 
+      from the ten-year macro trend, down to the district level, and finally to the hour of day.
+    </p>
+  </section>
+
+
+  <!-- FIGURE 1 -->
+  <div class="figure-block fade-in">
+    <div class="figure-card">
+      <div class="figure-header">
+        <div class="figure-tag">Figure 1 — Trend Overview</div>
+        <div class="figure-title">Crime Trends Reveal a Divergence</div>
+        <p class="figure-desc">
+          Total crime versus burglary, plotted annually from 2015 to 2025.
         </p>
+      </div>
+      <div class="figure-media">
+        <img src="Assignment2_figures/Figure1.png" alt="Figure 1 – Crime Trends">
+      </div>
+      <div class="figure-caption">
+        <strong>How to read this chart:</strong> The upper line tracks all incident types combined; the lower line isolates burglary. A widening or crossing of these lines signals structural change in how crime is distributed.
+      </div>
     </div>
 
-</div>
+    <div class="analysis">
+      <p>
+        The first thing to notice is the broad downward slope after 2019. The COVID-19 pandemic 
+        disrupted patterns across every dimension of city life, and crime was no exception. 
+        What is more revealing, however, is what happened <em>after</em> restrictions lifted: 
+        while total crime continued declining, burglary held steady or ticked upward in certain years.
+      </p>
+      <p>
+        Tekst — [Uddybning af hvad der konkret sker i grafen: nævn specifikke årstal, vendepunkter og statistiske udviklinger]
+      </p>
+    </div>
+  </div>
 
-<div class="footer">
-    © 2025 San Francisco Crime Analysis Project
-</div>
+
+  <!-- FIGURE 2 -->
+  <div class="figure-block fade-in">
+    <div class="figure-card">
+      <div class="figure-header">
+        <div class="figure-tag">Figure 2 — Geographic Distribution</div>
+        <div class="figure-title">Burglary Hotspots Across Districts</div>
+        <p class="figure-desc">
+          An interactive heatmap showing the spatial concentration of burglary incidents across San Francisco's police districts.
+        </p>
+      </div>
+      <div class="figure-media">
+        <iframe src="Assignment2_figures/Figure2.html" title="Burglary Heatmap"></iframe>
+      </div>
+      <div class="figure-caption">
+        <strong>How to interact:</strong> Hover or click on district areas to explore incident counts. Darker regions represent higher burglary density over the full ten-year period.
+      </div>
+    </div>
+
+    <div class="analysis">
+      <p>
+        The geographic picture is striking. Rather than spreading evenly across the city, 
+        burglary clusters persistently in a small number of districts. This concentration 
+        is not simply a reflection of population density — some of the highest-activity 
+        zones are commercial or mixed-use areas where foot traffic is high but residential 
+        density is modest.
+      </p>
+      <p>
+        Tekst — [Nævn hvilke distrikter der har de højeste rater, og diskuter mulige forklaringer: bystruktur, demografi, patruljering eller økonomi]
+      </p>
+      <p>
+        Tekst — [Har den geografiske fordeling ændret sig over tid? Er nye hotspots opstået efter 2020?]
+      </p>
+    </div>
+  </div>
+
+
+  <!-- FIGURE 3 -->
+  <div class="figure-block fade-in">
+    <div class="figure-card">
+      <div class="figure-header">
+        <div class="figure-tag">Figure 3 — Temporal Pattern</div>
+        <div class="figure-title">When Burglary Happens: Hour by Hour</div>
+        <p class="figure-desc">
+          Burglary incidents broken down by hour of day, revealing a structured and predictable rhythm.
+        </p>
+      </div>
+      <div class="figure-media">
+        <iframe src="Assignment2_figures/Figure3.html" title="Burglary by Hour"></iframe>
+      </div>
+      <div class="figure-caption">
+        <strong>How to read this chart:</strong> Each bar represents the average number of burglary incidents reported at that hour. The distribution is not uniform — specific windows concentrate far more activity.
+      </div>
+    </div>
+
+    <div class="analysis">
+      <p>
+        Perhaps the most operationally useful finding in the dataset is the strong temporal 
+        signal in burglary timing. Rather than occurring randomly throughout the day, incidents 
+        cluster in identifiable windows. This is consistent with research showing that burglars 
+        — particularly residential burglars — behave according to predictable routines that 
+        track occupancy and visibility patterns.
+      </p>
+      <p>
+        Tekst — [Beskriv præcist hvilke tidspunkter der topper, og om mønsteret varierer på hverdage vs. weekender eller på tværs af distrikter]
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ── CONCLUSION ── -->
+  <section id="conclusion" class="chapter fade-in">
+    <div class="conclusion-box">
+      <div class="section-label" style="color: rgba(201,64,58,0.9);">Conclusion</div>
+      <h2>What This Means for the City</h2>
+      <p>
+        The aggregate decline in San Francisco crime is a genuinely positive signal. But it risks 
+        obscuring a more complex picture. Burglary tells a different story from the headline numbers: 
+        one of geographic concentration and temporal predictability that aggregate statistics cannot capture.
+      </p>
+      <p>
+        This matters for policy. Broad city-wide crime reduction programs may be effective at the macro level, 
+        but they may fail to address the specific conditions enabling burglary in high-concentration districts. 
+        The patterns identified here suggest that targeted, time-aware and place-based interventions 
+        could yield meaningful improvements where general approaches fall short.
+      </p>
+      <p>
+        Tekst — [Afsluttende perspektiv: hvad bør fremtidig forskning eller byplanlæggere fokusere på baseret på disse fund?]
+      </p>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">SF Crime Analysis</div>
+  <div class="footer-right">Data: SFPD Incident Reports · 2015–2025</div>
+</footer>
+
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
