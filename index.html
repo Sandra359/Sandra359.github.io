@@ -13,13 +13,12 @@
     --paper: #f5f2ec;
     --muted: #8a8880;
     --accent: #c9403a;
-    --accent-soft: rgba(201,64,58,0.08);
+    --accent-soft: rgba(201,64,58,0.07);
     --rule: rgba(13,15,20,0.1);
     --card-bg: #ffffff;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -28,54 +27,64 @@
     color: var(--ink);
     font-size: 17px;
     line-height: 1.75;
+    overflow-x: hidden;
   }
 
   /* ─── NAV ─── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
-    z-index: 100;
+    z-index: 200;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 48px;
-    background: rgba(245,242,236,0.88);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--rule);
+    padding: 20px 56px;
+    transition: background 0.5s, padding 0.4s, box-shadow 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(245,242,236,0.92);
+    backdrop-filter: blur(16px);
+    padding: 14px 56px;
+    box-shadow: 0 1px 0 var(--rule);
   }
 
   .nav-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    letter-spacing: 0.04em;
-    color: var(--ink);
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    color: #f5f2ec;
+    transition: color 0.5s;
   }
+
+  nav.scrolled .nav-logo { color: var(--ink); }
 
   .nav-links {
     display: flex;
-    gap: 32px;
+    gap: 36px;
     list-style: none;
   }
 
   .nav-links a {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: rgba(245,242,236,0.6);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.3s;
   }
 
-  .nav-links a:hover { color: var(--ink); }
+  nav.scrolled .nav-links a { color: var(--muted); }
+  .nav-links a:hover { color: var(--accent) !important; }
 
   /* ─── HERO ─── */
   .hero {
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 0 48px 80px;
+    padding: 0 56px 88px;
     position: relative;
     overflow: hidden;
     background: var(--ink);
@@ -85,19 +94,35 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,64,58,0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 50% at 20% 70%, rgba(30,40,60,0.8) 0%, transparent 60%),
-      linear-gradient(160deg, #0d0f14 0%, #1a1f2e 60%, #0d0f14 100%);
+      radial-gradient(ellipse 70% 55% at 72% 38%, rgba(201,64,58,0.22) 0%, transparent 58%),
+      linear-gradient(155deg, #0d0f14 0%, #1b2033 55%, #0d0f14 100%);
+    will-change: transform;
   }
 
-  /* City grid lines */
   .hero-grid {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    will-change: transform;
+  }
+
+  /* Large ghosted text */
+  .hero-ghost {
+    position: absolute;
+    bottom: -40px;
+    right: -20px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(140px, 22vw, 280px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.025);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+    will-change: transform;
   }
 
   .hero-content {
@@ -109,30 +134,34 @@
   .hero-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 28px;
+    opacity: 0;
+    animation: heroReveal 0.9s 0.3s ease forwards;
   }
 
   .hero-eyebrow::before {
     content: '';
     display: block;
-    width: 32px;
+    width: 36px;
     height: 1px;
     background: var(--accent);
   }
 
   .hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(42px, 7vw, 88px);
+    font-size: clamp(44px, 7.5vw, 92px);
     font-weight: 700;
-    line-height: 1.05;
+    line-height: 1.02;
     color: #f5f2ec;
     margin-bottom: 32px;
+    opacity: 0;
+    animation: heroReveal 1s 0.5s ease forwards;
   }
 
   .hero h1 em {
@@ -142,69 +171,85 @@
 
   .hero-desc {
     font-size: 18px;
-    color: rgba(245,242,236,0.6);
-    max-width: 560px;
-    line-height: 1.7;
-    margin-bottom: 52px;
+    color: rgba(245,242,236,0.55);
+    max-width: 520px;
+    line-height: 1.72;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: heroReveal 1s 0.7s ease forwards;
   }
 
   .hero-meta {
     display: flex;
-    gap: 40px;
+    gap: 48px;
     border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 32px;
+    padding-top: 36px;
+    opacity: 0;
+    animation: heroReveal 1s 0.9s ease forwards;
   }
 
-  .meta-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+  .meta-item { display: flex; flex-direction: column; gap: 5px; }
+  .meta-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,242,236,0.3); }
+  .meta-value { font-family: 'Playfair Display', serif; font-size: 22px; color: #f5f2ec; }
 
-  .meta-label {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(245,242,236,0.35);
-  }
-
-  .meta-value {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    color: #f5f2ec;
+  @keyframes heroReveal {
+    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(20px); }
   }
 
   .scroll-cue {
     position: absolute;
-    bottom: 36px;
-    right: 48px;
+    bottom: 40px;
+    right: 56px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    letter-spacing: 0.1em;
+    gap: 10px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(245,242,236,0.3);
+    color: rgba(245,242,236,0.25);
+    opacity: 0;
+    animation: heroReveal 1s 1.4s ease forwards;
   }
 
   .scroll-line {
     width: 1px;
-    height: 48px;
+    height: 52px;
     background: linear-gradient(to bottom, rgba(245,242,236,0.3), transparent);
-    animation: scrollpulse 2s ease-in-out infinite;
+    animation: scrollpulse 2.2s ease-in-out infinite;
   }
 
   @keyframes scrollpulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 0.8; transform: scaleY(1.2); }
+    0%, 100% { opacity: 0.25; transform: scaleY(1); transform-origin: top; }
+    50% { opacity: 0.8; transform: scaleY(1.3); transform-origin: top; }
+  }
+
+  /* ─── TRANSITION BAND ─── */
+  .transition-band {
+    height: 180px;
+    background: linear-gradient(to bottom, var(--ink) 0%, var(--paper) 100%);
+    position: relative;
+  }
+
+  .transition-band::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 59px,
+      rgba(13,15,20,0.04) 59px,
+      rgba(13,15,20,0.04) 60px
+    );
   }
 
   /* ─── MAIN CONTENT ─── */
   .content {
-    max-width: 860px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 100px 40px;
+    padding: 80px 48px 120px;
   }
 
   /* ─── SECTION LABEL ─── */
@@ -214,10 +259,10 @@
     gap: 10px;
     font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .section-label::before {
@@ -228,10 +273,10 @@
     background: var(--accent);
   }
 
-  /* ─── CHAPTER DIVIDER ─── */
+  /* ─── CHAPTER ─── */
   .chapter {
-    margin-top: 100px;
-    padding-top: 60px;
+    margin-top: 120px;
+    padding-top: 72px;
     border-top: 1px solid var(--rule);
   }
 
@@ -240,44 +285,43 @@
   /* ─── TYPOGRAPHY ─── */
   h2 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(26px, 4vw, 38px);
+    font-size: clamp(28px, 4vw, 42px);
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.18;
     color: var(--ink);
-    margin-bottom: 24px;
-  }
-
-  h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 400;
-    font-style: italic;
-    color: var(--ink);
-    margin-bottom: 16px;
+    margin-bottom: 28px;
   }
 
   p {
-    color: #3a3a3a;
-    margin-bottom: 20px;
+    color: #3d3d3d;
+    margin-bottom: 22px;
+    font-size: 16.5px;
+    line-height: 1.82;
   }
 
   p:last-child { margin-bottom: 0; }
 
-  /* ─── DATASET INTRO ─── */
+  /* ─── DATASET STATS ─── */
   .dataset-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 40px;
+    gap: 20px;
+    margin-top: 44px;
   }
 
   .dataset-stat {
     background: var(--card-bg);
     border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: 28px 32px;
+    border-radius: 3px;
+    padding: 32px 36px;
     position: relative;
     overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .dataset-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
   }
 
   .dataset-stat::before {
@@ -291,11 +335,11 @@
 
   .stat-number {
     font-family: 'Playfair Display', serif;
-    font-size: 42px;
+    font-size: 48px;
     font-weight: 700;
     color: var(--ink);
     line-height: 1;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .stat-label {
@@ -306,46 +350,63 @@
 
   /* ─── PULL QUOTE ─── */
   .pull-quote {
-    margin: 48px 0;
-    padding: 36px 40px;
+    margin: 56px 0;
+    padding: 40px 48px;
     border-left: 3px solid var(--accent);
     background: var(--accent-soft);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pull-quote::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 28px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px;
+    color: rgba(201,64,58,0.06);
+    line-height: 1;
+    pointer-events: none;
   }
 
   .pull-quote p {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
+    font-size: 23px;
     font-style: italic;
-    line-height: 1.5;
+    line-height: 1.55;
     color: var(--ink);
     margin: 0;
+    position: relative;
   }
 
-  /* ─── KEY FINDINGS ─── */
+  /* ─── FINDINGS ─── */
   .findings {
     display: flex;
     flex-direction: column;
     gap: 0;
-    margin-top: 36px;
+    margin-top: 40px;
     border: 1px solid var(--rule);
     background: var(--card-bg);
-    border-radius: 4px;
+    border-radius: 3px;
     overflow: hidden;
   }
 
   .finding {
     display: grid;
-    grid-template-columns: 56px 1fr;
+    grid-template-columns: 60px 1fr;
     border-bottom: 1px solid var(--rule);
+    transition: background 0.3s;
   }
 
   .finding:last-child { border-bottom: none; }
+  .finding:hover { background: rgba(201,64,58,0.03); }
 
   .finding-num {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 28px 0 28px;
+    padding: 30px 0;
     font-family: 'Playfair Display', serif;
     font-size: 13px;
     color: var(--accent);
@@ -353,27 +414,46 @@
     font-style: italic;
   }
 
-  .finding-body {
-    padding: 28px 32px;
-  }
+  .finding-body { padding: 30px 36px; }
 
   .finding-body strong {
     display: block;
     font-family: 'Playfair Display', serif;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 400;
     color: var(--ink);
     margin-bottom: 8px;
   }
 
-  .finding-body p {
-    font-size: 15px;
-    margin: 0;
+  .finding-body p { font-size: 15px; margin: 0; }
+
+  /* ─── SECTION INTRO ─── */
+  .section-intro {
+    font-size: 18px;
+    color: #4a4a4a;
+    line-height: 1.75;
+    max-width: 680px;
   }
 
-  /* ─── FIGURE CARDS ─── */
+  /* ─── FIGURE BLOCK ─── */
   .figure-block {
-    margin-top: 60px;
+    margin-top: 80px;
+    position: relative;
+  }
+
+  /* Numbered side label */
+  .figure-block::before {
+    content: attr(data-fig);
+    position: absolute;
+    left: -68px;
+    top: 32px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    font-weight: 700;
+    color: rgba(13,15,20,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
   }
 
   .figure-card {
@@ -381,100 +461,186 @@
     border: 1px solid var(--rule);
     border-radius: 4px;
     overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    transition: box-shadow 0.4s;
+  }
+
+  .figure-card:hover {
+    box-shadow: 0 12px 48px rgba(0,0,0,0.09);
   }
 
   .figure-header {
-    padding: 28px 32px 20px;
+    padding: 36px 40px 28px;
     border-bottom: 1px solid var(--rule);
   }
 
   .figure-tag {
     font-size: 11px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   .figure-title {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
+    font-size: 24px;
     color: var(--ink);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   .figure-desc {
-    font-size: 14px;
+    font-size: 14.5px;
     color: var(--muted);
     line-height: 1.65;
   }
 
-  .figure-media {
-    padding: 24px;
-    background: #fafafa;
+  /* Figure 1 – image */
+  .figure-media-image {
+    padding: 32px 32px;
+    background: #f9f8f6;
   }
 
-  .figure-media img,
-  .figure-media iframe {
+  .figure-media-image img {
     width: 100%;
     border-radius: 2px;
+    display: block;
+  }
+
+  /* Figure 2 – iframe, extra tall + breathing room */
+  .figure-media-map {
+    padding: 0;
+    background: #f0ede6;
+    position: relative;
+  }
+
+  .figure-media-map iframe {
+    width: 100%;
+    height: 680px;
     border: none;
     display: block;
   }
 
-  .figure-media iframe {
-    height: 580px;
+  /* Figure 3 – iframe */
+  .figure-media-chart {
+    padding: 8px 8px 0;
+    background: #f9f8f6;
+  }
+
+  .figure-media-chart iframe {
+    width: 100%;
+    height: 560px;
+    border: none;
+    display: block;
   }
 
   .figure-caption {
-    padding: 20px 32px 24px;
+    padding: 20px 40px 24px;
     font-size: 13px;
     color: var(--muted);
-    line-height: 1.6;
+    line-height: 1.65;
     border-top: 1px solid var(--rule);
+    background: #fdfcfa;
   }
 
-  .figure-caption strong {
-    color: var(--ink);
-  }
+  .figure-caption strong { color: var(--ink); }
 
   /* ─── ANALYSIS TEXT ─── */
   .analysis {
-    margin-top: 40px;
+    margin-top: 36px;
+    padding-left: 24px;
+    border-left: 2px solid var(--rule);
   }
 
-  .analysis p {
-    font-size: 16px;
-    line-height: 1.8;
+  .analysis p { font-size: 16px; line-height: 1.82; }
+
+  /* ─── DARK INTERLUDE ─── */
+  .interlude {
+    margin: 100px -48px;
+    padding: 80px 96px;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .interlude::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 80% 50%, rgba(201,64,58,0.15) 0%, transparent 55%),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 63px,
+        rgba(255,255,255,0.015) 63px,
+        rgba(255,255,255,0.015) 64px
+      );
+  }
+
+  .interlude-inner { position: relative; }
+
+  .interlude h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-style: normal;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .interlude p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-style: italic;
+    color: rgba(245,242,236,0.85);
+    line-height: 1.45;
+    max-width: 640px;
+    margin: 0;
   }
 
   /* ─── CONCLUSION ─── */
   .conclusion-box {
-    margin-top: 40px;
-    padding: 48px;
+    margin-top: 120px;
+    padding: 64px 56px;
     background: var(--ink);
     color: var(--paper);
     border-radius: 4px;
+    position: relative;
+    overflow: hidden;
   }
 
+  .conclusion-box::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(ellipse 80% 80% at 90% 20%, rgba(201,64,58,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .conclusion-box .section-label { color: var(--accent); margin-bottom: 20px; }
+
   .conclusion-box h2 {
-    color: var(--paper);
-    margin-bottom: 24px;
+    color: #f5f2ec;
+    margin-bottom: 28px;
+    font-size: clamp(26px, 3.5vw, 40px);
   }
 
   .conclusion-box p {
-    color: rgba(245,242,236,0.72);
+    color: rgba(245,242,236,0.65);
     font-size: 16px;
-  }
-
-  .conclusion-box .section-label {
-    margin-bottom: 16px;
+    line-height: 1.82;
+    position: relative;
+    z-index: 1;
   }
 
   /* ─── FOOTER ─── */
   footer {
     border-top: 1px solid var(--rule);
-    padding: 48px;
+    padding: 52px 56px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -482,44 +648,78 @@
 
   .footer-left {
     font-family: 'Playfair Display', serif;
-    font-size: 18px;
+    font-size: 17px;
     color: var(--ink);
   }
 
-  .footer-right {
-    font-size: 13px;
-    color: var(--muted);
+  .footer-right { font-size: 13px; color: var(--muted); }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-28px);
+    transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.97);
+    transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+  /* stagger delays */
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.32s; }
+  .delay-4 { transition-delay: 0.44s; }
+
+  /* ─── PROGRESS BAR ─── */
+  #progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 300;
+    width: 0%;
+    transition: width 0.1s linear;
+    transform-origin: left;
   }
 
   /* ─── RESPONSIVE ─── */
-  @media (max-width: 700px) {
-    nav { padding: 16px 20px; }
+  @media (max-width: 760px) {
+    nav { padding: 16px 24px; }
+    nav.scrolled { padding: 12px 24px; }
     .nav-links { display: none; }
-    .hero { padding: 0 24px 60px; }
-    .content { padding: 60px 20px; }
+    .hero { padding: 0 24px 64px; }
+    .content { padding: 60px 24px 80px; }
     .dataset-grid { grid-template-columns: 1fr; }
-    .conclusion-box { padding: 32px 24px; }
-    footer { flex-direction: column; gap: 16px; padding: 32px 20px; }
-  }
-
-  /* ─── FADE-IN ANIMATION ─── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+    .interlude { margin: 80px -24px; padding: 60px 32px; }
+    .conclusion-box { padding: 44px 32px; }
+    footer { flex-direction: column; gap: 16px; padding: 36px 24px; }
+    .figure-block::before { display: none; }
+    .figure-media-map iframe { height: 500px; }
   }
 </style>
 </head>
 
 <body>
 
+<div id="progress"></div>
+
 <!-- NAV -->
-<nav>
+<nav id="nav">
   <div class="nav-logo">SF Crime Analysis</div>
   <ul class="nav-links">
     <li><a href="#dataset">Dataset</a></li>
@@ -530,9 +730,10 @@
 </nav>
 
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
+<div class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-grid" id="heroGrid"></div>
+  <div class="hero-ghost" id="heroGhost">SF</div>
 
   <div class="hero-content">
     <div class="hero-eyebrow">Data Investigation</div>
@@ -562,73 +763,73 @@
   </div>
 </div>
 
+<!-- TRANSITION BAND -->
+<div class="transition-band"></div>
 
 <!-- MAIN CONTENT -->
 <main class="content">
 
-  <!-- ── DATASET INTRO ── -->
-  <section id="dataset" class="chapter fade-in">
-    <div class="section-label">About the Data</div>
-    <h2>A Decade of Incident Reports</h2>
+  <!-- DATASET INTRO -->
+  <section id="dataset" class="chapter">
+    <div class="section-label reveal">About the Data</div>
+    <h2 class="reveal delay-1">A Decade of Incident Reports</h2>
 
-    <p>
-      This analysis draws on the San Francisco Police Department's publicly available incident report database, 
-      which spans ten years of recorded crime activity from 2015 to 2025. The dataset is one of the most 
-      comprehensive municipal crime records in the United States, capturing everything from petty theft 
+    <p class="reveal delay-2">
+      This analysis draws on the San Francisco Police Department's publicly available incident report database,
+      which spans ten years of recorded crime activity from 2015 to 2025. The dataset is one of the most
+      comprehensive municipal crime records in the United States, capturing everything from petty theft
       to violent offenses across all official police districts in the city.
     </p>
 
-    <p>
-      Each record in the dataset includes the incident category, date and time of occurrence, the police 
-      district it was reported in, and geographic coordinates. This richness makes it possible to analyze 
-      not just <em>how much</em> crime occurs, but <em>where</em> it clusters and <em>when</em> it tends 
-      to happen — both critical dimensions for understanding behavioral patterns.
+    <p class="reveal delay-3">
+      Each record includes the incident category, date and time of occurrence, the police district, and
+      geographic coordinates. This richness makes it possible to analyze not just <em>how much</em> crime occurs,
+      but <em>where</em> it clusters and <em>when</em> it tends to happen — both critical dimensions for understanding behavioral patterns.
     </p>
 
     <div class="dataset-grid">
-      <div class="dataset-stat">
+      <div class="dataset-stat reveal delay-1">
         <div class="stat-number">~900k</div>
         <div class="stat-label">Incident records analyzed</div>
       </div>
-      <div class="dataset-stat">
+      <div class="dataset-stat reveal delay-2">
         <div class="stat-number">10 yrs</div>
         <div class="stat-label">Temporal coverage (2015–2025)</div>
       </div>
-      <div class="dataset-stat">
+      <div class="dataset-stat reveal delay-3">
         <div class="stat-number">10</div>
         <div class="stat-label">Police districts covered</div>
       </div>
-      <div class="dataset-stat">
+      <div class="dataset-stat reveal delay-4">
         <div class="stat-number">60+</div>
         <div class="stat-label">Crime categories tracked</div>
       </div>
     </div>
 
-    <div class="pull-quote" style="margin-top: 48px;">
+    <div class="pull-quote reveal" style="margin-top: 56px;">
       <p>"Crime data does not simply tell us where danger lives — it reveals the invisible rhythms of a city."</p>
     </div>
 
-    <p>
-      To keep the analysis focused, we spotlight <strong>burglary</strong> as a category of particular 
-      interest. Unlike violent crime, burglary is highly sensitive to environmental factors: the density 
-      of targets, the presence of foot traffic, seasonal patterns, and economic conditions. Tracking 
-      burglary over time and space therefore offers a nuanced lens through which broader urban dynamics 
-      become visible.
+    <p class="reveal">
+      To keep the analysis focused, we spotlight <strong>burglary</strong> as a category of particular interest.
+      Unlike violent crime, burglary is highly sensitive to environmental factors: the density of targets,
+      the presence of foot traffic, seasonal patterns, and economic conditions. Tracking burglary over time
+      and space therefore offers a nuanced lens through which broader urban dynamics become visible.
     </p>
   </section>
 
 
-  <!-- ── KEY FINDINGS ── -->
-  <section id="findings" class="chapter fade-in">
-    <div class="section-label">Summary</div>
-    <h2>Three Things the Data Shows</h2>
+  <!-- KEY FINDINGS -->
+  <section id="findings" class="chapter">
+    <div class="section-label reveal">Summary</div>
+    <h2 class="reveal delay-1">Three Things the Data Shows</h2>
 
-    <p>
-      Before diving into the visualizations, here is a high-level synthesis of the patterns 
+    <p class="reveal delay-2 section-intro">
+      Before diving into the visualizations, here is a high-level synthesis of the patterns
       that emerge most clearly from the data.
     </p>
 
-    <div class="findings">
+    <div class="findings reveal delay-2">
       <div class="finding">
         <div class="finding-num">01</div>
         <div class="finding-body">
@@ -654,19 +855,28 @@
   </section>
 
 
-  <!-- ── FIGURES ── -->
-  <section id="figures" class="chapter fade-in">
-    <div class="section-label">Visualizations</div>
-    <h2>Exploring the Patterns</h2>
-    <p>
-      The three figures below present the data at increasing levels of granularity — 
+  <!-- DARK INTERLUDE -->
+  <div class="interlude reveal-scale">
+    <div class="interlude-inner">
+      <h3>The spatial question</h3>
+      <p>"Where crime concentrates tells us as much about a city's structure as its statistics ever could."</p>
+    </div>
+  </div>
+
+
+  <!-- FIGURES SECTION HEADER -->
+  <section id="figures" class="chapter">
+    <div class="section-label reveal">Visualizations</div>
+    <h2 class="reveal delay-1">Exploring the Patterns</h2>
+    <p class="reveal delay-2 section-intro">
+      The three figures below present the data at increasing levels of granularity —
       from the ten-year macro trend, down to the district level, and finally to the hour of day.
     </p>
   </section>
 
 
   <!-- FIGURE 1 -->
-  <div class="figure-block fade-in">
+  <div class="figure-block reveal-scale" data-fig="1">
     <div class="figure-card">
       <div class="figure-header">
         <div class="figure-tag">Figure 1 — Trend Overview</div>
@@ -675,7 +885,7 @@
           Total crime versus burglary, plotted annually from 2015 to 2025.
         </p>
       </div>
-      <div class="figure-media">
+      <div class="figure-media-image">
         <img src="Assignment2_figures/Figure1.png" alt="Figure 1 – Crime Trends">
       </div>
       <div class="figure-caption">
@@ -685,9 +895,9 @@
 
     <div class="analysis">
       <p>
-        The first thing to notice is the broad downward slope after 2019. The COVID-19 pandemic 
-        disrupted patterns across every dimension of city life, and crime was no exception. 
-        What is more revealing, however, is what happened <em>after</em> restrictions lifted: 
+        The first thing to notice is the broad downward slope after 2019. The COVID-19 pandemic
+        disrupted patterns across every dimension of city life, and crime was no exception.
+        What is more revealing, however, is what happened <em>after</em> restrictions lifted:
         while total crime continued declining, burglary held steady or ticked upward in certain years.
       </p>
       <p>
@@ -697,17 +907,17 @@
   </div>
 
 
-  <!-- FIGURE 2 -->
-  <div class="figure-block fade-in">
+  <!-- FIGURE 2 – spacious map -->
+  <div class="figure-block reveal-scale" data-fig="2" style="margin-top: 100px;">
     <div class="figure-card">
       <div class="figure-header">
         <div class="figure-tag">Figure 2 — Geographic Distribution</div>
         <div class="figure-title">Burglary Hotspots Across Districts</div>
         <p class="figure-desc">
-          An interactive heatmap showing the spatial concentration of burglary incidents across San Francisco's police districts.
+          An interactive heatmap showing the spatial concentration of burglary incidents across San Francisco's police districts. Hover over district areas to explore incident counts and density over the full ten-year period.
         </p>
       </div>
-      <div class="figure-media">
+      <div class="figure-media-map">
         <iframe src="Assignment2_figures/Figure2.html" title="Burglary Heatmap"></iframe>
       </div>
       <div class="figure-caption">
@@ -717,10 +927,10 @@
 
     <div class="analysis">
       <p>
-        The geographic picture is striking. Rather than spreading evenly across the city, 
-        burglary clusters persistently in a small number of districts. This concentration 
-        is not simply a reflection of population density — some of the highest-activity 
-        zones are commercial or mixed-use areas where foot traffic is high but residential 
+        The geographic picture is striking. Rather than spreading evenly across the city,
+        burglary clusters persistently in a small number of districts. This concentration
+        is not simply a reflection of population density — some of the highest-activity
+        zones are commercial or mixed-use areas where foot traffic is high but residential
         density is modest.
       </p>
       <p>
@@ -734,7 +944,7 @@
 
 
   <!-- FIGURE 3 -->
-  <div class="figure-block fade-in">
+  <div class="figure-block reveal-scale" data-fig="3" style="margin-top: 100px;">
     <div class="figure-card">
       <div class="figure-header">
         <div class="figure-tag">Figure 3 — Temporal Pattern</div>
@@ -743,7 +953,7 @@
           Burglary incidents broken down by hour of day, revealing a structured and predictable rhythm.
         </p>
       </div>
-      <div class="figure-media">
+      <div class="figure-media-chart">
         <iframe src="Assignment2_figures/Figure3.html" title="Burglary by Hour"></iframe>
       </div>
       <div class="figure-caption">
@@ -753,10 +963,10 @@
 
     <div class="analysis">
       <p>
-        Perhaps the most operationally useful finding in the dataset is the strong temporal 
-        signal in burglary timing. Rather than occurring randomly throughout the day, incidents 
-        cluster in identifiable windows. This is consistent with research showing that burglars 
-        — particularly residential burglars — behave according to predictable routines that 
+        Perhaps the most operationally useful finding in the dataset is the strong temporal
+        signal in burglary timing. Rather than occurring randomly throughout the day, incidents
+        cluster in identifiable windows. This is consistent with research showing that burglars
+        — particularly residential burglars — behave according to predictable routines that
         track occupancy and visibility patterns.
       </p>
       <p>
@@ -766,20 +976,20 @@
   </div>
 
 
-  <!-- ── CONCLUSION ── -->
-  <section id="conclusion" class="chapter fade-in">
-    <div class="conclusion-box">
-      <div class="section-label" style="color: rgba(201,64,58,0.9);">Conclusion</div>
+  <!-- CONCLUSION -->
+  <section id="conclusion">
+    <div class="conclusion-box reveal-scale">
+      <div class="section-label">Conclusion</div>
       <h2>What This Means for the City</h2>
       <p>
-        The aggregate decline in San Francisco crime is a genuinely positive signal. But it risks 
-        obscuring a more complex picture. Burglary tells a different story from the headline numbers: 
+        The aggregate decline in San Francisco crime is a genuinely positive signal. But it risks
+        obscuring a more complex picture. Burglary tells a different story from the headline numbers:
         one of geographic concentration and temporal predictability that aggregate statistics cannot capture.
       </p>
       <p>
-        This matters for policy. Broad city-wide crime reduction programs may be effective at the macro level, 
-        but they may fail to address the specific conditions enabling burglary in high-concentration districts. 
-        The patterns identified here suggest that targeted, time-aware and place-based interventions 
+        This matters for policy. Broad city-wide crime reduction programs may be effective at the macro level,
+        but they may fail to address the specific conditions enabling burglary in high-concentration districts.
+        The patterns identified here suggest that targeted, time-aware and place-based interventions
         could yield meaningful improvements where general approaches fall short.
       </p>
       <p>
@@ -799,7 +1009,41 @@
 
 
 <script>
-  // Fade-in on scroll
+  // ── Progress bar
+  const progress = document.getElementById('progress');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (scrollTop / docHeight * 100) + '%';
+  }
+
+  // ── Nav scroll behavior
+  const nav = document.getElementById('nav');
+  function updateNav() {
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }
+
+  // ── Parallax hero elements
+  const heroBg = document.getElementById('heroBg');
+  const heroGrid = document.getElementById('heroGrid');
+  const heroGhost = document.getElementById('heroGhost');
+
+  function updateParallax() {
+    const y = window.scrollY;
+    const heroH = document.getElementById('hero').offsetHeight;
+    if (y < heroH * 1.2) {
+      const factor = y / heroH;
+      heroBg.style.transform = `translateY(${y * 0.35}px)`;
+      heroGrid.style.transform = `translateY(${y * 0.18}px)`;
+      heroGhost.style.transform = `translateY(${y * 0.55}px) translateX(${y * 0.04}px)`;
+      heroGhost.style.opacity = Math.max(0, 1 - factor * 3);
+    }
+  }
+
+  // ── Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-scale');
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -807,9 +1051,26 @@
         observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── Unified scroll handler (rAF-throttled)
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateProgress();
+        updateNav();
+        updateParallax();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Init
+  updateNav();
 </script>
 
 </body>
