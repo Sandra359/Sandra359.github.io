@@ -2,67 +2,93 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SF Crime Analysis</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
     body {
         margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: #f4f6f9;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(180deg, #f4f6f9, #e9eef5);
         color: #1f2d3d;
     }
 
+    /* HERO */
     .hero {
-        background: linear-gradient(135deg, #1f3c88, #0f4c75);
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
         color: white;
-        padding: 80px 20px;
+        padding: 100px 20px;
         text-align: center;
     }
 
     .hero h1 {
-        font-size: 42px;
-        margin-bottom: 10px;
-        letter-spacing: 0.5px;
+        font-size: 44px;
+        margin: 15px 0;
     }
 
     .hero p {
         max-width: 650px;
         margin: auto;
-        opacity: 0.85;
+        opacity: 0.9;
         font-size: 18px;
     }
 
+    .badge {
+        background: rgba(255,255,255,0.15);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+    }
+
+    /* CONTAINER */
     .container {
-        max-width: 1100px;
+        max-width: 1000px;
         margin: auto;
-        padding: 50px 20px;
+        padding: 60px 20px;
     }
 
     h2 {
-        font-size: 26px;
-        margin-bottom: 10px;
-        border-left: 5px solid #1f3c88;
-        padding-left: 10px;
+        font-size: 24px;
+        margin-top: 60px;
+        margin-bottom: 15px;
+        color: #0f4c75;
     }
 
     p {
-        color: #555;
         line-height: 1.7;
+        color: #444;
     }
 
-    /* CARD STYLE */
+    /* CARD */
     .card {
-        background: white;
-        border-radius: 14px;
-        padding: 20px;
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 25px;
         margin-top: 30px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    .figure-title {
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .figure-desc {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 15px;
     }
 
     iframe, img {
@@ -75,18 +101,6 @@
         height: 600px;
     }
 
-    .figure-title {
-        font-weight: 600;
-        margin-bottom: 8px;
-        font-size: 18px;
-    }
-
-    .figure-desc {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 15px;
-    }
-
     /* GRID */
     .grid {
         display: grid;
@@ -94,12 +108,14 @@
         gap: 30px;
     }
 
-    @media (min-width: 900px) {
-        .grid {
-            grid-template-columns: 1fr;
-        }
+    /* INSIGHTS */
+    .insight strong {
+        display: block;
+        margin-top: 10px;
+        color: #0f4c75;
     }
 
+    /* FOOTER */
     .footer {
         text-align: center;
         padding: 40px;
@@ -114,32 +130,55 @@
 
 <!-- HERO -->
 <div class="hero">
+    <div class="badge">Data Story • 2015–2025</div>
     <h1>San Francisco Crime Analysis</h1>
     <p>
-        A data-driven exploration of crime patterns across time, space, and behavior.
+        Exploring how crime patterns are shifting across districts, time, and behavior—
+        with a focus on rising burglary trends in specific areas.
     </p>
 </div>
 
 <div class="container">
 
+    <!-- INSIGHTS -->
+    <h2>Key Insights</h2>
+
+    <div class="card insight">
+        <strong>1. Overall crime is declining.</strong>
+        <p>
+            Crime has decreased compared to the pre-COVID baseline, indicating general improvement in safety trends.
+        </p>
+
+        <strong>2. Burglary is increasing in specific districts.</strong>
+        <p>
+            Despite the overall decline, burglary shows localized growth in certain areas—suggesting that crime is not evenly distributed.
+        </p>
+
+        <strong>3. Crime is becoming more patterned.</strong>
+        <p>
+            Burglary incidents are concentrated in specific time windows, revealing predictable behavioral patterns.
+        </p>
+    </div>
+
+    <!-- VISUALS -->
     <h2>Key Visualizations</h2>
 
     <div class="grid">
 
         <!-- FIGURE 1 -->
         <div class="card">
-            <div class="figure-title">Figure 1 — Relative Crime Trends (2015–2025)</div>
+            <div class="figure-title">Figure 1 — Crime Trends Reveal Divergence</div>
             <div class="figure-desc">
-                This chart shows normalized crime trends, with 100 representing the pre-COVID baseline.
+                While total crime trends downward, burglary follows a different trajectory, increasing in some areas.
             </div>
             <img src="Assignment2_figures/Figure1.png" alt="Figure 1">
         </div>
 
         <!-- FIGURE 2 -->
         <div class="card">
-            <div class="figure-title">Figure 2 — Crime Heatmap by District</div>
+            <div class="figure-title">Figure 2 — Burglary Hotspots Across Districts</div>
             <div class="figure-desc">
-                Interactive choropleth map showing burglary rates across police districts over time.
+                The heatmap shows that burglary is highly concentrated, with certain districts consistently experiencing higher rates.
             </div>
             <iframe src="Assignment2_figures/Figure2.html"></iframe>
         </div>
@@ -148,12 +187,28 @@
         <div class="card">
             <div class="figure-title">Figure 3 — Burglary by Hour</div>
             <div class="figure-desc">
-                Distribution of burglary incidents across hours of the day, comparing different time periods.
+                Burglary incidents cluster around specific hours, indicating predictable timing patterns.
             </div>
             <iframe src="Assignment2_figures/Figure3.html"></iframe>
         </div>
 
     </div>
+
+    <!-- SUMMARY -->
+    <h2>What This Means</h2>
+
+    <div class="card">
+        <p>
+            Although San Francisco shows an overall decline in crime, the increase in burglary in specific districts
+            reveals an important insight: crime patterns are becoming more localized rather than uniform.
+        </p>
+
+        <p>
+            This suggests that broad crime reduction strategies may not be enough. Instead, targeted interventions
+            focused on high-risk areas and peak times could be more effective.
+        </p>
+    </div>
+
 </div>
 
 <div class="footer">
