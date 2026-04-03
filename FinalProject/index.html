@@ -9,14 +9,14 @@
 
 <style>
   :root {
-    --ink: #0d0f14;
-    --paper: #f5f2ec;
-    --muted: #8a8880;
-    --accent: #c9403a;
-    --accent-soft: rgba(201,64,58,0.07);
-    --rule: rgba(13,15,20,0.1);
-    --card-bg: #ffffff;
-  }
+  --ink: #0d0f14;           /* deep navy for text, softer than pure black */
+  --paper: #f5f2ec;         /* warm off-white for backgrounds */
+  --muted: #8a8880;         /* soft gray-blue for secondary text */
+  --accent: #bb2b28;        /* vibrant coral for highlights/buttons */
+  --accent-soft: rgba(188, 193, 247, 0.1); /* subtle coral glow */
+  --rule: rgba(9, 9, 76, 0.15); /* soft divider lines */
+  --card-bg: #ffffff;       /* keeps cards bright for contrast */
+}
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -91,12 +91,12 @@
   }
 
   .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 70% 55% at 72% 38%, rgba(201,64,58,0.22) 0%, transparent 58%),
-      linear-gradient(155deg, #0d0f14 0%, #1b2033 55%, #0d0f14 100%);
-    will-change: transform;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 72% 38%, rgba(176, 195, 231, 0.2) 0%, transparent 58%),
+    linear-gradient(155deg, #020c25 0%, #071b49 55%, #17357c 100%);
+  will-change: transform;
   }
 
   .hero-grid {
@@ -116,7 +116,7 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(140px, 22vw, 280px);
     font-weight: 700;
-    color: rgba(255,255,255,0.025);
+    color: rgba(255, 255, 255, 0.025);
     line-height: 1;
     user-select: none;
     pointer-events: none;
@@ -226,9 +226,9 @@
 
   /* ─── TRANSITION BAND ─── */
   .transition-band {
-    height: 180px;
-    background: linear-gradient(to bottom, var(--ink) 0%, var(--paper) 100%);
-    position: relative;
+  height: 180px;
+  background: linear-gradient(to bottom, #11275c 0%, var(--paper) 100%);
+  position: relative;
   }
 
   .transition-band::after {
@@ -559,7 +559,7 @@
   .interlude {
     margin: 100px -48px;
     padding: 80px 96px;
-    background: var(--ink);
+    background: #020c25;
     position: relative;
     overflow: hidden;
   }
@@ -618,7 +618,7 @@
   .conclusion-box {
     margin-top: 120px;
     padding: 64px 56px;
-    background: var(--ink);
+    background: #020c25;
     color: var(--paper);
     border-radius: 4px;
     position: relative;
@@ -997,7 +997,7 @@
 
 
 <!-- FIGURE 1 -->
-<div class="figure-block reveal-scale" data-fig="1" style="margin-top: 50px; margin-bottom: 30px;">
+<div class="figure-block reveal-scale" data-fig="1" style="margin-top: 10px; margin-bottom: 10px;">
   <div class="figure-card">
 
     <!-- Figure header -->
@@ -1014,7 +1014,7 @@
       <img 
         src="Assignment2_figures/Figure1.png" 
         alt="Figure 1 - Crime Trends" 
-        style="width: 100%; height: 400px; object-fit: contain; display: block;">
+        style="width: 100%; height: auto; max-height: 500px; object-fit: contain; display: block;">
     </div>
 
     <!-- Figure caption -->
@@ -1200,7 +1200,7 @@
   <div class="footer-left">SF Crime Analysis &nbsp;·&nbsp; 2015–2025</div>
   <div class="footer-right">
     Data: <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-2018-to-Present/wg3w-h783" target="_blank">SFPD Incident Reports via DataSF</a><br>
-    Social Data Science &amp; Visualization · 2025
+    Social Data Analysis &amp; Visualization · 2025
   </div>
 </footer>
 
