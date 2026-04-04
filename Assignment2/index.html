@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SF Crime Analysis</title>
+<title>SF Crime Analysis - Assignment 2</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --ink: #0d0f14;
-    --paper: #f5f2ec;
-    --muted: #8a8880;
-    --accent: #c9403a;
-    --accent-soft: rgba(201,64,58,0.07);
-    --rule: rgba(13,15,20,0.1);
-    --card-bg: #ffffff;
-  }
+  --ink: #0d0f14;           /* deep navy for text, softer than pure black */
+  --paper: #f5f2ec;         /* warm off-white for backgrounds */
+  --muted: #8a8880;         /* soft gray-blue for secondary text */
+  --accent: #bb2b28;        /* vibrant coral for highlights/buttons */
+  --accent-soft: rgba(211, 49, 43, 0.1); /* subtle coral glow */
+  --rule: rgba(9, 9, 76, 0.15); /* soft divider lines */
+  --card-bg: #ffffff;       /* keeps cards bright for contrast */
+}
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -80,7 +80,7 @@
 
   /* ─── HERO ─── */
   .hero {
-    height: 100vh;
+    height: 110vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -91,12 +91,12 @@
   }
 
   .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 70% 55% at 72% 38%, rgba(201,64,58,0.22) 0%, transparent 58%),
-      linear-gradient(155deg, #0d0f14 0%, #1b2033 55%, #0d0f14 100%);
-    will-change: transform;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 72% 38%, rgba(176, 195, 231, 0.2) 0%, transparent 58%),
+    linear-gradient(155deg, #020c25 0%, #071b49 55%, #17357c 100%);
+  will-change: transform;
   }
 
   .hero-grid {
@@ -109,7 +109,6 @@
     will-change: transform;
   }
 
-  /* Large ghosted text */
   .hero-ghost {
     position: absolute;
     bottom: -40px;
@@ -117,7 +116,7 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(140px, 22vw, 280px);
     font-weight: 700;
-    color: rgba(255,255,255,0.025);
+    color: rgba(255, 255, 255, 0.025);
     line-height: 1;
     user-select: none;
     pointer-events: none;
@@ -227,9 +226,9 @@
 
   /* ─── TRANSITION BAND ─── */
   .transition-band {
-    height: 180px;
-    background: linear-gradient(to bottom, var(--ink) 0%, var(--paper) 100%);
-    position: relative;
+  height: 180px;
+  background: linear-gradient(to bottom, #11275c 0%, var(--paper) 100%);
+  position: relative;
   }
 
   .transition-band::after {
@@ -352,14 +351,13 @@
   .pull-quote {
     margin: 56px 0;
     padding: 40px 48px;
-    border-left: 3px solid var(--accent);
-    background: var(--accent-soft);
+    background: #071b49;
     position: relative;
     overflow: hidden;
   }
 
   .pull-quote::before {
-    content: '"';
+    content: '\201C';
     position: absolute;
     top: -20px;
     left: 28px;
@@ -372,12 +370,19 @@
 
   .pull-quote p {
     font-family: 'Playfair Display', serif;
-    font-size: 23px;
+    font-size: 20px;
     font-style: italic;
-    line-height: 1.55;
-    color: var(--ink);
+    line-height: 1.6;
+    background: #071b49;
+    color: var(--paper);
     margin: 0;
     position: relative;
+  }
+
+  .pull-quote p a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   /* ─── FINDINGS ─── */
@@ -441,7 +446,6 @@
     position: relative;
   }
 
-  /* Numbered side label */
   .figure-block::before {
     content: attr(data-fig);
     position: absolute;
@@ -495,7 +499,6 @@
     line-height: 1.65;
   }
 
-  /* Figure 1 – image */
   .figure-media-image {
     padding: 32px 32px;
     background: #f9f8f6;
@@ -507,7 +510,6 @@
     display: block;
   }
 
-  /* Figure 2 – iframe, extra tall + breathing room */
   .figure-media-map {
     padding: 0;
     background: #f0ede6;
@@ -521,7 +523,6 @@
     display: block;
   }
 
-  /* Figure 3 – iframe */
   .figure-media-chart {
     padding: 8px 8px 0;
     background: #f9f8f6;
@@ -558,7 +559,7 @@
   .interlude {
     margin: 100px -48px;
     padding: 80px 96px;
-    background: var(--ink);
+    background: #071b49;
     position: relative;
     overflow: hidden;
   }
@@ -600,11 +601,24 @@
     margin: 0;
   }
 
+  .interlude p.interlude-source {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    opacity: 0.55;
+    margin-top: 20px;
+    font-style: normal;
+  }
+
+  .interlude p.interlude-source a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
   /* ─── CONCLUSION ─── */
   .conclusion-box {
     margin-top: 120px;
     padding: 64px 56px;
-    background: var(--ink);
+    background: #071b49;
     color: var(--paper);
     border-radius: 4px;
     position: relative;
@@ -637,6 +651,96 @@
     z-index: 1;
   }
 
+  .conclusion-box p a {
+    color: rgba(245,242,236,0.9);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ─── LIMITATIONS BOX ─── */
+  .limitations-box {
+    margin-top: 48px;
+    padding: 32px 40px;
+    border: 1px solid rgba(201,64,58,0.25);
+    border-radius: 3px;
+    background: rgba(201,64,58,0.04);
+    position: relative;
+    z-index: 1;
+  }
+
+  .limitations-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .limitations-box p {
+    font-size: 14.5px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.78;
+    margin-bottom: 10px;
+  }
+
+  .limitations-box p:last-child { margin-bottom: 0; }
+
+  /* ─── REFERENCES ─── */
+  .references-section {
+    margin-top: 100px;
+    padding-top: 60px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .references-section .section-label { margin-bottom: 28px; }
+
+  .references-section h2 {
+    font-size: clamp(22px, 3vw, 32px);
+    margin-bottom: 36px;
+  }
+
+  .references-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .reference-item {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 0 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .reference-item:last-child { border-bottom: none; }
+
+  .ref-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--accent);
+    padding-top: 2px;
+  }
+
+  .ref-body {
+    font-size: 14.5px;
+    color: #4a4a4a;
+    line-height: 1.72;
+  }
+
+  .ref-body a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,64,58,0.3);
+    transition: border-color 0.2s;
+  }
+
+  .ref-body a:hover { border-color: var(--accent); }
+
   /* ─── FOOTER ─── */
   footer {
     border-top: 1px solid var(--rule);
@@ -652,7 +756,18 @@
     color: var(--ink);
   }
 
-  .footer-right { font-size: 13px; color: var(--muted); }
+  .footer-right {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.7;
+  }
+
+  .footer-right a {
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 
   /* ─── SCROLL REVEAL ─── */
   .reveal {
@@ -679,7 +794,6 @@
 
   .reveal-scale.visible { opacity: 1; transform: scale(1); }
 
-  /* stagger delays */
   .delay-1 { transition-delay: 0.1s; }
   .delay-2 { transition-delay: 0.2s; }
   .delay-3 { transition-delay: 0.32s; }
@@ -703,13 +817,18 @@
     nav.scrolled { padding: 12px 24px; }
     .nav-links { display: none; }
     .hero { padding: 0 24px 64px; }
+    .hero-meta { gap: 24px; flex-wrap: wrap; }
     .content { padding: 60px 24px 80px; }
     .dataset-grid { grid-template-columns: 1fr; }
     .interlude { margin: 80px -24px; padding: 60px 32px; }
-    .conclusion-box { padding: 44px 32px; }
-    footer { flex-direction: column; gap: 16px; padding: 36px 24px; }
+    .conclusion-box { padding: 44px 28px; }
+    .limitations-box { padding: 24px 28px; }
+    footer { flex-direction: column; gap: 16px; padding: 36px 24px; text-align: center; }
+    .footer-right { text-align: center; }
     .figure-block::before { display: none; }
     .figure-media-map iframe { height: 500px; }
+    .pull-quote { padding: 28px 28px; }
+    .references-section { padding-top: 40px; }
   }
 </style>
 </head>
@@ -726,6 +845,7 @@
     <li><a href="#findings">Findings</a></li>
     <li><a href="#figures">Visualizations</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#references">References</a></li>
   </ul>
 </nav>
 
@@ -736,9 +856,13 @@
   <div class="hero-ghost" id="heroGhost">SF</div>
 
   <div class="hero-content">
-    <h1>Crime in<br><em>San Francisco</em><br>2015 - 2025</h1>
+    <h1>Crime in<br><em>San Francisco</em><br>2015 – 2025</h1>
     <p class="hero-desc">
-      When San Francisco locked down in 2020, the streets emptied—but crime didn’t disappear. Instead, the pandemic reshaped when, where, and what kinds of crime occurred across the city.
+      When COVID-19 locked down San Francisco in 2020, the streets emptied, and crime rates generally decreased.
+    <br>
+      But burglary didn't decline — on the contrary, it surged.
+    <br>
+    This story explores how the pandemic reshaped not just how much burglary occurred, but where and when it happened.
     </p>
     <div class="hero-meta">
       <div class="meta-item">
@@ -751,7 +875,7 @@
       </div>
       <div class="meta-item">
         <span class="meta-label">Focus</span>
-        <span class="meta-value">COVID-19 & Burglary</span>
+        <span class="meta-value">COVID-19 &amp; Burglary</span>
       </div>
     </div>
   </div>
@@ -775,22 +899,22 @@
 
     <p class="reveal delay-2">
       This analysis is based on the San Francisco Police Department's (SFPD) publicly available incident report database,
-      focusing on the recorded crime activity from 2015 to 2025. This dataset covers all officially reported incidents across the city's ten police districts, capturing everything from larceny theft to violent offenses.
+      focusing on recorded crime activity from 2015 to 2025. The dataset covers all officially reported incidents across the city's ten police districts, capturing everything from larceny theft to violent offenses.
     </p>
 
     <p class="reveal delay-3">
-      Each record includes the type of incident, when it occurred, and where it happened. These details makes it possible to analyze not just <em>how much</em> crime occurs,
-      but <em>where</em> it clusters and <em>when</em> it tends to happen, which both are important information for understanding behavioral patterns.
+      Each record includes the type of incident, when it occurred, and where it happened. These details make it possible to analyze not just <em>how much</em> crime occurs,
+      but <em>where</em> it clusters and <em>when</em> it tends to happen — both of which are important for understanding behavioral patterns.
     </p>
 
     <div class="dataset-grid">
       <div class="dataset-stat reveal delay-1">
-        <div class="stat-number">~1.430.359</div>
+        <div class="stat-number">~1,430,359</div>
         <div class="stat-label">Incident records analyzed</div>
       </div>
       <div class="dataset-stat reveal delay-2">
         <div class="stat-number">10 yrs</div>
-        <div class="stat-label">Temporal coverage (2015-2025)</div>
+        <div class="stat-label">Temporal coverage (2015–2025)</div>
       </div>
       <div class="dataset-stat reveal delay-3">
         <div class="stat-number">10</div>
@@ -803,13 +927,12 @@
     </div>
 
     <div class="pull-quote reveal" style="margin-top: 56px;">
-      <p>Crime data reflects what police record, and not what actually happens. As <a href="https://nyulawreview.org/online-features/dirty-data-bad-predictions-how-civil-rights-violations-impact-police-data-predictive-policing-systems-and-justice/" target="_blank" style="color: inherit; text-decoration: underline;">Richardson et al. (2019)</a> document, enforcement patterns shape the data itself: over-policed neighborhoods generate more incidents, not necessarily more crime. Keep this in mind when interpreting the patterns below.</p>
+      <p>Crime data reflects what police record — not what actually happens. As <a href="https://nyulawreview.org/online-features/dirty-data-bad-predictions-how-civil-rights-violations-impact-police-data-predictive-policing-systems-and-justice/" target="_blank">Richardson et al. (2019)</a> document, enforcement patterns shape the data itself: over-policed neighborhoods generate more incidents, not necessarily more crime. Keep this in mind when interpreting the patterns below.</p>
     </div>
 
     <p class="reveal">
       When COVID-19 hit in 2020, many types of crime declined sharply across San Francisco as daily life came to a halt. But not all crime followed this pattern.
-      
-      Some categories stood out—most notably burglary, which increased instead of falling. Closely tied to routine activity and environmental conditions, burglary offers a unique lens for understanding how the disruption of everyday life reshaped crime in the city.
+      Some categories stood out — most notably burglary, which increased instead of falling. Closely tied to routine activity and environmental conditions, burglary offers a unique lens for understanding how the disruption of everyday life reshaped crime in the city.
     </p>
   </section>
 
@@ -829,25 +952,21 @@
         <div class="finding-num">01</div>
         <div class="finding-body">
           <strong>Overall crime dropped during COVID-19</strong>
-          <p>Total incident counts dropped approximately 20% from 2019 to 2020: the largest single-year decline in the entire period. That suggests that the pandemic had an enormous impact on the crime tendencies across San Francisco.</p>
+          <p>Total incident counts dropped approximately 20% from 2019 to 2020 — the largest single-year decline in the entire period. That suggests the pandemic had an enormous impact on crime tendencies across San Francisco.</p>
         </div>
       </div>
       <div class="finding">
         <div class="finding-num">02</div>
         <div class="finding-body">
           <strong>Burglary moved in the opposite direction</strong>
-          <p>While overall crime fell sharply in every district, burglary incidents moved in the opposite direction, rising 52.7% citywide from 2019 to 2020. 
-            
-            Northern district almost doubled its burglary count in a single year.</p>
+          <p>Burglary incidents moved counter to the trend, rising 52.7% citywide from 2019 to 2020. The Northern district almost doubled its burglary count in a single year.</p>
         </div>
       </div>
       <div class="finding">
         <div class="finding-num">03</div>
         <div class="finding-body">
           <strong>The spike was temporary</strong>
-          <p>
-            After peaking during the pandemic, burglary declined rapidly and reached its lowest recorded level by 2025, suggesting a return toward pre-pandemic patterns as normal routines resumed.
-          </p>
+          <p>After peaking during the pandemic, burglary declined rapidly and reached its lowest recorded level by 2025 — suggesting a return toward pre-pandemic patterns as normal routines resumed.</p>
         </div>
       </div>
     </div>
@@ -859,8 +978,8 @@
     <div class="interlude-inner">
       <h3>Not just San Francisco</h3>
       <p>"Several studies have found declines in residential burglary and increases in commercial burglary following COVID-19 lockdown orders across several cities in different states."</p>
-      <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 16px;">
-        — <a href="https://doi.org/10.1007/s11292-022-09530-0" target="_blank" style="color: inherit; text-decoration: underline;">Yim &amp; Riddell (2022)</a>, citing Abrams (2021); Ashby (2020); Carter &amp; Turner (2021)
+      <p class="interlude-source">
+       - <a href="https://doi.org/10.1007/s11292-022-09530-0" target="_blank">Yim &amp; Riddell (2022)</a>, citing Abrams (2021); Ashby (2020); Carter &amp; Turner (2021)
       </p>
     </div>
   </div>
@@ -871,28 +990,40 @@
     <div class="section-label reveal">Visualizations</div>
     <h2 class="reveal delay-1">Exploring the Patterns</h2>
     <p class="reveal delay-2 section-intro">
-      The three figures below, zoom in on the story from different angles. Firstly, by comparing how crime types diverged during COVID, then by mapping where burglary concentrated across the city, and finally by breaking down when it happened.
+      The three figures below zoom in on the story from different angles. First by comparing how crime types diverged during COVID, then by mapping where burglary concentrated across the city, and finally by breaking down when it tended to happen.
     </p>
   </section>
 
 
-  <!-- FIGURE 1 -->
-  <div class="figure-block reveal-scale" data-fig="1">
-    <div class="figure-card">
-      <div class="figure-header">
-        <div class="figure-tag">Figure 1 — Trend Overview</div>
-        <div class="figure-title">Crime Trends Reveal a Divergence</div>
-        <p class="figure-desc">
-          Five crime types indexed to their pre-COVID average (= 100). Burglary and motor vehicle theft spike sharply in 2020-2021, while assault, robbery, and larceny theft decreases. It reveals a clear divergence in how COVID affected different crimes.
-        </p>
-      </div>
-      <div class="figure-media-image">
-        <img src="Assignment2_figures/Figure1.png" alt="Figure 1 - Crime Trends">
-      </div>
-      <div class="figure-caption">
-        <strong>How to read this chart:</strong> Each line represents one crime type, indexed so that its average before COVID equals 100 (dashed line). A value of 150 means 50% above the pre-COVID average; a value of 75 means 25% below. The grey band marks the COVID period (&#8776;2020-2021). Lines above 100 during this period rose relative to their historical norm, and lines below fell.
-      </div>
+
+<!-- FIGURE 1 -->
+<div class="figure-block reveal-scale" data-fig="1" style="margin-top: 10px; margin-bottom: 10px;">
+  <div class="figure-card">
+
+    <!-- Figure header -->
+    <div class="figure-header" style="margin-bottom: 10px;">
+      <div class="figure-tag">Figure 1 — Trend Overview</div>
+      <div class="figure-title">Crime Trends Reveal a Divergence</div>
+      <p class="figure-desc">
+        This figure shows how different crime types changed relative to their pre-COVID levels. Most crimes declined significantly in 2020, while burglary and motor vehicle theft spiked. This highlights that burglary behaved differently from overall crime during the pandemic.
+      </p>
     </div>
+
+    <!-- Figure image -->
+    <div class="figure-media-image" style="margin-bottom: 5px;">
+      <img 
+        src="Assignment2_figures/Figure1.png" 
+        alt="Figure 1 - Crime Trends" 
+        style="width: 100%; height: auto; max-height: 500px; object-fit: contain; display: block;">
+    </div>
+
+    <!-- Figure caption -->
+    <div class="figure-caption" style="margin-top: 5px;">
+      <strong>How to read this chart:</strong> Each line represents one crime type, indexed so that its average before COVID equals 100 (dashed line). A value of 150 means 50% above the pre-COVID average; a value of 75 means 25% below. The grey band marks the COVID period (&#8776;2020-2021). Lines above 100 during this period rose relative to their historical norm, and lines below fell.
+    </div>
+
+  </div>
+</div>
 
     <div class="analysis">
       <p>
@@ -912,73 +1043,51 @@
         <div class="figure-tag">Figure 2 — Geographic Distribution</div>
         <div class="figure-title">Burglary Hotspots Across Districts</div>
         <p class="figure-desc">
-          An interactive heatmap showing the spatial concentration of burglary incidents across San Francisco's police districts. Hover over district areas to explore incident counts and density over the full ten-year period.
+          This heatmap shows the concentration of burglary across San Francisco’s police districts before, during, and after COVID. The Northern district experienced the largest increase during the pandemic, while Tenderloin remained relatively low. It illustrates how commercial areas and local context influenced burglary patterns.
         </p>
       </div>
       <div class="figure-media-map">
         <iframe src="Assignment2_figures/Figure2.html" title="Burglary Heatmap"></iframe>
       </div>
       <div class="figure-caption">
-        <strong>How to interact:</strong> Use the radio buttons to switch between Pre-COVID, COVID, and Post-COVID periods. Darker regions indicate more burglaries per day. The colour scale is <em>normalized across all three periods</em>. This indicates that the same colour value represents the same intensity regardless of which period you are viewing, so comparisons between periods are consistent.
+        <strong>How to interact:</strong> Use the buttons to switch between Pre-COVID, COVID, and Post-COVID periods. Darker regions indicate more burglaries per day. The colour scale is <em>normalized across all three periods</em>. This indicates that the same colour value represents the same intensity regardless of which period you are viewing, so comparisons between periods are consistent.
       </div>
     </div>
 
-   <div class="analysis">
-  <p>
-    Rather than spreading evenly across the city, burglary clusters in a small number of districts. Northern consistently ranks highest across all three periods, while Tenderloin remains the lowest-activity district despite its reputation for street crime (<a href="https://en.wikipedia.org/wiki/Tenderloin%2C_San_Francisco?utm" target="_blank" style="color: inherit;">Wikipedia, Tenderloin, San Francisco</a>).
-  </p>
-  <p>
-    Before COVID, Southern and Northern districts had the highest burglary rates (respectively 2.28 and 2.57 daily incidents). Both cover large part of the city's commercial core: <a href="https://www.sanfranciscopolice.org/stations/northern-station" target="_blank" style="color: inherit; text-decoration: underline;">Northern Station</a> encompasses dense mixed-use neighbourhoods including Hayes Valley, Polk Gulch, and the Marina. However, <a href="https://en.wikipedia.org/wiki/South_of_Market,_San_Francisco" target="_blank" style="color: inherit; text-decoration: underline;">Southern's SoMa</a> is home to major tech companies, museums, and the Moscone Convention Center. This aligns with <a href="https://faculty.washington.edu/matsueda/courses/587/readings/Cohen%20and%20Felson%201979%20Routine%20Activities.pdf" target="_blank" style="color: inherit; text-decoration: underline;">Routine Activity Theory (Cohen &amp; Felson, 1979)</a>, stating: offices, shops, and parked cars concentrate valuables in predictable locations, while busy streets make it easy for a burglar to blend in and go unnoticed. Central (2.12) and Mission (1.73) followed closely, indicating a general higher crime activity in the main city. Bayview (1.70) and Taraval (1.54) had moderate levels, while the remaining districts were well below 1.5 daily incidents on average.
-  </p>
-  <p>
-    The COVID-19 lockdown fundamentally disrupted this spatial pattern. During 2020-2021, burglary rates surged dramatically across most districts, but the increase was far from uniform. Northern district more than doubled from 2.57 to 5.29 daily incidents (a 106% increase), becoming a center of heightened activity. Central and Mission saw similarly sharp spikes of approximately 66% and 85% respectively, reaching 3.51 and 3.19 daily incidents. Southern also increased substantially to 3.32 daily incidents. However, some districts showed more modest increases: Tenderloin rose from 0.65 to 1.06 (63%), while Park, which had been a lower-activity district at 1.24, increased by about 69% to 2.10. This suggests that while commercial districts were hit hardest, lockdowns created vulnerability across more varied locations. Only Bayview, which is mostly industrial and residential, had lower burglary rates compared to pre-pandemic, likely because it has fewer commercial targets compared with the city’s center (<a href="https://www.sfexaminer.com/news/urban-development/experts-say-sf-zoning-a-total-mismatch-from-housing-needs/article_b9d713fa-8996-11ee-aa28-6f28f6cdd4ab.html" target="_blank" style="color: inherit;">SF Examiner, 2023</a>).
-  </p>
-  <p>
-    The post-COVID recovery (2021-2025) shows a decisive return toward pre-pandemic levels, though with important variations. Northern declined from its peak of 5.29 to 2.79 daily incidents, nearly returning to its pre-COVID rate of 2.57. Central and Richmond also retreated substantially, to 2.12 and 1.33 respectively—levels that closely mirror their pre-COVID baselines. Southern stabilized at 2.20, just slightly below its pre-COVID rate of 2.28. This convergence suggests that as urban routines normalized, the opportunity structures that drove the COVID spike largely dissolved. Notably, even districts that saw recovery remained somewhat elevated compared to pre-COVID: Tenderloin stabilized at 0.80 (versus 0.65), and Mission at 2.42 (versus 1.73), indicating that the pandemic may have left a modest residual effect in some areas.
-  </p>
-  <p>
-    Tenderloin is a notable outlier: despite its social vulnerability, it consistently records the lowest burglary rates of any district (0.65 pre-COVID, 1.06 during COVID, 0.80 post-COVID). <a href="https://en.wikipedia.org/wiki/Tenderloin,_San_Francisco" target="_blank" style="color: inherit; text-decoration: underline;">Its high density of social services and long-term residents</a> likely means constant street activity and few high-value targets. These are conditions that suppress burglary even as other crime types remain elevated—and they appear resilient even to pandemic-driven shifts in urban activity.
-  </p>
+<div class="analysis"> <p> Burglary in San Francisco has never been evenly spread across the city. Instead, it clusters in a handful of districts, painting a vivid map of opportunity and vulnerability. The Northern district consistently stands out as the city’s burglary hotspot, while the Tenderloin, despite its reputation for street-level crime, quietly maintains the lowest rates (<a href="https://en.wikipedia.org/wiki/Tenderloin%2C_San_Francisco?utm" target="_blank" style="color: inherit;">Wikipedia, Tenderloin, San Francisco</a>). </p> <p> Before the pandemic, the Southern and Northern districts saw the most burglaries, averaging 2.28 and 2.57 incidents per day. These areas cover much of the city’s commercial heart. Northern Station stretches over vibrant mixed-use neighborhoods like Hayes Valley, Polk Gulch, and the Marina, while Southern’s SoMa district houses tech companies, museums, and the Moscone Convention Center (<a href="https://www.sanfranciscopolice.org/stations/northern-station" target="_blank" style="color: inherit; text-decoration: underline;">Northern Station</a>, <a href="https://en.wikipedia.org/wiki/South_of_Market,_San_Francisco" target="_blank" style="color: inherit; text-decoration: underline;">Southern's SoMa</a>). Here, Routine Activity Theory (Cohen & Felson, 1979) comes alive: bustling offices, shops, and parked cars create predictable targets, while busy streets let burglars move unseen. Central and Mission districts followed closely, while Bayview and Taraval were more moderate. The rest of the city remained relatively quiet in comparison. </p> <p> Then COVID-19 hit, streets emptied and offices closed, contributing to a shift in burglary patterns. The Northern district more than doubled its daily incidents to 5.29, while Central and Mission surged by 66% and 85%, reaching 3.51 and 3.19 incidents per day. Southern also saw a substantial rise to 3.32. Even districts that had been quieter, like Park, experienced spikes, though more modestly. The only exception was Bayview, largely industrial and residential, which saw a decline, likely because commercial targets were scarce (<a href="https://www.sfexaminer.com/news/urban-development/experts-say-sf-zoning-a-total-mismatch-from-housing-needs/article_b9d713fa-8996-11ee-aa28-6f28f6cdd4ab.html" target="_blank" style="color: inherit;">SF Examiner, 2023</a>). </p> <p> By 2021, as restrictions eased, burglary began to retreat. Northern fell back to 2.79 daily incidents, almost its pre-COVID level. Central and Richmond dropped to 2.12 and 1.33, while Southern stabilized just below its previous rate at 2.20. Yet not all districts returned fully to baseline—Tenderloin lingered slightly higher at 0.80, and Mission at 2.42—indicating that the pandemic had a lasting effect on crime in San Francisco. </p> <p> Tenderloin stands out as a story of resilience. Despite social vulnerabilities, it consistently records the lowest burglary rates (0.65 pre-COVID, 1.06 during, 0.80 post-COVID). Its high density of social services and long-term residents keeps streets active and potential targets scarce (<a href="https://en.wikipedia.org/wiki/Tenderloin,_San_Francisco" target="_blank" style="color: inherit; text-decoration: underline;">Wikipedia, Tenderloin, San Francisco</a>). Even as burglary surged in other neighborhoods during the pandemic, Tenderloin remained remarkably resistant. </p> </div>
+
+
+<!-- FIGURE 3 -->
+<div class="figure-block reveal-scale" data-fig="3" style="margin-top: 50px; margin-bottom: 30px;">
+  <div class="figure-card">
+
+    <!-- Figure header -->
+    <div class="figure-header" style="margin-bottom: 10px;">
+      <div class="figure-tag">Figure 3 — Temporal Pattern</div>
+      <div class="figure-title">When Burglary Happens: Hour by Hour</div>
+      <p class="figure-desc">
+        This chart shows burglary incidents by hour of the day across pre-COVID, COVID, and post-COVID periods. The peak shifted from late afternoon before COVID to early morning during the pandemic, reflecting changes in daily routines and windows of opportunity for crime.
+      </p>
+    </div>
+
+    <!-- Figure chart -->
+    <div class="figure-media-chart" style="margin-bottom: 5px;">
+      <iframe 
+        src="Assignment2_figures/Figure3.html" 
+        title="Burglary by Hour" 
+        style="width: 100%; height: 420px; border: none; display: block;">
+      </iframe>
+    </div>
+
+    <!-- Figure caption -->
+    <div class="figure-caption" style="margin-top: 5px;">
+      <strong>How to read this chart:</strong> Each line represents the percentage of burglaries occurring at each hour of the day, split across three periods: Pre-COVID (2015-2020), COVID Period (2020-2021), and Post-COVID (2021-2025). Use the dropdown to filter by district and compare how the hourly pattern shifts across periods.
+    </div>
+
+  </div>
 </div>
-  </div>
 
-
-  <!-- FIGURE 3 -->
-  <div class="figure-block reveal-scale" data-fig="3" style="margin-top: 100px;">
-    <div class="figure-card">
-      <div class="figure-header">
-        <div class="figure-tag">Figure 3 — Temporal Pattern</div>
-        <div class="figure-title">When Burglary Happens: Hour by Hour</div>
-        <p class="figure-desc">
-          Burglary incidents broken down by hour of day, revealing a structured and predictable rhythm.
-        </p>
-      </div>
-      <div class="figure-media-chart">
-        <iframe src="Assignment2_figures/Figure3.html" title="Burglary by Hour"></iframe>
-      </div>
-      <div class="figure-caption">
-        <strong>How to read this chart:</strong> Each line represents the percentage of burglaries occurring at each hour of the day, split across three periods: Pre-COVID (2015-2020), COVID Period (2020-2021), and Post-COVID (2021-2025). Use the dropdown to filter by district and compare how the hourly pattern shifts across periods.
-      </div>
-    </div>
-
-    <div class="analysis">
-      <p>
-        Another remarkable finding in the dataset is the strong temporal
-        trend in burglary timing. Rather than occurring randomly throughout the day, incidents
-        cluster. This is consistent with <a href="https://faculty.washington.edu/matsueda/courses/587/readings/Cohen%20and%20Felson%201979%20Routine%20Activities.pdf" target="_blank" style="color: inherit; text-decoration: underline;">Routine Activity Theory (Cohen &amp; Felson, 1979)</a>, which predicts that burglars, and particularly residential burglars, operate according to predictable routines. 
-        They state, that crime concentrates where suitable targets, absent guardians, and motivated offenders converge.
-      </p>
-      <p>
-        The visualization reveals a significant shift in burglary timing across the three periods. Before COVID, the afternoon was the dominant window: the aggregated Pre-COVID line peaks sharply at 17h, consistent with office and retail workers leaving and reducing natural guardianship in commercial areas. Southern district illustrates this most clearly: its Pre-COVID blue line reaches nearly 8.6% at 17h, the highest single-hour share of any period in that district. During COVID and Post-COVID, this afternoon concentration largely disappears citywide, and the early-morning hours (0-4 AM) become dominant instead, which is a shift that holds across almost all districts.
-      </p>
-      <p>
-        The Northern district illustrates this transition clearly: the Pre-COVID pattern is relatively flat across the day with a mild 17h rise, but the COVID and Post-COVID lines spike sharply at 4 AM, reaching approximately 8%, which is the highest single-hour share of any period in that district. Central follows a similar pattern, with a 4 AM peak above 8.5% in Post-COVID and the 17h peak nearly gone. Richmond is somehow an outlier: in Pre-COVID, the late afternoon (17-18h) is elevated, and the COVID and Post-COVID periods shift the peak to 3-4 AM. In contrary, it also introduces a late evening peak around 20-21h.
-      </p>
-      <p>
-        Tenderloin shows a more irregular distribution across all three periods. The COVID period produced a sharp spike at 4 AM (~8.9%) and again around 17h. However, the Post-COVID distributioin introduces an unusual concentration around 13h, which are patterns that do not follow the citywide shift. Why Tenderloin diverges is difficult to explain from this data alone. As discussed in the geographic analysis above, the district's consistently low overall burglary incident count already makes it an outlier, and its hourly distribution follows suit. This district-level divergence underlines that while the aggregate trend points toward early-morning burglary becoming more prevalent after COVID, the pattern is not uniform across all parts of the city.
-      </p>
-    </div>
-  </div>
+<div class="analysis"> <p> One of the most striking stories the data tells is not where burglaries happen, but when they happen. Far from random, incidents follow a clear rhythm, echoing <a href="https://faculty.washington.edu/matsueda/courses/587/readings/Cohen%20and%20Felson%201979%20Routine%20Activities.pdf" target="_blank" style="color: inherit; text-decoration: underline;">Routine Activity Theory (Cohen & Felson, 1979)</a>: crime appears where potential targets, unguarded spaces, and motivated offenders intersect, and this intersection unfolds on a daily schedule. </p> <p> Before COVID, the pattern was predictable. The afternoon, around 5 PM, emerged as the burglary sweet spot—when office and retail workers left, natural guardianship waned, and commercial areas became vulnerable. Southern district tells this story vividly: nearly 9% of its daily burglaries occurred at 17h, the sharpest spike in any single hour. Across the city, the rest of the day was comparatively calm. </p> <p> Then the pandemic arrived, and the clock shifted. With empty streets and closed businesses, the afternoon lull disappeared. Burglaries migrated to the early-morning hours, roughly 0–4 AM, a pattern that dominated nearly every district. Northern district shows the change most dramatically: a once-flat daily curve now spikes sharply at 4 AM, capturing 8% of daily incidents—its highest single-hour share ever. Central follows a similar rhythm, with the early-morning peak overtaking the old 5 PM afternoon high. Richmond adds a twist: its peak moves to 3–4 AM, but also develops a secondary spike around 8–9 PM. </p> <p> Tenderloin, true to form, marches to its own beat. During COVID, a spike appears at 4 AM, but there’s also a smaller afternoon peak. Post-COVID, a surprising lunchtime cluster emerges around 13h, diverging from the citywide trend. With fewer overall burglaries, the district’s hourly patterns remain irregular, underscoring that even within the same city, routine disruption affects neighborhoods differently. </p> <p> </p> </div>
 
 
   <!-- CONCLUSION -->
@@ -987,14 +1096,99 @@
       <div class="section-label">Conclusion</div>
       <h2>Burglary as a Window Into Urban Change</h2>
       <p>
-        Burglary in San Francisco did not follow the general crime trend during COVID-19, instead it moved against it. While most incident types declined sharply in 2020, burglary rose 52.7% citywide, with Northern district nearly doubling in a single year. This divergence is consistent with what <a href="https://doi.org/10.1007/s11292-022-09530-0" target="_blank" style="color: inherit; text-decoration: underline;">Yim &amp; Riddell (2022)</a> found across multiple US cities: lockdowns emptied commercial spaces and removed the everyday guardianship that normally deters opportunistic burglary.
+        Burglary in San Francisco did not follow the general crime trend during COVID-19 — instead it moved against it. While most incident types declined sharply in 2020, burglary rose 52.7% citywide, with Northern district nearly doubling in a single year. This divergence is consistent with what <a href="https://doi.org/10.1007/s11292-022-09530-0" target="_blank">Yim &amp; Riddell (2022)</a> found across multiple US cities: lockdowns emptied commercial spaces and removed the everyday guardianship that normally deters opportunistic burglary.
       </p>
       <p>
-        The geographic and temporal patterns reinforce this reading. Burglary concentrated in districts with dense commercial corridors - Northern, Central, Southern - and largely spared Tenderloin, where low burglary rates persisted even at the height of the COVID spike. The hourly distribution shifted too: the pre-COVID afternoon peak around 17h gave way to an early-morning concentration at 3-4 AM during and after COVID, a pattern visible across Northern, Central, and Richmond. Both shifts fit <a href="https://faculty.washington.edu/matsueda/courses/587/readings/Cohen%20and%20Felson%201979%20Routine%20Activities.pdf" target="_blank" style="color: inherit; text-decoration: underline;">Routine Activity Theory (Cohen &amp; Felson, 1979)</a>: as daily routines changed, so did the windows of opportunity.
+        Burglary concentrated in districts with dense commercial corridors — Northern, Central, and Southern. Tenderloin was largely spared, with low burglary rates persisting even at the height of the pandemic. The hourly distribution shifted too: the pre-COVID afternoon peak around 17h gave way to an early-morning concentration at 3–4 AM during and after COVID, a pattern visible across most districts. Both shifts fit <a href="https://faculty.washington.edu/matsueda/courses/587/readings/Cohen%20and%20Felson%201979%20Routine%20Activities.pdf" target="_blank">Routine Activity Theory (Cohen &amp; Felson, 1979)</a>: as daily routines changed, so did the windows of opportunity.
       </p>
       <p>
-        Since 2022, burglary has declined sharply, dropping 27.6% in 2025 alone, reaching its lowest recorded level across the entire ten-year period. What drove this reversal is not visible in this data. Whether it reflects enforcement changes, post-pandemic urban recovery, or broader shifts in opportunity structures remains an open question. As <a href="https://nyulawreview.org/online-features/dirty-data-bad-predictions-how-civil-rights-violations-impact-police-data-predictive-policing-systems-and-justice/" target="_blank" style="color: inherit; text-decoration: underline;">Richardson et al. (2019)</a> remind us, incident data captures what police record - not what actually happens. The patterns identified here are a starting point, not the full picture.
+        Since 2022, burglary has declined sharply, dropping 27.6% in 2025 alone, reaching its lowest recorded level across the entire ten-year period. What drove this reversal is not visible in this data alone. Whether it reflects enforcement changes, post-pandemic urban recovery, or broader shifts in opportunity structures remains an open question.
       </p>
+
+      <div class="limitations-box">
+        <h4>A note on what this data can and cannot show</h4>
+        <p>
+          As <a href="https://nyulawreview.org/online-features/dirty-data-bad-predictions-how-civil-rights-violations-impact-police-data-predictive-policing-systems-and-justice/" target="_blank">Richardson et al. (2019)</a> remind us, incident data captures what police record — not what actually happens. The patterns identified here are a starting point, not the full picture. The COVID spike in burglary could partly reflect changed reporting behavior: with more people at home, residents may have been more likely to notice and report break-ins that would previously have gone undetected. Conversely, the post-COVID decline could partly reflect shifts in enforcement priorities rather than genuine behavioral change.
+        </p>
+        <p>
+          If someone were to use this analysis to argue for a policy change — say, redeploying patrol resources away from Tenderloin toward Northern district — the data would not straightforwardly support that conclusion. Tenderloin's low burglary count does not mean it needs fewer resources overall; it reflects a different crime profile, not a safer neighborhood. Be skeptical of any claim that treats these patterns as the whole story.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- REFERENCES -->
+  <section id="references" class="references-section">
+    <div class="section-label reveal">Sources</div>
+    <h2 class="reveal delay-1">References</h2>
+
+    <div class="references-list reveal delay-2">
+
+      <div class="reference-item">
+        <div class="ref-num">1</div>
+        <div class="ref-body">
+          Cohen, L. E., &amp; Felson, M. (1979). Social change and crime rate trends: A routine activity approach. <em>American Sociological Review, 44</em>(4), 588–608.
+          <a href="https://faculty.washington.edu/matsueda/courses/587/readings/Cohen%20and%20Felson%201979%20Routine%20Activities.pdf" target="_blank">PDF via University of Washington</a>
+        </div>
+      </div>
+
+      <div class="reference-item">
+        <div class="ref-num">2</div>
+        <div class="ref-body">
+          Richardson, R., Schultz, J. M., &amp; Crawford, K. (2019). Dirty data, bad predictions: How civil rights violations impact police data, predictive policing systems, and justice. <em>NYU Law Review Online, 94</em>, 15–55.
+          <a href="https://nyulawreview.org/online-features/dirty-data-bad-predictions-how-civil-rights-violations-impact-police-data-predictive-policing-systems-and-justice/" target="_blank">nyulawreview.org</a>
+        </div>
+      </div>
+
+      <div class="reference-item">
+        <div class="ref-num">3</div>
+        <div class="ref-body">
+          Yim, H., &amp; Riddell, J. (2022). Did COVID-19 lockdowns change the nature of burglary incidents? <em>Journal of Experimental Criminology.</em>
+          <a href="https://doi.org/10.1007/s11292-022-09530-0" target="_blank">doi.org/10.1007/s11292-022-09530-0</a>
+        </div>
+      </div>
+
+      <div class="reference-item">
+        <div class="ref-num">4</div>
+        <div class="ref-body">
+          San Francisco Police Department. (2015–2025). <em>Police Department Incident Reports</em> [Dataset]. DataSF.
+          <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-2018-to-Present/wg3w-h783" target="_blank">data.sfgov.org</a>
+        </div>
+      </div>
+
+      <div class="reference-item">
+        <div class="ref-num">5</div>
+        <div class="ref-body">
+          San Francisco Police Department. (n.d.). Northern Station.
+          <a href="https://www.sanfranciscopolice.org/stations/northern-station" target="_blank">sanfranciscopolice.org</a>
+        </div>
+      </div>
+
+      <div class="reference-item">
+        <div class="ref-num">6</div>
+        <div class="ref-body">
+          Wikipedia contributors. (n.d.). Tenderloin, San Francisco.
+          <a href="https://en.wikipedia.org/wiki/Tenderloin,_San_Francisco" target="_blank">en.wikipedia.org</a>
+        </div>
+      </div>
+
+      <div class="reference-item">
+        <div class="ref-num">7</div>
+        <div class="ref-body">
+          Wikipedia contributors. (n.d.). South of Market, San Francisco.
+          <a href="https://en.wikipedia.org/wiki/South_of_Market,_San_Francisco" target="_blank">en.wikipedia.org</a>
+        </div>
+      </div>
+
+      <div class="reference-item">
+        <div class="ref-num">8</div>
+        <div class="ref-body">
+          Sabatini, J. (2023, November). Experts say SF zoning a 'total mismatch' from housing needs. <em>San Francisco Examiner.</em>
+          <a href="https://www.sfexaminer.com/news/urban-development/experts-say-sf-zoning-a-total-mismatch-from-housing-needs/article_b9d713fa-8996-11ee-aa28-6f28f6cdd4ab.html" target="_blank">sfexaminer.com</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1003,8 +1197,11 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-left">SF Crime Analysis</div>
-  <div class="footer-right">Data: SFPD Incident Reports · 2015-2025</div>
+  <div class="footer-left">SF Crime Analysis &nbsp;·&nbsp; 2015–2025</div>
+  <div class="footer-right">
+    Data: <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-2018-to-Present/wg3w-h783" target="_blank">SFPD Incident Reports via DataSF</a><br>
+    Social Data Analysis &amp; Visualization · 2026
+  </div>
 </footer>
 
 
