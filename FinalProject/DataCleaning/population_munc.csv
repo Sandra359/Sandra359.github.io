@@ -135,23 +135,23 @@ Billund,2021,26549.0,Southern Denmark
 Billund,2022,26826.5,Southern Denmark
 Billund,2023,27063.5,Southern Denmark
 Billund,2024,27145.75,Southern Denmark
-Bornholm,2008,42824.5,Capital Region
-Bornholm,2009,42531.5,Capital Region
-Bornholm,2010,42135.5,Capital Region
-Bornholm,2011,41690.0,Capital Region
-Bornholm,2012,41197.75,Capital Region
-Bornholm,2013,40654.25,Capital Region
-Bornholm,2014,40174.5,Capital Region
-Bornholm,2015,39883.0,Capital Region
-Bornholm,2016,39800.25,Capital Region
-Bornholm,2017,39759.25,Capital Region
-Bornholm,2018,39719.75,Capital Region
-Bornholm,2019,39701.25,Capital Region
-Bornholm,2020,39575.0,Capital Region
-Bornholm,2021,39733.5,Capital Region
-Bornholm,2022,39765.75,Capital Region
-Bornholm,2023,39646.0,Capital Region
-Bornholm,2024,39328.75,Capital Region
+Bornholm,2008,42727.0,Capital Region
+Bornholm,2009,42434.0,Capital Region
+Bornholm,2010,42037.75,Capital Region
+Bornholm,2011,41587.75,Capital Region
+Bornholm,2012,41095.75,Capital Region
+Bornholm,2013,40559.0,Capital Region
+Bornholm,2014,40081.5,Capital Region
+Bornholm,2015,39792.0,Capital Region
+Bornholm,2016,39710.75,Capital Region
+Bornholm,2017,39678.25,Capital Region
+Bornholm,2018,39632.0,Capital Region
+Bornholm,2019,39614.5,Capital Region
+Bornholm,2020,39488.5,Capital Region
+Bornholm,2021,39643.25,Capital Region
+Bornholm,2022,39671.25,Capital Region
+Bornholm,2023,39552.0,Capital Region
+Bornholm,2024,39236.75,Capital Region
 Brøndby,2008,33752.0,Capital Region
 Brøndby,2009,33808.0,Capital Region
 Brøndby,2010,33855.75,Capital Region
@@ -186,23 +186,23 @@ Brønderslev,2021,36168.25,North Jutland
 Brønderslev,2022,36392.75,North Jutland
 Brønderslev,2023,36575.5,North Jutland
 Brønderslev,2024,36601.75,North Jutland
-Copenhagen,2008,512558.5,Capital Region
-Copenhagen,2009,521887.0,Capital Region
-Copenhagen,2010,532085.0,Capital Region
-Copenhagen,2011,542883.25,Capital Region
-Copenhagen,2012,552612.5,Capital Region
-Copenhagen,2013,563268.0,Capital Region
-Copenhagen,2014,573433.25,Capital Region
-Copenhagen,2015,584189.25,Capital Region
-Copenhagen,2016,595423.75,Capital Region
-Copenhagen,2017,606431.5,Capital Region
-Copenhagen,2018,617019.25,Capital Region
-Copenhagen,2019,627320.75,Capital Region
-Copenhagen,2020,634190.0,Capital Region
-Copenhagen,2021,639799.5,Capital Region
-Copenhagen,2022,647829.0,Capital Region
-Copenhagen,2023,656755.75,Capital Region
-Copenhagen,2024,662770.5,Capital Region
+Christiansø,2008,97.5,
+Christiansø,2009,97.5,
+Christiansø,2010,97.75,
+Christiansø,2011,102.25,
+Christiansø,2012,102.0,
+Christiansø,2013,95.25,
+Christiansø,2014,93.0,
+Christiansø,2015,91.0,
+Christiansø,2016,89.5,
+Christiansø,2017,81.0,
+Christiansø,2018,87.75,
+Christiansø,2019,86.75,
+Christiansø,2020,86.5,
+Christiansø,2021,90.25,
+Christiansø,2022,94.5,
+Christiansø,2023,94.0,
+Christiansø,2024,92.0,
 Dragør,2008,13344.5,Capital Region
 Dragør,2009,13459.25,Capital Region
 Dragør,2010,13631.5,Capital Region
@@ -577,6 +577,23 @@ Hedensted,2021,46925.25,Central Jutland
 Hedensted,2022,47366.25,Central Jutland
 Hedensted,2023,47641.0,Central Jutland
 Hedensted,2024,47803.75,Central Jutland
+Hele landet,2008,5488268.5,
+Hele landet,2009,5519677.5,
+Hele landet,2010,5544126.75,
+Hele landet,2011,5567726.75,
+Hele landet,2012,5588006.0,
+Hele landet,2013,5610187.25,
+Hele landet,2014,5639285.25,
+Hele landet,2015,5676506.5,
+Hele landet,2016,5723561.75,
+Hele landet,2017,5761050.75,
+Hele landet,2018,5790756.5,
+Hele landet,2019,5814854.5,
+Hele landet,2020,5827542.5,
+Hele landet,2021,5850248.25,
+Hele landet,2022,5898980.75,
+Hele landet,2023,5944412.75,
+Hele landet,2024,5972869.5,
 Helsingør,2008,60859.0,Capital Region
 Helsingør,2009,61071.25,Capital Region
 Helsingør,2010,61274.25,Capital Region
@@ -866,6 +883,23 @@ Kolding,2021,93164.75,Southern Denmark
 Kolding,2022,94044.75,Southern Denmark
 Kolding,2023,94672.25,Southern Denmark
 Kolding,2024,95219.5,Southern Denmark
+København,2008,512558.5,
+København,2009,521887.0,
+København,2010,532085.0,
+København,2011,542883.25,
+København,2012,552612.5,
+København,2013,563268.0,
+København,2014,573433.25,
+København,2015,584189.25,
+København,2016,595423.75,
+København,2017,606431.5,
+København,2018,617019.25,
+København,2019,627320.75,
+København,2020,634190.0,
+København,2021,639799.5,
+København,2022,647829.0,
+København,2023,656755.75,
+København,2024,662770.5,
 Køge,2008,56740.75,Zealand Region
 Køge,2009,56907.75,Zealand Region
 Køge,2010,57217.25,Zealand Region
@@ -1189,6 +1223,91 @@ Rebild,2021,30554.5,North Jutland
 Rebild,2022,30806.75,North Jutland
 Rebild,2023,30900.0,North Jutland
 Rebild,2024,30942.75,North Jutland
+Region Hovedstaden,2008,1651460.5,
+Region Hovedstaden,2009,1668737.0,
+Region Hovedstaden,2010,1687454.25,
+Region Hovedstaden,2011,1704860.5,
+Region Hovedstaden,2012,1720777.75,
+Region Hovedstaden,2013,1738018.5,
+Region Hovedstaden,2014,1756531.5,
+Region Hovedstaden,2015,1775746.25,
+Region Hovedstaden,2016,1796030.75,
+Region Hovedstaden,2017,1813239.5,
+Region Hovedstaden,2018,1827539.5,
+Region Hovedstaden,2019,1841141.5,
+Region Hovedstaden,2020,1848688.75,
+Region Hovedstaden,2021,1858754.0,
+Region Hovedstaden,2022,1877300.5,
+Region Hovedstaden,2023,1900174.5,
+Region Hovedstaden,2024,1919028.25,
+Region Midtjylland,2008,1240413.75,
+Region Midtjylland,2009,1250066.25,
+Region Midtjylland,2010,1256237.5,
+Region Midtjylland,2011,1262853.25,
+Region Midtjylland,2012,1268534.75,
+Region Midtjylland,2013,1273964.25,
+Region Midtjylland,2014,1279523.75,
+Region Midtjylland,2015,1286487.25,
+Region Midtjylland,2016,1297382.0,
+Region Midtjylland,2017,1307923.25,
+Region Midtjylland,2018,1316358.0,
+Region Midtjylland,2019,1323129.5,
+Region Midtjylland,2020,1327957.5,
+Region Midtjylland,2021,1335175.75,
+Region Midtjylland,2022,1349179.75,
+Region Midtjylland,2023,1361139.75,
+Region Midtjylland,2024,1368131.75,
+Region Nordjylland,2008,579495.0,
+Region Nordjylland,2009,579963.25,
+Region Nordjylland,2010,579453.5,
+Region Nordjylland,2011,579933.25,
+Region Nordjylland,2012,579799.0,
+Region Nordjylland,2013,580217.75,
+Region Nordjylland,2014,581481.25,
+Region Nordjylland,2015,583421.25,
+Region Nordjylland,2016,586198.25,
+Region Nordjylland,2017,587838.5,
+Region Nordjylland,2018,589203.0,
+Region Nordjylland,2019,589917.75,
+Region Nordjylland,2020,590056.0,
+Region Nordjylland,2021,590722.0,
+Region Nordjylland,2022,593186.5,
+Region Nordjylland,2023,594243.5,
+Region Nordjylland,2024,592965.75,
+Region Sjælland,2008,820258.75,
+Region Sjælland,2009,820969.5,
+Region Sjælland,2010,820416.0,
+Region Sjælland,2011,819094.25,
+Region Sjælland,2012,817418.5,
+Region Sjælland,2013,816440.0,
+Region Sjælland,2014,818068.25,
+Region Sjælland,2015,822984.5,
+Region Sjælland,2016,829636.5,
+Region Sjælland,2017,833498.25,
+Region Sjælland,2018,835801.0,
+Region Sjælland,2019,836964.25,
+Region Sjælland,2020,837636.75,
+Region Sjælland,2021,840704.75,
+Region Sjælland,2022,846588.75,
+Region Sjælland,2023,850802.25,
+Region Sjælland,2024,853605.25,
+Region Syddanmark,2008,1196640.5,
+Region Syddanmark,2009,1199941.5,
+Region Syddanmark,2010,1200565.5,
+Region Syddanmark,2011,1200985.5,
+Region Syddanmark,2012,1201476.0,
+Region Syddanmark,2013,1201546.75,
+Region Syddanmark,2014,1203680.5,
+Region Syddanmark,2015,1207867.25,
+Region Syddanmark,2016,1214314.25,
+Region Syddanmark,2017,1218551.25,
+Region Syddanmark,2018,1221855.0,
+Region Syddanmark,2019,1223701.5,
+Region Syddanmark,2020,1223203.5,
+Region Syddanmark,2021,1224891.75,
+Region Syddanmark,2022,1232725.25,
+Region Syddanmark,2023,1238052.75,
+Region Syddanmark,2024,1239138.5,
 Ringkøbing-Skjern,2008,58540.0,Central Jutland
 Ringkøbing-Skjern,2009,58724.5,Central Jutland
 Ringkøbing-Skjern,2010,58321.0,Central Jutland
@@ -1597,23 +1716,23 @@ Vejle,2021,117731.25,Southern Denmark
 Vejle,2022,119879.5,Southern Denmark
 Vejle,2023,121375.5,Southern Denmark
 Vejle,2024,121963.5,Southern Denmark
-Vesthimmerland,2008,38421.5,North Jutland
-Vesthimmerland,2009,38358.0,North Jutland
-Vesthimmerland,2010,38055.25,North Jutland
-Vesthimmerland,2011,37747.0,North Jutland
-Vesthimmerland,2012,37589.0,North Jutland
-Vesthimmerland,2013,37563.5,North Jutland
-Vesthimmerland,2014,37456.0,North Jutland
-Vesthimmerland,2015,37394.75,North Jutland
-Vesthimmerland,2016,37285.0,North Jutland
-Vesthimmerland,2017,37295.0,North Jutland
-Vesthimmerland,2018,37232.5,North Jutland
-Vesthimmerland,2019,37004.0,North Jutland
-Vesthimmerland,2020,36622.75,North Jutland
-Vesthimmerland,2021,36356.5,North Jutland
-Vesthimmerland,2022,36366.75,North Jutland
-Vesthimmerland,2023,36296.0,North Jutland
-Vesthimmerland,2024,35920.5,North Jutland
+Vesthimmerlands,2008,38421.5,
+Vesthimmerlands,2009,38358.0,
+Vesthimmerlands,2010,38055.25,
+Vesthimmerlands,2011,37747.0,
+Vesthimmerlands,2012,37589.0,
+Vesthimmerlands,2013,37563.5,
+Vesthimmerlands,2014,37456.0,
+Vesthimmerlands,2015,37394.75,
+Vesthimmerlands,2016,37285.0,
+Vesthimmerlands,2017,37295.0,
+Vesthimmerlands,2018,37232.5,
+Vesthimmerlands,2019,37004.0,
+Vesthimmerlands,2020,36622.75,
+Vesthimmerlands,2021,36356.5,
+Vesthimmerlands,2022,36366.75,
+Vesthimmerlands,2023,36296.0,
+Vesthimmerlands,2024,35920.5,
 Viborg,2008,92352.75,Central Jutland
 Viborg,2009,93090.75,Central Jutland
 Viborg,2010,93503.5,Central Jutland
