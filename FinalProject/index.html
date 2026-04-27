@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Can You Afford Denmark?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red:    #c0392b;
+      --orange: #e67e22;
+      --yellow: #f1c40f;
+      --green:  #27ae60;
+      --dark:   #0f1923;
+      --mid:    #1a2a38;
+      --card:   #162030;
+      --text:   #e8e0d0;
+      --muted:  #8a9bb0;
+      --accent: #e8c87a;
+      --border: rgba(232,200,122,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--green));
+      z-index: 1000;
+      transition: width 0.1s;
+      width: 0%;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(15,25,35,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated gradient background */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(192,57,43,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 20% 70%, rgba(39,174,96,0.08) 0%, transparent 60%);
+      animation: heroShift 12s ease-in-out infinite alternate;
+    }
+    @keyframes heroShift {
+      from { transform: scale(1) translateX(0); }
+      to   { transform: scale(1.05) translateX(2%); }
+    }
+
+    /* Big decorative number */
+    #hero .bg-number {
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18rem, 30vw, 38rem);
+      font-weight: 900;
+      color: rgba(232,200,122,0.04);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    h1.hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 7vw, 7rem);
+      font-weight: 900;
+      line-height: 1.05;
+      max-width: 800px;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+    h1.hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.6s forwards;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.8s forwards;
+    }
+    .hero-stat strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .hero-stat span {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    .scroll-hint svg { opacity: 0.5; }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(6px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 7rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    section.full-bleed {
+      max-width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    h2 em { font-style: italic; color: var(--accent); }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 680px;
+      margin-bottom: 1.2rem;
+    }
+    p strong { color: var(--text); font-weight: 500; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0 auto;
+    }
+
+    /* ── MARTINI GLASS INDICATOR ── */
+    .martini-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      position: sticky;
+      top: 80px;
+      float: right;
+      margin-right: -80px;
+      width: 60px;
+    }
+
+    /* ── VIZ CARD ── */
+    .viz-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 2.5rem 0;
+      position: relative;
+    }
+    .viz-card .viz-header {
+      padding: 1.2rem 1.5rem 0.8rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .viz-card .viz-header h3 { margin: 0; font-size: 1.1rem; }
+    .viz-card .viz-header .viz-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+    .viz-card iframe {
+      width: 100%;
+      height: 520px;
+      border: none;
+      display: block;
+    }
+    .viz-card iframe.tall { height: 650px; }
+
+    /* ── TWO-COL GRID ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .two-col .viz-card { margin: 0; }
+    .two-col .viz-card iframe { height: 420px; }
+
+    /* ── INSIGHT CALLOUT ── */
+    .insight {
+      border-left: 3px solid var(--accent);
+      padding: 1.2rem 1.5rem;
+      background: rgba(232,200,122,0.05);
+      border-radius: 0 4px 4px 0;
+      margin: 2rem 0;
+    }
+    .insight p { margin: 0; color: var(--text); font-size: 0.95rem; }
+    .insight strong { color: var(--accent); }
+
+    /* ── CHAPTER MARKER ── */
+    .chapter {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 5rem 0 3rem;
+    }
+    .chapter-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--accent);
+      opacity: 0.25;
+      line-height: 1;
+      min-width: 4rem;
+    }
+    .chapter-line { flex: 1; height: 1px; background: var(--border); }
+
+    /* ── TRANSITION BAND ── */
+    .transition-band {
+      background: var(--mid);
+      padding: 5rem 3rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .transition-band::before {
+      content: 'EXPLORE';
+      position: absolute;
+      font-family: 'Playfair Display', serif;
+      font-size: 14rem;
+      font-weight: 900;
+      color: rgba(232,200,122,0.03);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .transition-band h2 { max-width: 600px; margin: 0 auto 1rem; }
+    .transition-band p  { margin: 0 auto; text-align: center; }
+
+    /* ── EXPLORE GRID ── */
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin: 2.5rem 0;
+    }
+    .explore-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+    .explore-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .explore-card .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .explore-card h3 { font-size: 1rem; margin-bottom: 0.4rem; color: var(--text); }
+    .explore-card p  { font-size: 0.85rem; margin: 0; color: var(--muted); max-width: 100%; }
+
+    /* ── TAB PANEL for interactive section ── */
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
+      padding: 0.8rem 1.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: -1px;
+    }
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── FOOTNOTE / DATA SOURCE ── */
+    .data-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      opacity: 0.6;
+      margin-top: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--mid);
+      border-top: 1px solid var(--border);
+      padding: 4rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+      max-width: 100%;
+    }
+    footer h4 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    footer p, footer a {
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.4rem;
+      max-width: 100%;
+    }
+    footer a:hover { color: var(--text); }
+    .footer-bottom {
+      background: var(--mid);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      opacity: 0.5;
+      margin: 0;
+      max-width: 100%;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── COLOR LEGEND ── */
+    .legend {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      margin: 1rem 0 2rem;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      .two-col { grid-template-columns: 1fr; }
+      .explore-grid { grid-template-columns: 1fr 1fr; }
+      footer { grid-template-columns: 1fr; gap: 2rem; }
+      h1.hero-title { font-size: 3rem; }
+    }
+    @media (max-width: 600px) {
+      .explore-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="logo">DK Housing // 2008–2024</div>
+  <ul>
+    <li><a href="#story">The Story</a></li>
+    <li><a href="#national">National</a></li>
+    <li><a href="#regional">Regional</a></li>
+    <li><a href="#explore">Explore</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="bg-number">DK</div>
+  <div class="hero-tag">Social Data Analysis · DTU 2026</div>
+  <h1 class="hero-title">Can You Afford <em>Denmark?</em></h1>
+  <p class="hero-sub">
+    Housing prices across Denmark have risen dramatically since 2008 — but incomes haven't kept pace everywhere. 
+    This project investigates a widening divide: between city and countryside, between those who got in early and those priced out entirely.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <strong>~1.5M</strong>
+      <span>Housing sales</span>
+    </div>
+    <div class="hero-stat">
+      <strong>98</strong>
+      <span>Municipalities</span>
+    </div>
+    <div class="hero-stat">
+      <strong>17 yrs</strong>
+      <span>2008 – 2024</span>
+    </div>
+    <div class="hero-stat">
+      <strong>3</strong>
+      <span>Datasets merged</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Scroll to explore
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════
+     PART 1 — THE STEM OF THE MARTINI GLASS
+     Guided narrative
+     ════════════════════════════════════ -->
+
+<section id="story">
+
+  <div class="section-label">Part 1 — The Guided Story</div>
+  <h2>A Nation Divided<br>by <em>Housing Costs</em></h2>
+  <p>
+    We start from a simple question: how easily can a typical Danish household afford housing where they live? 
+    We measure this with an <strong>Affordability Index</strong> — income divided by the average price per square metre. 
+    A higher number means housing is more affordable relative to local income.
+  </p>
+  <p>
+    What we found tells a story of growing inequality — not just between rich and poor, 
+    but between <strong>where you happen to live</strong>.
+  </p>
+
+  <!-- Chapter 1 -->
+  <div class="chapter reveal">
+    <div class="chapter-num">01</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>The National Picture</h3>
+    <p>
+      Starting with the broadest view: how has affordability changed across Denmark as a whole? 
+      The chart below tracks the national average from 2008 through 2024. 
+      Notice how affordability <strong>improved during the post-2008 crash</strong>, then deteriorated sharply as 
+      prices surged in the 2015–2022 boom — before the interest rate shock brought some relief.
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>National Average Affordability Index</h3>
+      <span class="viz-tag">Overview · Timeseries</span>
+    </div>
+    <iframe src="Figures/national_affordability_trend.html" title="National affordability trend"></iframe>
+  </div>
+  <p class="data-source">Source: Boligsiden / Statistics Denmark · Affordability = Mean income / Mean sqm price</p>
+
+  <div class="insight reveal">
+    <p>
+      <strong>Key finding:</strong> The national affordability index peaked around [YEAR — edit me] 
+      and has since [improved/declined — edit me]. But national averages hide enormous geographic variation.
+    </p>
+  </div>
+
+  <!-- Chapter 2 -->
+  <div class="chapter reveal">
+    <div class="chapter-num">02</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>Five Regions, Five Stories</h3>
+    <p>
+      Break Denmark into its five administrative regions and the picture changes dramatically. 
+      <strong>The Capital Region</strong> has seen affordability collapse relative to the rest of the country. 
+      Meanwhile, regions like <strong>[Region X — edit me]</strong> have maintained relatively stable affordability. 
+      The gap between the most and least affordable regions has [widened/narrowed — edit me] over the period.
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Affordability by Region Over Time</h3>
+      <span class="viz-tag">Regional · Divergence</span>
+    </div>
+    <iframe src="Figures/regional_affordability_lines.html" title="Regional affordability lines"></iframe>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Regional Affordability Map</h3>
+      <span class="viz-tag">Geography · Animated</span>
+    </div>
+    <iframe src="Figures/region_affordability_map.html" class="tall" title="Region map"></iframe>
+  </div>
+  <p class="data-source">Use the year slider to move through time · Hover for details</p>
+
+  <!-- Chapter 3 -->
+  <div class="chapter reveal">
+    <div class="chapter-num">03</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>The Urban–Rural Divide</h3>
+    <p>
+      We classified municipalities as urban or rural based on population size. 
+      The result is striking: <strong>urban municipalities are systematically less affordable</strong>, 
+      and the gap has been widening since [year — edit me]. 
+      Rural municipalities offer more affordability — but that hasn't stopped population from 
+      flowing toward cities, as we'll see later.
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Urban vs Rural Affordability Gap</h3>
+      <span class="viz-tag">Urban/Rural · Core finding</span>
+    </div>
+    <iframe src="Figures/urban_rural_divergence.html" title="Urban rural divergence"></iframe>
+  </div>
+
+  <div class="insight reveal">
+    <p>
+      <strong>The divergence:</strong> In 2008, urban and rural affordability were relatively close. 
+      By [year — edit me], the gap had grown to [X — edit me] index points. 
+      This is the central finding of our analysis.
+    </p>
+  </div>
+
+  <!-- Chapter 4 -->
+  <div class="chapter reveal">
+    <div class="chapter-num">04</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>The Macroeconomic Backdrop</h3>
+    <p>
+      Affordability doesn't evolve in a vacuum. Interest rates shape how much buyers can borrow, 
+      and inflation erodes real income. The chart below overlays the national affordability index 
+      with nominal interest rates — watch how the <strong>2022 rate hike</strong> coincides with a sharp 
+      deterioration in affordability across Denmark.
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Affordability vs Interest Rates</h3>
+      <span class="viz-tag">Macro · Dual axis</span>
+    </div>
+    <iframe src="Figures/affordability_vs_interest.html" title="Affordability vs interest rates"></iframe>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════
+     TRANSITION — STEM TO BOWL
+     ════════════════════════════════════ -->
+
+<div class="transition-band" id="explore-intro">
+  <div class="section-label" style="justify-content:center; margin-bottom:1.5rem;">Part 2 — Your Turn</div>
+  <h2>Now <em>Explore</em> the Data</h2>
+  <p>
+    The guided story ends here. Below you'll find a set of interactive visualizations to dig deeper — 
+    explore which municipalities got left behind, where prices outpaced incomes the most, 
+    and whether people have been voting with their feet.
+  </p>
+</div>
+
+<!-- ════════════════════════════════════
+     PART 2 — THE BOWL OF THE MARTINI GLASS
+     Free exploration
+     ════════════════════════════════════ -->
+
+<section id="explore">
+
+  <div class="section-label">Explore — Municipality Level</div>
+  <h2>Dig Into the <em>98 Municipalities</em></h2>
+  <p>
+    At the municipal level the variation is even more dramatic. 
+    Use the interactive map below to explore affordability year by year — 
+    compare your home municipality against the rest of Denmark.
+  </p>
+
+  <!-- Tab panel for the two maps -->
+  <div class="viz-card reveal" style="margin-top:2rem;">
+    <div class="viz-header">
+      <h3>Municipality Affordability Map</h3>
+      <span class="viz-tag">Interactive · 2008–2024</span>
+    </div>
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(event,'tab-mun-map')">Affordability by Year</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-change-map')">Change 2008 → 2024</button>
+    </div>
+    <div id="tab-mun-map" class="tab-panel active">
+      <iframe src="Figures/municipality_affordability_map.html" class="tall" title="Municipality map"></iframe>
+      <p style="padding:0.8rem 1.5rem;" class="data-source">Use year buttons or slider · Hover for municipality details</p>
+    </div>
+    <div id="tab-change-map" class="tab-panel">
+      <iframe src="Figures/affordability_change_map.html" class="tall" title="Affordability change map"></iframe>
+      <p style="padding:0.8rem 1.5rem;" class="data-source">Green = affordability improved · Red = affordability declined</p>
+    </div>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-num">05</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>Who Got Left Behind?</h3>
+    <p>
+      The scatter below compares income growth with housing price growth for every municipality 
+      since 2008. Municipalities <strong>above the diagonal line</strong> saw prices rise faster than incomes — 
+      meaning residents effectively became poorer in housing terms. 
+      Hover over individual dots to identify specific municipalities.
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Income Growth vs Price Growth (2008–2024)</h3>
+      <span class="viz-tag">Scatter · Per municipality</span>
+    </div>
+    <iframe src="Figures/income_vs_price_growth.html" title="Income vs price growth scatter"></iframe>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-num">06</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>Is Inequality Widening?</h3>
+    <p>
+      We split municipalities into three tiers by affordability each year and tracked their trajectories. 
+      If the lines are <strong>diverging</strong>, inequality is growing. If they converge, the gaps are closing.
+      The distribution plot shows how the spread of affordability across municipalities has changed 
+      over four key years.
+    </p>
+  </div>
+
+  <div class="two-col reveal">
+    <div class="viz-card">
+      <div class="viz-header">
+        <h3>Affordability Inequality Over Time</h3>
+        <span class="viz-tag">Three tiers</span>
+      </div>
+      <iframe src="Figures/affordability_inequality.html" title="Affordability inequality"></iframe>
+    </div>
+    <div class="viz-card">
+      <div class="viz-header">
+        <h3>Distribution Across Municipalities</h3>
+        <span class="viz-tag">KDE · Selected years</span>
+      </div>
+      <iframe src="Figures/affordability_distribution.html" title="Distribution plot"></iframe>
+    </div>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-num">07</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>Population-Weighted Gap</h3>
+    <p>
+      A simple average treats Copenhagen and a small island equally. 
+      Weighting by population gives a more realistic picture of how many <em>people</em> 
+      are affected by each affordability level. The bar in the background shows the raw gap 
+      between urban and rural affordability each year.
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Population-Weighted Affordability Gap</h3>
+      <span class="viz-tag">Urban/Rural · Weighted</span>
+    </div>
+    <iframe src="Figures/weighted_affordability_gap.html" title="Weighted affordability gap"></iframe>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-num">08</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>Did People Move to Affordable Areas?</h3>
+    <p>
+      If people respond rationally to housing costs, we'd expect population to grow faster 
+      in more affordable municipalities. The chart below tests this — 
+      are municipalities where affordability <strong>declined the most</strong> also losing population?
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Population Growth by Affordability Change Group</h3>
+      <span class="viz-tag">Migration · Boxplot</span>
+    </div>
+    <iframe src="Figures/population_vs_affordability.html" title="Population vs affordability"></iframe>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-num">09</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>The Income Gap — How Much More Would You Need?</h3>
+    <p>
+      If incomes had kept pace with housing prices since 2008, how much higher would they need to be today? 
+      This chart shows the gap between actual income and the income required to maintain 2008 affordability levels — 
+      a direct measure of <strong>how much purchasing power has been eroded</strong>.
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Income Gap to Maintain 2008 Affordability</h3>
+      <span class="viz-tag">Area chart · DKK/year</span>
+    </div>
+    <iframe src="Figures/income_gap.html" title="Income gap"></iframe>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-num">10</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>Top & Bottom: Most and Least Affordable Municipalities</h3>
+    <p>
+      Which municipalities top and bottom the affordability rankings each year? 
+      Press play to watch the rankings animate through time — notice how the same municipalities 
+      tend to dominate each end of the spectrum, and watch for sudden shifts.
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Top 10 vs Bottom 10 Most Affordable</h3>
+      <span class="viz-tag">Bar race · Animated</span>
+    </div>
+    <iframe src="Figures/top_bottom_affordability.html" title="Top bottom affordability bar chart"></iframe>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-num">11</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>What Drives Affordability? The Full Picture</h3>
+    <p>
+      The correlation matrix below shows how all key variables relate to each other. 
+      Strong red/green cells indicate variables that move together — 
+      or in opposite directions. 
+      Notice the relationship between <strong>income and sqm price</strong>, 
+      and how <strong>interest rates</strong> connect to affordability.
+    </p>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>Correlation Matrix of Key Variables</h3>
+      <span class="viz-tag">Heatmap · All variables</span>
+    </div>
+    <iframe src="Figures/correlation_heatmap.html" title="Correlation heatmap"></iframe>
+  </div>
+
+  <div class="viz-card reveal">
+    <div class="viz-header">
+      <h3>sqm Price by Municipality & Region Over Time</h3>
+      <span class="viz-tag">Faceted · All municipalities</span>
+    </div>
+    <iframe src="Figures/sqm_price_by_region.html" class="tall" title="sqm price faceted"></iframe>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- ── CONCLUSION ── -->
+<section id="about">
+
+  <div class="section-label">Conclusion</div>
+  <h2>What We <em>Found</em></h2>
+
+  <div class="reveal">
+    <p>
+      <strong>[Edit this section with your main conclusions]</strong> 
+      Our analysis shows that housing affordability in Denmark has [describe overall trend — edit me]. 
+      The divergence between urban and rural areas [has/has not — edit me] widened significantly over the 2008–2024 period.
+    </p>
+    <p>
+      The municipalities most affected by declining affordability are [describe — edit me], 
+      while [other municipalities — edit me] have maintained relatively stable conditions. 
+      The 2022 interest rate shock [describe impact — edit me].
+    </p>
+    <p>
+      Contrary to [or: consistent with — edit me] what rational migration theory would predict, 
+      population flows [have/have not — edit me] responded to affordability differences in the way one might expect.
+    </p>
+  </div>
+
+  <div class="insight reveal" style="border-color: var(--green);">
+    <p>
+      <strong>Bottom line:</strong> [Write your one-sentence key finding here — edit me.] 
+      Denmark's housing market has become increasingly bifurcated, with significant implications 
+      for regional inequality and social mobility.
+    </p>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-num" style="font-size:2rem;">Data</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>About the Dataset</h3>
+    <p>
+      This project combines three datasets covering all Danish municipalities from 2008 to 2024:
+    </p>
+    <p>
+      <strong>Housing transactions</strong> — approximately 1.5 million sales records from Boligsiden, 
+      aggregated to municipality-year level. Variables include purchase price, sqm price, property size, 
+      number of rooms, and the difference between offer and sale price.
+    </p>
+    <p>
+      <strong>Income data</strong> — mean municipal income from Statistics Denmark, 
+      available annually per municipality (~1,600 rows).
+    </p>
+    <p>
+      <strong>Population data</strong> — annual population counts per municipality from Statistics Denmark.
+    </p>
+    <p>
+      Macro variables (interest rates, inflation, mortgage bond yields) are national-level 
+      figures from Danmarks Nationalbank, merged onto the dataset by year.
+    </p>
+  </div>
+
+  <div class="chapter reveal">
+    <div class="chapter-num" style="font-size:2rem;">Team</div>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="reveal">
+    <h3>Contributions</h3>
+    <p><strong>[Group member 1 — edit me]</strong> was primarily responsible for [data collection, cleaning — edit me].</p>
+    <p><strong>[Group member 2 — edit me]</strong> led [data analysis, regression modelling — edit me].</p>
+    <p><strong>[Group member 3 — edit me]</strong> built [the visualizations and website — edit me].</p>
+    <p>All group members contributed to the narrative framing and interpretation of results.</p>
+  </div>
+
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div>
+    <h4>Project</h4>
+    <p>Social Data Analysis & Visualisation</p>
+    <p>DTU Course 02806 · Spring 2026</p>
+    <p style="margin-top:0.8rem;">Martini Glass narrative structure<br>following Segel & Heer (2010)</p>
+  </div>
+  <div>
+    <h4>Data Sources</h4>
+    <a href="https://www.boligsiden.dk" target="_blank">Boligsiden — Housing transactions</a>
+    <a href="https://www.dst.dk" target="_blank">Statistics Denmark — Income & Population</a>
+    <a href="https://www.nationalbanken.dk" target="_blank">Danmarks Nationalbank — Interest rates</a>
+  </div>
+  <div>
+    <h4>Links</h4>
+    <a href="explainer_notebook.html" target="_blank">📓 Explainer Notebook</a>
+    <a href="https://github.com/Sandra359/Sandra359.github.io" target="_blank">💾 GitHub Repository</a>
+    <a href="https://github.com/suneman/socialdata2026/wiki/Final-Project" target="_blank">📋 Assignment Brief</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>Can You Afford Denmark? · Social Data Analysis 2026</p>
+  <p>Built with Python · Plotly · GitHub Pages</p>
+</div>
+
+<!-- ── SCRIPTS ── -->
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight);
+    document.getElementById('progress-bar').style.width = (scrolled * 100) + '%';
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Tab switcher
+  function switchTab(event, panelId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  }
+</script>
+
+</body>
+</html>

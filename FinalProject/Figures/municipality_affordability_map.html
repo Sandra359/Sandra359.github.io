@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Municipality Affordability Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        input[type=range] {
+            width: 60%;
+            accent-color: #2ecc71;
+        }
+        #year-label {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            min-width: 60px;
+        }
+        .button-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .year-btn {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+        .year-btn:hover, .year-btn.active {
+            background: #2ecc71;
+            color: white;
+            border-color: #2ecc71;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h2>Housing Affordability by Municipality</h2>
+    <div class="controls">
+        <div class="slider-container">
+            <span>2008</span>
+            <input type="range" id="year-slider" min="2008" max="2024" step="1" value="2024">
+            <span>2024</span>
+            <span id="year-label">2024</span>
+        </div>
+        <div class="button-row">
+            <button class="year-btn" onclick="setYear(2008)">2008</button>
+            <button class="year-btn" onclick="setYear(2009)">2009</button>
+            <button class="year-btn" onclick="setYear(2010)">2010</button>
+            <button class="year-btn" onclick="setYear(2011)">2011</button>
+            <button class="year-btn" onclick="setYear(2012)">2012</button>
+            <button class="year-btn" onclick="setYear(2013)">2013</button>
+            <button class="year-btn" onclick="setYear(2014)">2014</button>
+            <button class="year-btn" onclick="setYear(2015)">2015</button>
+            <button class="year-btn" onclick="setYear(2016)">2016</button>
+            <button class="year-btn" onclick="setYear(2017)">2017</button>
+            <button class="year-btn" onclick="setYear(2018)">2018</button>
+            <button class="year-btn" onclick="setYear(2019)">2019</button>
+            <button class="year-btn" onclick="setYear(2020)">2020</button>
+            <button class="year-btn" onclick="setYear(2021)">2021</button>
+            <button class="year-btn" onclick="setYear(2022)">2022</button>
+            <button class="year-btn" onclick="setYear(2023)">2023</button>
+            <button class="year-btn" onclick="setYear(2024)">2024</button>
+        </div>
+    </div>
+
+    <iframe id="map-frame" src="municipality_map_2024.html"></iframe>
+
+    <script>
+        const slider = document.getElementById('year-slider');
+        const label = document.getElementById('year-label');
+        const frame = document.getElementById('map-frame');
+        const buttons = document.querySelectorAll('.year-btn');
+
+        function setYear(year) {
+            label.textContent = year;
+            slider.value = year;
+            frame.src = `municipality_map_${year}.html`;
+            buttons.forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.textContent) === year);
+            });
+        }
+
+        slider.addEventListener('input', () => setYear(parseInt(slider.value)));
+
+        // Set initial active button
+        setYear(2024);
+    </script>
+</body>
+</html>
