@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Pulled directly from the illustration palette */
     --sky:        #c8dde8;
     --sky-dark:   #7aaabb;
     --house:      #e07832;
@@ -42,6 +41,90 @@
   }
 
   /* ══════════════════════════════════
+     SCROLL PROGRESS BAR
+  ══════════════════════════════════ */
+  #scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(to right, var(--house-dark), var(--house), var(--gold-light));
+    z-index: 10000;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(224,120,50,0.5);
+  }
+
+  /* ══════════════════════════════════
+     STICKY NAV
+  ══════════════════════════════════ */
+  #site-nav {
+    position: fixed;
+    top: 3px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: rgba(27, 45, 58, 0.97);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(224,120,50,0.2);
+    transform: translateY(-100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  #site-nav.visible {
+    transform: translateY(0);
+  }
+
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 6vw;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--house);
+    white-space: nowrap;
+    padding: 0.7rem 1.2rem 0.7rem 0;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .nav-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    padding: 0.75rem 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color 0.2s, background 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav-link:hover {
+    color: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .nav-link.active {
+    color: var(--gold-light);
+    border-bottom-color: var(--house);
+  }
+
+  /* ══════════════════════════════════
      HERO
   ══════════════════════════════════ */
   .hero {
@@ -54,30 +137,13 @@
     align-items: flex-start;
     padding: 0 6vw 5rem;
     overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    background-image: url("/Figures/Background_image.jpg") center / cover no-repeat; 
-    background-size: cover;
-    z-index: 0;
-  }
-
-  .hero-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
     background:
-      linear-gradient(to top,  rgba(58, 32, 27, 0.93) 0%, rgba(27,45,58,0.55) 42%, transparent 72%),
-      linear-gradient(to right, rgba(27,45,58,0.5) 0%, transparent 55%);
+      linear-gradient(to top, rgba(58,32,27,0.93) 0%, rgba(27,45,58,0.55) 70%, transparent 80%),
+      linear-gradient(to right, rgba(27,45,58,0.5) 0%, transparent 100%),
+      url('Figures/Background_image.jpg') center center / cover no-repeat;
   }
 
-  .hero > * { position: relative; z-index: 1; }
+  .hero > * { position: relative; z-index: 2; }
 
   .hero-eyebrow {
     font-family: 'DM Mono', monospace;
@@ -151,7 +217,7 @@
     gap: 0.45rem;
     opacity: 0;
     animation: fadeUp 1s 1.2s forwards;
-    z-index: 1;
+    z-index: 2;
   }
 
   .hero-scroll span {
@@ -196,6 +262,67 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 6vw;
+  }
+
+  /* ══════════════════════════════════
+     DATASET INTRO SECTION
+  ══════════════════════════════════ */
+  .section-dataset {
+    background: linear-gradient(135deg, var(--roof) 0%, var(--city) 100%);
+    padding: 4rem 0 3.5rem;
+  }
+  .section-dataset .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 6vw;
+  }
+  .section-dataset .section-number { color: var(--gold-light); }
+  .section-dataset .section-number::after { background: rgba(255,255,255,0.18); }
+  .section-dataset .section-headline { color: #fff; }
+  .section-dataset .section-subhead { color: var(--house); border-bottom-color: rgba(255,255,255,0.12); }
+  .section-dataset .body-text p { color: rgba(255,255,255,0.82); }
+
+  .dataset-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    margin: 2rem 0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .dataset-stat {
+    background: rgba(255,255,255,0.04);
+    padding: 1.2rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    transition: background 0.2s;
+  }
+  .dataset-stat:hover { background: rgba(255,255,255,0.08); }
+
+  .dataset-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gold-light);
+  }
+
+  .dataset-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .dataset-stat-note {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.55);
+    font-style: italic;
+    margin-top: 0.1rem;
   }
 
   /* ══════════════════════════════════
@@ -246,7 +373,7 @@
     font-size: 0.96rem;
     line-height: 1.82;
     margin-bottom: 1rem;
-    max-width: 720px;
+    max-width: 1100px;
   }
   .body-text p:last-child { margin-bottom: 0; }
 
@@ -260,12 +387,12 @@
     border-left: 3px solid var(--house);
     padding: 0.55rem 1.1rem;
     margin: 1.5rem 0;
-    max-width: 640px;
+    max-width: 1100px;
     background: rgba(224,120,50,0.06);
   }
 
   /* ══════════════════════════════════
-     FIGURES — always full-width single column
+     FIGURES
   ══════════════════════════════════ */
   .figure-wrap {
     margin: 2rem 0 0.5rem;
@@ -391,7 +518,7 @@
   .martini-transition {
     background:
       linear-gradient(to bottom, rgba(27,45,58,0.0) 0%, rgba(27,45,58,0.88) 25%, rgba(27,45,58,0.88) 75%, rgba(27,45,58,0.0) 100%),
-      url('Figures/Background_image.png')  center 10% / cover no-repeat;
+      url('Figures/Background_image.jpg') center 10% / cover no-repeat;
     padding: 10rem 6vw;
     text-align: center;
     position: relative;
@@ -457,30 +584,96 @@
   .closing .body-text p           { color: rgba(255,255,255,0.78); }
   .closing .pull-quote            { color: var(--gold-light); border-left-color: var(--gold-light); background: rgba(224,184,80,0.07); }
   .closing .figure-wrap           { border-color: rgba(255,255,255,0.1); box-shadow: 0 3px 24px rgba(0,0,0,0.3); }
-  .closing .figure-caption        { background: rgba(25, 24, 33, 0.35); color: rgba(242, 239, 234, 0.883); border-top-color: rgba(255,255,255,0.08); }
-  .closing .key-fact              { background: rgba(226, 219, 207, 0.05); }
+  .closing .figure-caption        { background: rgba(25,24,33,0.35); color: #faf9f7e1; border-top-color: rgba(255,255,255,0.08); }
+  .closing .key-fact              { background: rgba(226,219,207,0.05); }
   .closing .key-fact-label        { color: rgba(255,255,255,0.42); }
   .closing .key-fact-note         { color: rgba(255,255,255,0.52); }
+
+  /* ══════════════════════════════════
+     REFERENCES SECTION
+  ══════════════════════════════════ */
+  .references-section {
+    background: var(--roof);
+    padding: 4rem 6vw 3.5rem;
+    border-top: 2px solid var(--house-dark);
+  }
+
+  .references-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .references-section .section-number { color: var(--gold-light); }
+  .references-section .section-number::after { background: rgba(255,255,255,0.18); }
+  .references-section .section-headline { color: #fff; font-size: 1.5rem; margin-bottom: 1.5rem; }
+
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .ref-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    padding: 1.1rem 1.3rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .ref-card:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(224,120,50,0.35);
+  }
+
+  .ref-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--house);
+    margin-bottom: 0.4rem;
+  }
+
+  .ref-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 0.45rem;
+    line-height: 1.5;
+  }
+
+  .ref-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    word-break: break-all;
+    line-height: 1.5;
+    transition: color 0.2s;
+  }
+  .ref-link:hover { color: var(--gold-light); }
 
   /* ══════════════════════════════════
      FOOTER
   ══════════════════════════════════ */
   footer {
-    background: var(--roof);
+    background: #111d26;
     padding: 2rem 6vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 0.8rem;
-    border-top: 2px solid var(--house-dark);
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
 
   footer p {
     font-family: 'DM Mono', monospace;
     font-size: 0.62rem;
     letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.28);
     text-transform: uppercase;
   }
 
@@ -510,392 +703,524 @@
   /* ══════════════════════════════════
      RESPONSIVE
   ══════════════════════════════════ */
+  @media (max-width: 860px) {
+    .dataset-stats { grid-template-columns: repeat(2, 1fr); }
+    .ref-grid { grid-template-columns: 1fr; }
+  }
   @media (max-width: 700px) {
     .key-facts { grid-template-columns: 1fr 1fr; }
+    .dataset-stats { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 480px) {
     .key-facts { grid-template-columns: 1fr; }
+    .dataset-stats { grid-template-columns: 1fr; }
     .section { padding: 3rem 4vw 2.5rem; }
   }
 </style>
 </head>
 <body>
 
+  <!-- ════════════════════ SCROLL PROGRESS ════════════════════ -->
+  <div id="scroll-progress"></div>
+
+  <!-- ════════════════════ STICKY NAV ════════════════════ -->
+  <nav id="site-nav" aria-label="Site navigation">
+    <div class="nav-inner">
+      <div class="nav-logo">The Divided Danish Home</div>
+      <a class="nav-link" href="#section-dataset" data-section="section-dataset">Dataset</a>
+      <a class="nav-link" href="#section-1" data-section="section-1">The Story</a>
+      <a class="nav-link" href="#section-7" data-section="section-7">Explore By Yourself</a>
+      <a class="nav-link" href="#section-conclusion" data-section="section-conclusion">Conclusion</a>
+      <a class="nav-link" href="#section-references" data-section="section-references">References</a>
+    </div>
+  </nav>
+
   <!-- ════════════════════ HERO ════════════════════ -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <p class="hero-eyebrow">Social Data Analysis · Denmark · 2008–2024</p>
-  <h1 class="hero-title">The <em>Divided</em><br>Danish Home</h1>
-  <p class="hero-subtitle">A sixteen-year investigation into how housing affordability has split Denmark — quietly, persistently, and unequally — between those who can afford to stay and those who must choose between cost and opportunity.</p>
-  <div class="hero-meta">
-    <div class="hero-stat">
-      <span class="hero-stat-num">1.5M</span>
-      <span class="hero-stat-label">Housing transactions</span>
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <p class="hero-eyebrow">Social Data Analysis · Denmark · 2008–2024</p>
+    <h1 class="hero-title">The <em>Divided</em><br>Danish Home</h1>
+    <p class="hero-subtitle">An investigation into how housing affordability has split Denmark — quietly, persistently, and unequally — between those who can afford to stay and those who must choose between cost and opportunity.</p>
+    
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll to explore</span>
     </div>
-    <div class="hero-stat">
-      <span class="hero-stat-num">98</span>
-      <span class="hero-stat-label">Municipalities</span>
+  </section>
+
+  <!-- roofline transition out of hero -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 75" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="heroFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1b2d3a"/>
+          <stop offset="100%" stop-color="#f7f2e8"/>
+        </linearGradient>
+      </defs>
+      <rect width="1440" height="75" fill="#362521" />
+      <path d="M0,75 L0,50 L50,50 L50,28 L70,28 L70,50 L150,50 L150,32 L180,12 L210,32 L210,50
+               L290,50 L290,22 L320,5 L350,22 L350,50 L430,50 L430,35 L450,18 L470,35 L470,50
+               L550,50 L550,28 L590,8 L630,28 L630,50 L710,50 L710,38 L730,20 L750,38 L750,50
+               L830,50 L830,18 L870,2 L910,18 L910,50 L990,50 L990,32 L1015,14 L1040,32 L1040,50
+               L1120,50 L1120,28 L1150,10 L1180,28 L1180,50 L1260,50 L1260,38 L1280,22 L1300,38
+               L1300,50 L1380,50 L1380,40 L1410,25 L1440,40 L1440,75 Z"
+        fill="#1e3040"/>
+      <path d="M0,75 L0,55 L50,55 L50,33 L70,33 L70,55 L150,55 L150,37 L180,17 L210,37 L210,55
+               L290,55 L290,27 L320,10 L350,27 L350,55 L430,55 L430,40 L450,23 L470,40 L470,55
+               L550,55 L550,33 L590,13 L630,33 L630,55 L710,55 L710,43 L730,25 L750,43 L750,55
+               L830,55 L830,23 L870,7 L910,23 L910,55 L990,55 L990,37 L1015,19 L1040,37 L1040,55
+               L1120,55 L1120,33 L1150,15 L1180,33 L1180,55 L1260,55 L1260,43 L1280,27 L1300,43
+               L1300,55 L1380,55 L1380,45 L1410,30 L1440,45 L1440,75 Z"
+        fill="#1e3040"/>
+    </svg>
+  </div>
+
+  <!-- ════════════════════ DATASET INTRO ════════════════════ -->
+  <section class="section-dataset reveal" id="section-dataset">
+    <div class="section-inner">
+      <p class="section-number">00 · The Dataset</p>
+      <h2 class="section-headline">About the Data</h2>
+      <p class="section-subhead">1,028,034 individual residential sales — every transaction tells part of the story.</p>
+
+      <div class="body-text">
+        <p>This analysis is built on a comprehensive dataset of 1,028,034 residential housing transactions recorded across all 98 Danish municipalities between 2008 and 2024. Each sale captures the transaction price, property size in square metres, location, and year — forming the backbone of the affordability index used throughout this story.</p>
+        <p>Municipal income data is drawn from Statistics Denmark's income registers, providing annual average disposable household income at the municipality level. Population figures come from the same source, tracking demographic shifts across every commune. The affordability index is derived by dividing average annual income by the mean price per square metre in each municipality and year — a higher number means housing is more affordable relative to local earnings.</p>
+        <p>Together, these three data sources — housing transactions, incomes, and population — allow us to trace not just what happened to prices, but what it meant for people's lives: whether they could afford to buy, where they chose to live, and how the gap between Denmark's most and least accessible places has evolved over sixteen years.</p>
+      </div>
+
+      <div class="dataset-stats">
+        <div class="dataset-stat">
+          <span class="dataset-stat-num">1,028,034</span>
+          <span class="dataset-stat-label">Total sales</span>
+          <span class="dataset-stat-note">Residential transactions, 2008–2024</span>
+        </div>
+        <div class="dataset-stat">
+          <span class="dataset-stat-num">98</span>
+          <span class="dataset-stat-label">Municipalities</span>
+          <span class="dataset-stat-note">Full national coverage</span>
+        </div>
+        <div class="dataset-stat">
+          <span class="dataset-stat-num">17</span>
+          <span class="dataset-stat-label">Years of data</span>
+          <span class="dataset-stat-note">2008 through 2024</span>
+        </div>
+        <div class="dataset-stat">
+          <span class="dataset-stat-num">3</span>
+          <span class="dataset-stat-label">Core sources</span>
+          <span class="dataset-stat-note">Transactions · Income · Population</span>
+        </div>
+      </div>
     </div>
-    <div class="hero-stat">
-      <span class="hero-stat-num">16 yrs</span>
-      <span class="hero-stat-label">2008 → 2024</span>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span>Scroll to explore</span>
-  </div>
-</section>
+  </section>
 
-<!-- roofline transition out of hero -->
-<div class="scene-divider">
-  <svg viewBox="0 0 1440 75" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="heroFade" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1b2d3a"/>
-        <stop offset="100%" stop-color="#f7f2e8"/>
-      </linearGradient>
-    </defs>
-    <rect width="1440" height="75" fill="#f7f2e8"/>
-    <!-- house silhouettes -->
-    <path d="M0,75 L0,50 L50,50 L50,28 L70,28 L70,50 L150,50 L150,32 L180,12 L210,32 L210,50
-             L290,50 L290,22 L320,5 L350,22 L350,50 L430,50 L430,35 L450,18 L470,35 L470,50
-             L550,50 L550,28 L590,8 L630,28 L630,50 L710,50 L710,38 L730,20 L750,38 L750,50
-             L830,50 L830,18 L870,2 L910,18 L910,50 L990,50 L990,32 L1015,14 L1040,32 L1040,50
-             L1120,50 L1120,28 L1150,10 L1180,28 L1180,50 L1260,50 L1260,38 L1280,22 L1300,38
-             L1300,50 L1380,50 L1380,40 L1410,25 L1440,40 L1440,75 Z"
-      fill="#eee8d8"/>
-    <path d="M0,75 L0,55 L50,55 L50,33 L70,33 L70,55 L150,55 L150,37 L180,17 L210,37 L210,55
-             L290,55 L290,27 L320,10 L350,27 L350,55 L430,55 L430,40 L450,23 L470,40 L470,55
-             L550,55 L550,33 L590,13 L630,33 L630,55 L710,55 L710,43 L730,25 L750,43 L750,55
-             L830,55 L830,23 L870,7 L910,23 L910,55 L990,55 L990,37 L1015,19 L1040,37 L1040,55
-             L1120,55 L1120,33 L1150,15 L1180,33 L1180,55 L1260,55 L1260,43 L1280,27 L1300,43
-             L1300,55 L1380,55 L1380,45 L1410,30 L1440,45 L1440,75 Z"
-      fill="#f7f2e8"/>
-  </svg>
-</div>
-
-<!-- ════════════════════ SECTION 1 ════════════════════ -->
-<section class="section reveal">
-  <p class="section-number">01 · The National Picture</p>
-  <h2 class="section-headline">Can Danes Still Afford to Buy a Home?</h2>
-  <p class="section-subhead">"The national affordability index peaked in 2014 — and has been declining ever since."</p>
-
-  <div class="body-text">
-    <p>Housing is one of the most fundamental parts of life — it shapes where you live, how much you spend, and what your future looks like. But over the past two decades, the answer to whether a typical Dane can afford to buy a home has become increasingly complicated.</p>
-    <p>To measure affordability, we use a simple but powerful index: how much annual income does it take to buy one square meter of housing? The higher the number, the more affordable housing is relative to your earnings. Think of it as your purchasing power in the housing market.</p>
-    <p>In 2008, Denmark was coming off a housing bubble. Prices had run far ahead of incomes, and the financial crisis hit just as the market was most stretched. The affordability index sat at its lowest point in our dataset — around 19.5.</p>
-    <p>Then something changed. As the financial crisis unwound, house prices fell and incomes slowly recovered. By 2012–2014, affordability had climbed to its best level in years — around 25 — a 25% improvement in just six years. For a brief window, Denmark felt accessible again.</p>
-    <div class="pull-quote">"By 2022, interest rates spiked from near zero to over 3% in months — and affordability fell off a cliff."</div>
-    <p>But that window didn't stay open. From 2015 onward, affordability began a slow decline. Prices kept rising faster than incomes. And then came 2022 — interest rates spiked sharply, and affordability dropped faster than at any point since the financial crisis. By 2024, the national index sits at roughly 23.7.</p>
+  <!-- dark-to-cream wave -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1440" height="55" fill="#1e3040"/>
+      <path d="M0,55 L0,28 Q360,5 720,30 Q1080,55 1440,18 L1440,55 Z" fill="#f7f2e8"/>
+    </svg>
   </div>
 
-  <div class="figure-wrap">
-    <iframe src="Figures/national_affordability_trend.html" class="short" title="National Average Housing Affordability in Denmark (2008–2024)"></iframe>
-    <p class="figure-caption">Fig. 1 · National average affordability index (income / sqm price), 2008–2024</p>
-  </div>
-</section>
-
-<!-- rolling hill divider -->
-<div class="scene-divider">
-  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="50" fill="#f7f2e8"/>
-    <path d="M0,50 L0,30 Q360,5 720,25 Q1080,45 1440,15 L1440,50 Z" fill="#eee8d8"/>
-  </svg>
-</div>
-
-<!-- ════════════════════ SECTION 2 ════════════════════ -->
-<section class="section-tinted reveal">
-  <div class="section-inner">
-    <p class="section-number">02 · The Mechanism</p>
-    <h2 class="section-headline">The Interest Rate Story Nobody Talks About</h2>
-    <p class="section-subhead">"Much of the 2010s affordability improvement was built on borrowed time — not structural change."</p>
+  <!-- ════════════════════ SECTION 1 ════════════════════ -->
+  <section class="section reveal" id="section-1">
+    <p class="section-number">01 · The National Picture</p>
+    <h2 class="section-headline">Can Danes Still Afford to Buy a Home?</h2>
+    <p class="section-subhead">The national affordability index peaked in 2014 — and has been declining ever since.</p>
 
     <div class="body-text">
-      <p>To understand what drives housing affordability, you have to understand interest rates. For most of the 2010s, Denmark — like much of Europe — lived in an era of near-zero interest rates. Borrowing money to buy a house was extraordinarily cheap. Monthly mortgage payments shrank. Buyers could afford more. Prices rose, but so did affordability, because low rates made even expensive homes manageable.</p>
-      <p>Look at the chart. The green line tracks affordability. The red dashed line tracks nominal interest rates. The relationship is almost a mirror image — when rates fell, affordability rose. When rates held near zero through 2015–2021, affordability plateaued at a new, higher level. Danes had quietly become accustomed to cheap money.</p>
-      <p>Then in 2022, the European Central Bank began raising rates aggressively to fight inflation. Danish mortgage rates followed. Almost overnight, the monthly cost of buying the same home jumped by thousands of kroner.</p>
-      <div class="pull-quote">"The affordability improvement of the 2010s was not earned — it was lent."</div>
-      <p>Much of the "affordability improvement" between 2009 and 2021 was borrowed — built on historically anomalous interest rates, not on a structural improvement in the relationship between wages and housing costs. Now that rates have normalised, the underlying tension is exposed again.</p>
+      <p>Housing is one of the most fundamental parts of life — it shapes where you live, how much you spend, and what your future looks like. But over the past two decades, the answer to whether a typical Dane can afford to buy a home has become increasingly complicated.</p>
+      <p>To measure affordability, we use a simple but powerful index: how much annual income does it take to buy one square meter of housing? The higher the number, the more affordable housing is relative to your earnings. Think of it as your purchasing power in the housing market.</p>
+      <p>In 2008, Denmark was coming off a housing bubble (source). Prices had run far ahead of incomes, and the financial crisis hit just as the market was most stretched. The affordability index sat at its lowest point in our dataset — around 19.5.</p>
+      <p>Then something changed. As the financial crisis unwound, house prices fell and incomes slowly recovered. By 2012–2014, affordability had climbed to its best level in years — around 25 — a 25% improvement in just six years. For a brief window, Denmark felt accessible again.</p>
+      <div class="pull-quote">By 2022, interest rates spiked from near zero to over 3% in months — and affordability fell off a cliff.</div>
+      <p>But that window didn't stay open. From 2015 onward, affordability began a slow decline. Prices kept rising faster than incomes. And then came 2022 — interest rates spiked sharply, and affordability dropped faster than at any point since the financial crisis. By 2024, the national index sits at roughly 23.7.</p>
     </div>
 
     <div class="figure-wrap">
-      <iframe src="Figures/affordability_vs_interest.html" class="short" title="Affordability Index vs Interest Rates (2008–2024)"></iframe>
-      <p class="figure-caption">Fig. 2 · Affordability index vs. nominal interest rate %, 2008–2024</p>
+      <iframe src="Figures/national_affordability_trend.html" class="short" title="National Average Housing Affordability in Denmark (2008–2024)"></iframe>
+      <p class="figure-caption">Fig. 1 · National average affordability index (income / sqm price), 2008–2024</p>
     </div>
+  </section>
+
+  <!-- rolling hill divider -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1440" height="50" fill="#f7f2e8"/>
+      <path d="M0,50 L0,30 Q360,5 720,25 Q1080,45 1440,15 L1440,50 Z" fill="#eee8d8"/>
+    </svg>
   </div>
-</section>
 
-<!-- gentle wave divider -->
-<div class="scene-divider">
-  <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="55" fill="#eee8d8"/>
-    <path d="M0,55 L0,35 Q200,8 440,30 Q680,52 920,18 Q1160,0 1440,28 L1440,55 Z" fill="#f7f2e8"/>
-  </svg>
-</div>
+  <!-- ════════════════════ SECTION 2 ════════════════════ -->
+  <section class="section-tinted reveal" id="section-2">
+    <div class="section-inner">
+      <p class="section-number">02 · The Mechanism</p>
+      <h2 class="section-headline">The Interest Rate Story Nobody Talks About</h2>
+      <p class="section-subhead">Much of the 2010s affordability improvement was built on borrowed time — not structural change.</p>
 
-<!-- ════════════════════ SECTION 3 ════════════════════ -->
-<section class="section reveal">
-  <p class="section-number">03 · Regional Divergence</p>
-  <h2 class="section-headline">Five Denmarks, Not One</h2>
-  <p class="section-subhead">"The Capital Region's affordability line sits so far below the others it almost looks like a different country."</p>
+      <div class="body-text">
+        <p>To understand what drives housing affordability, you have to understand interest rates. For most of the 2010s, Denmark — like much of Europe — lived in an era of near-zero interest rates (source). Borrowing money to buy a house was extraordinarily cheap. Monthly mortgage payments shrank. Buyers could afford more. Prices rose, but so did affordability, because low rates made even expensive homes manageable.</p>
+        <p>Look at the chart. The green line tracks affordability. The red dashed line tracks nominal interest rates. The relationship is almost a mirror image — when rates fell, affordability rose. When rates held near zero through 2015–2021, affordability plateaued at a new, higher level. Danes had quietly become accustomed to cheap money.</p>
+        <p>Then in 2022, the European Central Bank began raising rates aggressively to fight inflation. Danish mortgage rates followed (source). Almost overnight, the monthly cost of buying the same home jumped by thousands of kroner.</p>
+        <div class="pull-quote">The affordability improvement of the 2010s was not earned — it was lent.</div>
+        <p>Much of the "affordability improvement" between 2009 and 2021 was borrowed — built on historically anomalous interest rates, not on a structural improvement in the relationship between wages and housing costs. Now that rates have normalised, the underlying tension is exposed again.</p>
+      </div>
 
-  <div class="key-facts">
-    <div class="key-fact">
-      <span class="key-fact-num">~14.7</span>
-      <span class="key-fact-label">Capital Region · 2024</span>
-      <span class="key-fact-note">Lowest affordability index in Denmark</span>
+      <div class="figure-wrap">
+        <iframe src="Figures/affordability_vs_interest.html" class="short" title="Affordability Index vs Interest Rates (2008–2024)"></iframe>
+        <p class="figure-caption">Fig. 2 · Affordability index vs. nominal interest rate %, 2008–2024</p>
+      </div>
     </div>
-    <div class="key-fact">
-      <span class="key-fact-num">~28</span>
-      <span class="key-fact-label">North Jutland · 2024</span>
-      <span class="key-fact-note">Consistently among the most affordable</span>
+  </section>
+
+  <!-- gentle wave divider -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1440" height="55" fill="#eee8d8"/>
+      <path d="M0,55 L0,35 Q200,8 440,30 Q680,52 920,18 Q1160,0 1440,28 L1440,55 Z" fill="#f7f2e8"/>
+    </svg>
+  </div>
+
+  <!-- ════════════════════ SECTION 3 ════════════════════ -->
+  <section class="section reveal" id="section-3">
+    <p class="section-number">03 · Regional Divergence</p>
+    <h2 class="section-headline">Five Denmarks, Not One</h2>
+    <p class="section-subhead">The Capital Region's affordability line sits so far below the others it almost looks like a different country.</p>
+
+    <div class="key-facts">
+      <div class="key-fact">
+        <span class="key-fact-num">~14.7</span>
+        <span class="key-fact-label">Capital Region · 2024</span>
+        <span class="key-fact-note">Lowest affordability index in Denmark</span>
+      </div>
+      <div class="key-fact">
+        <span class="key-fact-num">~28</span>
+        <span class="key-fact-label">North Jutland · 2024</span>
+        <span class="key-fact-note">Consistently among the most affordable</span>
+      </div>
+      <div class="key-fact">
+        <span class="key-fact-num">2×</span>
+        <span class="key-fact-label">Urban–Rural gap</span>
+        <span class="key-fact-note">Your money goes nearly twice as far outside Copenhagen</span>
+      </div>
     </div>
-    <div class="key-fact">
-      <span class="key-fact-num">2×</span>
-      <span class="key-fact-label">Urban–Rural gap</span>
-      <span class="key-fact-note">Your money goes nearly twice as far outside Copenhagen</span>
-    </div>
-  </div>
-
-  <div class="body-text">
-    <p>A national average is useful — but it can also lie. When we break Denmark's affordability story down by its five regions, the single line fractures into something far more complicated, and far more unequal.</p>
-    <p>North Jutland and Zealand consistently show the highest affordability scores — regularly above 25, sometimes approaching 29. Housing there is genuinely within reach for ordinary households. Central Jutland and Southern Denmark sit in the middle: affordable, but less dramatically so.</p>
-    <p>And then there is the Capital Region. Its affordability line sits so far below the others that it almost looks like it belongs to a different country. While other regions sat around 24–28 in 2015, the Capital Region had already slipped to 16. By 2021, it hit 14. By 2024, it remains stubbornly low at around 14.7.</p>
-    <p>What this means in practice: a household in North Jutland earns roughly the same income as one near Copenhagen, but their money goes nearly twice as far in the housing market. Two Danes, similar jobs, similar salaries — but one can afford a family home, and the other is locked in an expensive rental. This is not a temporary blip. It is a structural, deepening divide.</p>
-  </div>
-
-  <div class="figure-wrap">
-    <iframe src="Figures/regional_affordability_lines.html" class="short" title="Housing Affordability by Region (2008–2024)"></iframe>
-    <p class="figure-caption">Fig. 3 · Population-weighted affordability index by region, 2008–2024</p>
-  </div>
-</section>
-
-
-<!-- ════════════════════ SECTION 4 ════════════════════ -->
-<section class="section reveal">
-  <p class="section-number">04 · The Great Divide</p>
-  <h2 class="section-headline">Two Housing Markets in One Country</h2>
-  <p class="section-subhead">"The gap opened around 2012 and has never closed. Both markets are getting harder — but the urban penalty is structural."</p>
-
-  <div class="body-text">
-    <p>Strip away the regional complexity and a single, clean pattern emerges: Denmark now has two housing markets. In rural municipalities, affordability peaked around 2014–2016 at nearly 29 on the index, then declined slowly to around 26 by 2024. Housing remains genuinely accessible.</p>
-    <p>In urban municipalities, affordability peaked earlier — around 2012 — and has been in near-continuous decline since. By 2024, urban affordability sits at around 24.7, converging uncomfortably close to rural levels even as the absolute price gap between urban and rural homes has never been wider.</p>
-    <div class="pull-quote">"The gap narrowed not because cities improved — but because the countryside also declined."</div>
-    <p>The bar chart tracks the gap between rural and urban affordability each year. That gap opened sharply between 2009 and 2016, reaching its widest point at about 5 index points. Since then, the gap has narrowed somewhat — but not because urban affordability improved. It narrowed because rural affordability also declined. Both markets are getting harder. The rural advantage is real but eroding. The urban penalty is structural and persistent.</p>
-  </div>
-
-  <div class="figure-wrap">
-    <iframe src="Figures/weighted_affordability_gap.html" class="short" title="Population-Weighted Affordability: Urban vs Rural Gap"></iframe>
-    <p class="figure-caption">Fig. 4 · Population-Weighted Affordability: Urban vs Rural Gap, 2008–2024</p>
-  </div>
-</section>
-
-<!-- grass wave -->
-<div class="scene-divider">
-  <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="55" fill="#f7f2e8"/>
-    <path d="M0,55 L0,28 Q240,0 480,30 Q720,55 960,18 Q1200,0 1440,30 L1440,55 Z" fill="#e8f0e0"/>
-  </svg>
-</div>
-
-<!-- ════════════════════ SECTION 5 ════════════════════ -->
-<section class="section-grass reveal">
-  <div class="section-inner">
-    <p class="section-number">05 · The Real Cost</p>
-    <h2 class="section-headline">The Price of Living in a City: 150,000 Kroner a Year</h2>
-    <p class="section-subhead">"To close the urban affordability gap, you would need to earn roughly 30% more — not to live better, just to match 2008."</p>
 
     <div class="body-text">
-      <p>Abstract index numbers can feel distant. So let's make the affordability gap concrete. This chart answers a specific question: compared to 2008, how much additional annual income would a household need today to have the same housing affordability they had back then?</p>
-      <p>For urban households, the answer is sobering. At the worst point — around 2015 — an urban household would have needed approximately 170,000 DKK more per year just to stand still in affordability terms. By 2024, thanks to some income growth and modest price corrections, that figure remains deeply negative: roughly 160,000–165,000 DKK per year.</p>
-      <p>Rural households face a smaller but still significant gap — roughly 70,000–80,000 DKK per year by 2024.</p>
-      <div class="pull-quote">"The median Danish salary is around 500,000 DKK. Closing the urban gap would require earning 30% more — just to afford what your parents had."</div>
-      <p>This is the number behind the headlines about young people struggling to buy homes. It is not about lifestyle choices. It is a structural, measurable gap between what people earn and what housing costs — and it has been there for over a decade.</p>
+      <p>A national average is useful — but it can also lie. When we break Denmark's affordability story down by its five regions, the single line fractures into something far more complicated, and far more unequal.</p>
+      <p>North Jutland and Zealand consistently show the highest affordability scores — regularly above 25, sometimes approaching 29. Housing there is genuinely within reach for ordinary households. Central Jutland and Southern Denmark sit in the middle: affordable, but less dramatically so.</p>
+      <p>And then there is the Capital Region. Its affordability line sits so far below the others that it almost looks like it belongs to a different country. While other regions sat around 24–28 in 2015, the Capital Region had already slipped to 16. By 2021, it hit 14. By 2024, it remains stubbornly low at around 14.7.</p>
+      <p>What this means in practice: a household in North Jutland earns roughly the same income as one near Copenhagen (source), but their money goes nearly twice as far in the housing market. Two Danes, similar jobs, similar salaries — but one can afford a family home, and the other is locked in an expensive rental. This is not a temporary blip. It is a structural, deepening divide.</p>
     </div>
 
     <div class="figure-wrap">
-      <iframe src="Figures/income_gap.html" class="short" title="Income Gap to Maintain 2008 Affordability Levels"></iframe>
-      <p class="figure-caption">Fig. 5 · Additional annual income (DKK/year) required to maintain 2008 affordability levels, urban vs. rural, 2008–2024</p>
+      <iframe src="Figures/regional_affordability_lines.html" class="short" title="Housing Affordability by Region (2008–2024)"></iframe>
+      <p class="figure-caption">Fig. 3 · Population-weighted affordability index by region, 2008–2024</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- wave back to cream-dark -->
-<div class="scene-divider">
-  <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="55" fill="#dae8d2"/>
-    <path d="M0,55 L0,22 Q360,55 720,20 Q1080,0 1440,35 L1440,55 Z" fill="#eee8d8"/>
-  </svg>
-</div>
-
-<!-- ════════════════════ SECTION 6 ════════════════════ -->
-<section class="section-tinted reveal">
-  <div class="section-inner">
-    <div class="interactive-badge"><span class="interactive-dot"></span>Interactive</div>
-    <p class="section-number">06 · The Migration Paradox</p>
-    <h2 class="section-headline">People Moved Toward Expensive Cities Anyway</h2>
-    <p class="section-subhead">"The more affordable a place was in 2008, the more likely it was to lose population over the next 16 years."</p>
+  <!-- ════════════════════ SECTION 4 ════════════════════ -->
+  <section class="section reveal" id="section-4">
+    <p class="section-number">04 · The Great Divide</p>
+    <h2 class="section-headline">Two Housing Markets in One Country</h2>
+    <p class="section-subhead">The gap opened around 2012 and has never closed. Both markets are getting harder — but the urban penalty is structural.</p>
 
     <div class="body-text">
-      <p>If housing is so much cheaper in rural Denmark, why aren't more people moving there? The population data provides a clear, if uncomfortable, answer.</p>
-      <p>The scatter plot shows each municipality in 2008, plotting its affordability against how much its population grew over the following 16 years. If affordability drove migration decisions, we would expect a positive relationship — affordable places would attract people. The trend line points in the opposite direction. The more affordable a place was in 2008, the more likely it was to lose population over the next 16 years.</p>
-      <p>The box plot makes this even clearer. Municipalities where affordability improved the most had the lowest population growth. Municipalities where affordability declined — meaning housing got more expensive relative to income — tended to grow fastest.</p>
-      <div class="pull-quote">"People choose cities knowing full well housing will consume a large share of their income — because the alternative offers fewer paths forward."</div>
-      <p>This is what economists call an amenity premium. People choose where to live based on jobs, education, culture, social networks, and opportunity — not housing prices alone. The result is a feedback loop: demand in cities drives prices up, affordability falls, but migration continues anyway, driving prices still higher.</p>
+      <p>Strip away the regional complexity and a single, clean pattern emerges: Denmark now has two housing markets. In rural municipalities, affordability peaked around 2014–2016 at nearly 29 on the index, then declined slowly to around 26 by 2024. Housing remains genuinely accessible.</p>
+      <p>In urban municipalities, affordability peaked earlier — around 2012 — and has been in near-continuous decline since. By 2024, urban affordability sits at around 24.7, converging uncomfortably close to rural levels even as the absolute price gap between urban and rural homes has never been wider.</p>
+      <div class="pull-quote">The gap narrowed not because cities improved — but because the countryside also declined.</div>
+      <p>The bar chart tracks the gap between rural and urban affordability each year. That gap opened sharply between 2009 and 2016, reaching its widest point at about 5 index points. Since then, the gap has narrowed somewhat — but not because urban affordability improved. It narrowed because rural affordability also declined. Both markets are getting harder. The rural advantage is real but eroding. The urban penalty is structural and persistent.</p>
     </div>
 
     <div class="figure-wrap">
-      <iframe src="Figures/population_vs_affordability.html" class="short" title="Did People Move to More Affordable Areas? (2008–2024)"></iframe>
-      <p class="figure-caption">Fig. 6rem · Affordability in 2008 vs. population growth 2008–2024, by municipality. Bubble size = population.</p>
+      <iframe src="Figures/weighted_affordability_gap.html" class="short" title="Population-Weighted Affordability: Urban vs Rural Gap"></iframe>
+      <p class="figure-caption">Fig. 4 · Population-Weighted Affordability: Urban vs Rural Gap, 2008–2024</p>
     </div>
+  </section>
 
-    <div class="figure-wrap">
-      <iframe src="Figures/population_vs_affordability_boxplot.html" class="short" title="Population Growth by Affordability Change Group"></iframe>
-      <p class="figure-caption">Fig. 6b · Population growth distribution by affordability change group, 2008–2024</p>
-    </div>
-  </div>
-</section>
-
-<!-- cream wave -->
-<div class="scene-divider">
-  <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="55" fill="#eee8d8"/>
-    <path d="M0,55 L0,38 Q200,12 440,35 Q680,55 900,22 Q1120,0 1440,30 L1440,55 Z" fill="#f7f2e8"/>
-  </svg>
-</div>
-
-<!-- ════════════════════ MARTINI TRANSITION ════════════════════ -->
-<div class="martini-transition reveal">
-  <p class="martini-label">↓ Now You Explore</p>
-  <h2 class="martini-title">From Story to Discovery</h2>
-  <p class="martini-body">You've seen the national arc. Now it's time to explore the data yourself — dig into municipalities, prices, migration, and what it would actually cost to live in Denmark today.</p>
-</div>
-
-<!-- ════════════════════ SECTION 7 ════════════════════ -->
-<section class="section-grass reveal">
-  <div class="section-inner">
-    <div class="interactive-badge"><span class="interactive-dot"></span>Interactive</div>
-    <p class="section-number">07 · The Affordability Lottery</p>
-    <h2 class="section-headline">Where You Can Still Afford to Live</h2>
-    <p class="section-subhead">"Frederiksberg scores 9. Vejen scores 56. That is a gap of more than six to one."</p>
-
-    <div class="body-text">
-      <p>The municipal rankings make the inequality concrete and personal. In 2024, the most affordable municipality in Denmark is Vejen, with an affordability index of 56.4. The least affordable? Frederiksberg, at just 9. That is a gap of more than six to one.</p>
-      <p>The top ten most affordable places share a profile: they are rural, relatively small, located in Jutland or on the smaller islands — Holstebro, Skive, Lemvig, Lolland, Ærø. These are communities that have struggled with population decline and economic stagnation — but if you want to own a home without devoting your entire income to it, they offer something Copenhagen simply cannot.</p>
-      <p>The ten least affordable municipalities tell the opposite story: Frederiksberg, Copenhagen, Rødovre, Hvidovre, Gladsaxe, Tårnby — all tightly clustered in and around the capital. Aarhus, Denmark's second city, also makes the least affordable list.</p>
-      <div class="pull-quote">"The places with the best jobs and culture are exactly where ordinary people are being squeezed out of homeownership."</div>
-      <p>Use the animation to scroll back through time. In 2008, the picture was more compressed. Watch how the gap widens year by year. The divergence is not an accident — it is the cumulative result of two decades of uneven growth.</p>
-    </div>
-
-    <div class="figure-wrap">
-      <iframe src="Figures/top_bottom_affordability1.html" class="tall" title="Top 10 Most and Least Affordable Municipalities 2024"></iframe>
-      <p class="figure-caption">Fig. 7 · Top 10 most and least affordable municipalities by affordability index, 2024. Use the slider to navigate through the years.</p>
-    </div>
-  </div>
-</section>
-
-<!-- wave from grass to cream-dark -->
-<div class="scene-divider">
-  <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="55" fill="#cee4d0"/>
-    <path d="M0,55 L0,30 Q180,5 360,28 Q540,50 720,22 Q900,0 1080,26 Q1260,50 1440,20 L1440,55 Z" fill="#eee8d8"/>
-  </svg>
-</div>
-
-<!-- ════════════════════ SECTION 8 ════════════════════ -->
-<section class="section-tinted reveal">
-  <div class="section-inner">
-    <p class="section-number">08 · The Price–Income Split</p>
-    <h2 class="section-headline">Incomes Grew Everywhere. Prices Didn't.</h2>
-    <p class="section-subhead">"In the Capital Region, sqm prices rose 150–170%. Incomes doubled everywhere — but only there did prices race so far ahead."</p>
-
-    <div class="body-text">
-      <p>It would be easy to assume that the affordability crisis in the Capital Region is partly explained by higher incomes — that people in Copenhagen earn so much more that they can absorb the higher prices. The income data tells a more nuanced story.</p>
-      <p>Incomes have grown across all five regions at a remarkably similar pace. From 2008 to 2024, every region saw incomes roughly double — a consistent, broad-based rise driven by wage growth, education, and a tight labour market. The Capital Region does pull ahead slightly in recent years, but the divergence in income is modest.</p>
-      <p>The divergence in prices is not modest at all. In the Capital Region, average square meter prices surged from around 20,000–25,000 DKK in 2008 to 55,000–65,000 DKK by 2024 in some municipalities — a rise of 150–170%. Meanwhile, in Southern Denmark, North Jutland and Central Jutland, prices rose 20–40% in real terms over the same period.</p>
-      <p>This is the core of the affordability problem: it is not a failure of wage growth, it is a failure of housing supply to keep pace with demand in dense urban areas. Incomes and prices grew together everywhere else. Only in the Capital Region did prices race so far ahead that income growth became irrelevant to the affordability question.</p>
-    </div>
-
-    <div class="figure-wrap">
-      <iframe src="Figures/full_municipality_growth_map.html" class="tall" title="sqm Price Over Time by Municipality and Region"></iframe>
-      <p class="figure-caption">Fig. 8 · Mean sqm price (DKK) by municipality, faceted by region, 2008–2024</p>
-    </div>
-  </div>
-</section>
-
-<!-- hills -->
-<div class="scene-divider">
-  <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="55" fill="#eee8d8"/>
-    <path d="M0,55 L0,35 Q300,8 600,30 Q900,52 1200,18 Q1340,5 1440,25 L1440,55 Z" fill="#f7f2e8"/>
-  </svg>
-</div>
-
-
-<!-- ════════════════════ SECTION 9 ════════════════════ -->
-<section class="section reveal">
-  <div class="interactive-badge"><span class="interactive-dot"></span>Interactive</div>
-  <p class="section-number">09 · The Geography of Inequality</p>
-  <h2 class="section-headline">Find Your Place on the Map</h2>
-  <p class="section-subhead">"Green in Jutland. Red around Copenhagen. Sixteen years of divergence in a single image."</p>
-
-  <div class="body-text">
-    <p>The change map captures sixteen years of divergence in a single image. Green means housing became more affordable relative to income between 2008 and 2024. Red means it became less affordable. The geography is striking.</p>
-    <p>A band of deep green runs through rural Jutland — municipalities like Morsø, Lemvig, and Vesthimmerland where affordability improved by 80–120%. These are places where house prices remained modest while incomes slowly rose, creating a genuine improvement in living standards for existing homeowners and new buyers alike.</p>
-    <p>Surrounding Copenhagen and spreading across Zealand, the colours shift to orange and red. The municipalities immediately around the capital show the sharpest deterioration — affordability fell by 10–20% even as incomes rose, because prices simply outpaced everything else.</p>
-    <p>Use the animated map to scroll through time year by year. Find your municipality. The story of Danish housing is not one story — it is 98 stories, each shaped by local economies, local demand, and local decisions about what to build and where.</p>
+  <!-- grass wave -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1440" height="55" fill="#f7f2e8"/>
+      <path d="M0,55 L0,28 Q240,0 480,30 Q720,55 960,18 Q1200,0 1440,30 L1440,55 Z" fill="#e8f0e0"/>
+    </svg>
   </div>
 
+  <!-- ════════════════════ SECTION 5 ════════════════════ -->
+  <section class="section-grass reveal" id="section-5">
+    <div class="section-inner">
+      <p class="section-number">05 · The Real Cost</p>
+      <h2 class="section-headline">The Price of Living in a City: 150,000 Kroner a Year</h2>
+      <p class="section-subhead">To close the urban affordability gap, you would need to earn roughly 30% more — not to live better, just to match 2008.</p>
 
+      <div class="body-text">
+        <p>Abstract index numbers can feel distant. So let's make the affordability gap concrete. This chart answers a specific question: compared to 2008, how much additional annual income would a household need today to have the same housing affordability they had back then?</p>
+        <p>For urban households, the answer is sobering. At the worst point — around 2015 — an urban household would have needed approximately 170,000 DKK more per year just to stand still in affordability terms. By 2024, thanks to some income growth and modest price corrections, that figure remains deeply negative: roughly 160,000–165,000 DKK per year.</p>
+        <p>Rural households face a smaller but still significant gap — roughly 70,000–80,000 DKK per year by 2024.</p>
+        <div class="pull-quote">The median Danish salary is around 500,000 DKK (source). Closing the urban gap would require earning 30% more — just to afford what your parents had.</div>
+        <p>This is the number behind the headlines about young people struggling to buy homes. It is not about lifestyle choices. It is a structural, measurable gap between what people earn and what housing costs — and it has been there for over a decade.</p>
+      </div>
 
-<!-- city skyline transition into dark closing -->
-<div class="scene-divider">
-  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1440" height="80" fill="#f7f2e8"/>
-    <path d="M0,80 L0,58 L40,58 L40,32 L60,32 L60,58 L120,58 L120,36 L148,18 L176,36 L176,58
-             L236,58 L236,18 L264,4  L292,18 L292,58 L352,58 L352,42 L372,26 L392,42 L392,58
-             L452,58 L452,24 L484,8  L516,24 L516,58 L576,58 L576,40 L596,24 L616,40 L616,58
-             L676,58 L676,16 L716,2  L756,16 L756,58 L816,58 L816,34 L842,16 L868,34 L868,58
-             L928,58 L928,44 L948,28 L968,44 L968,58 L1028,58 L1028,20 L1060,6 L1092,20 L1092,58
-             L1152,58 L1152,36 L1178,18 L1204,36 L1204,58 L1264,58 L1264,28 L1296,12 L1328,28
-             L1328,58 L1388,58 L1388,42 L1414,28 L1440,42 L1440,80 Z"
-      fill="#1e3040"/>
-  </svg>
-</div>
-
-<!-- ════════════════════ CLOSING ════════════════════ -->
-<section class="closing reveal">
-  <div class="closing-inner">
-    <p class="section-number">10 · Conclusion</p>
-    <h2 class="section-headline">A Country Quietly Divided</h2>
-    <p class="section-subhead">"The distribution of affordability has flattened. The middle is hollowing out. The gap between the best and worst has never been wider."</p>
-
-    <div class="body-text">
-      <p>The distribution charts tell the final, clearest version of the story. In 2008, the spread of affordability across Danish municipalities was relatively compressed — most places clustered tightly around the national average, with a sharp peak and a narrow range.</p>
-      <p>By 2024, that distribution has flattened and spread. The peak is lower, the tails are longer. Some municipalities have become dramatically more affordable; others have become dramatically less so. The middle is hollowing out.</p>
+      <div class="figure-wrap">
+        <iframe src="Figures/income_gap.html" class="short" title="Income Gap to Maintain 2008 Affordability Levels"></iframe>
+        <p class="figure-caption">Fig. 5 · Additional annual income (DKK/year) required to maintain 2008 affordability levels, urban vs. rural, 2008–2024</p>
+      </div>
     </div>
+  </section>
 
-    <div class="figure-wrap">
-      <iframe src="Figures/affordability_distribution.html" class="dual" title="Affordability Inequality Over Time and Distribution Across Municipalities"></iframe>
-      <p class="figure-caption">Fig. 9 · Distribution of affordability across municipalities, selected years.</p>
-    </div>
-
-
-    <div class="body-text">
-      <p>Denmark is not unique in this. Cities across the wealthy world are grappling with the same divergence between urban and rural housing markets. But the Danish case is striking precisely because Denmark prides itself on equality — on a social contract that offers everyone a fair share of prosperity.</p>
-      <p>The data suggests that contract is under pressure. Not broken — but bent, in ways that will shape the next generation's geography, opportunity, and quality of life. The question for Danish society is whether this divergence is an acceptable consequence of economic geography, or a policy failure that demands a response.</p>
-    </div>
+  <!-- wave back to cream-dark -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1440" height="55" fill="#dae8d2"/>
+      <path d="M0,55 L0,22 Q360,55 720,20 Q1080,0 1440,35 L1440,55 Z" fill="#eee8d8"/>
+    </svg>
   </div>
-</section>
 
-<!-- ════════════════════ FOOTER ════════════════════ -->
-<footer>
-  <p>Data: Danish housing transactions 2008–2024 · Municipal income &amp; population registers</p>
-  <p>Social Data Analysis · DTU · 2026</p>
-</footer>
+  <!-- ════════════════════ SECTION 6 ════════════════════ -->
+  <section class="section-tinted reveal" id="section-6">
+    <div class="section-inner">
+      <div class="interactive-badge"><span class="interactive-dot"></span>Interactive</div>
+      <p class="section-number">06 · The Migration Paradox</p>
+      <h2 class="section-headline">People Moved Toward Expensive Cities Anyway</h2>
+      <p class="section-subhead">The more affordable a place was in 2008, the more likely it was to lose population over the next 16 years.</p>
+
+      <div class="body-text">
+        <p>If housing is so much cheaper in rural Denmark, why aren't more people moving there? The population data provides a clear, if uncomfortable, answer.</p>
+        <p>The scatter plot shows each municipality in 2008, plotting its affordability against how much its population grew over the following 16 years. If affordability drove migration decisions, we would expect a positive relationship — affordable places would attract people. The trend line points in the opposite direction. The more affordable a place was in 2008, the more likely it was to lose population over the next 16 years.</p>
+        <p>The box plot makes this even clearer. Municipalities where affordability improved the most had the lowest population growth. Municipalities where affordability declined — meaning housing got more expensive relative to income — tended to grow fastest.</p>
+        <div class="pull-quote">People choose cities knowing full well housing will consume a large share of their income — because the alternative offers fewer paths forward.</div>
+        <p>This is what economists call an amenity premium (source). People choose where to live based on jobs, education, culture, social networks, and opportunity — not housing prices alone. The result is a feedback loop: demand in cities drives prices up, affordability falls, but migration continues anyway, driving prices still higher.</p>
+      </div>
+
+      <div class="figure-wrap">
+        <iframe src="Figures/population_vs_affordability.html" class="short" title="Did People Move to More Affordable Areas? (2008–2024)"></iframe>
+        <p class="figure-caption">Fig. 6a · Affordability in 2008 vs. population growth 2008–2024, by municipality. Bubble size = population.</p>
+      </div>
+
+      <div class="figure-wrap">
+        <iframe src="Figures/population_vs_affordability_boxplot.html" class="short" title="Population Growth by Affordability Change Group"></iframe>
+        <p class="figure-caption">Fig. 6b · Population growth distribution by affordability change group, 2008–2024</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- cream wave -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1440" height="55" fill="#eee8d8"/>
+      <path d="M0,55 L0,38 Q200,12 440,35 Q680,55 900,22 Q1120,0 1440,30 L1440,55 Z" fill="#f7f2e8"/>
+    </svg>
+  </div>
+
+  <!-- ════════════════════ MARTINI TRANSITION ════════════════════ -->
+  <div class="martini-transition reveal">
+    <p class="martini-label">↓ Now You Explore</p>
+    <h2 class="martini-title">From Story to Discovery</h2>
+    <p class="martini-body">You've seen the national arc. Now it's time to explore the data yourself — dig into municipalities, prices, migration, and what it would actually cost to live in Denmark today.</p>
+  </div>
+
+  <!-- ════════════════════ SECTION 7 ════════════════════ -->
+  <section class="section-grass reveal" id="section-7">
+    <div class="section-inner">
+      <div class="interactive-badge"><span class="interactive-dot"></span>Interactive</div>
+      <p class="section-number">07 · The Affordability Lottery</p>
+      <h2 class="section-headline">Where You Can Still Afford to Live</h2>
+      <p class="section-subhead">Frederiksberg scores 9. Vejen scores 56. That is a gap of more than six to one.</p>
+
+      <div class="body-text">
+        <p>The municipal rankings make the inequality concrete and personal. In 2024, the most affordable municipality in Denmark is Vejen, with an affordability index of 56.4. The least affordable? Frederiksberg, at just 9. That is a gap of more than six to one.</p>
+        <p>The top ten most affordable places share a profile: they are rural, relatively small, located in Jutland or on the smaller islands — Holstebro, Skive, Lemvig, Lolland, Ærø. These are communities that have struggled with population decline and economic stagnation (source) — but if you want to own a home without devoting your entire income to it, they offer something Copenhagen simply cannot.</p>
+        <p>The ten least affordable municipalities tell the opposite story: Frederiksberg, Copenhagen, Rødovre, Hvidovre, Gladsaxe, Tårnby — all tightly clustered in and around the capital. Aarhus, Denmark's second city, also makes the least affordable list.</p>
+        <div class="pull-quote">The places with the best jobs and culture are exactly where ordinary people are being squeezed out of homeownership.</div>
+        <p>Use the animation to scroll back through time. In 2008, the picture was more compressed. Watch how the gap widens year by year. The divergence is not an accident — it is the cumulative result of two decades of uneven growth.</p>
+      </div>
+
+      <div class="figure-wrap">
+        <iframe src="Figures/top_bottom_affordability1.html" class="tall" title="Top 10 Most and Least Affordable Municipalities 2024"></iframe>
+        <p class="figure-caption">Fig. 7 · Top 10 most and least affordable municipalities by affordability index, 2024. Use the slider to navigate through the years.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- wave from grass to cream-dark -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1440" height="55" fill="#cee4d0"/>
+      <path d="M0,55 L0,30 Q180,5 360,28 Q540,50 720,22 Q900,0 1080,26 Q1260,50 1440,20 L1440,55 Z" fill="#eee8d8"/>
+    </svg>
+  </div>
+
+  <!-- ════════════════════ SECTION 8 — COMBINED ════════════════════ -->
+  <section class="section-tinted reveal" id="section-8">
+    <div class="section-inner">
+      <div class="interactive-badge"><span class="interactive-dot"></span>Interactive</div>
+      <p class="section-number">08 · Prices, Incomes &amp; the Geography of Inequality</p>
+      <h2 class="section-headline">Incomes Grew Everywhere. Prices Didn't — and the Map Shows Where.</h2>
+      <p class="section-subhead">In the Capital Region, sqm prices rose 150–170%. Incomes doubled across all regions. Green in Jutland. Red around Copenhagen. Sixteen years of divergence in a single image.</p>
+
+      <div class="body-text">
+        <p>It would be easy to assume that the affordability crisis in the Capital Region is partly explained by higher incomes — that people in Copenhagen earn so much more that they can absorb the higher prices. The income data tells a more nuanced story.</p>
+        <p>Incomes have grown across all five regions at a remarkably similar pace. From 2008 to 2024, every region saw incomes roughly double — a consistent, broad-based rise driven by wage growth, education, and a tight labour market. The Capital Region does pull ahead slightly in recent years, but the divergence in income is modest.</p>
+        <p>The divergence in prices is not modest at all. In the Capital Region, average square metre prices surged from around 20,000–25,000 DKK in 2008 to 55,000–65,000 DKK by 2024 in some municipalities — a rise of 150–170%. Meanwhile, in Southern Denmark, North Jutland and Central Jutland, prices rose 20–40% in real terms over the same period.</p>
+        <p>This is the core of the affordability problem: it is not a failure of wage growth, it is a failure of housing supply to keep pace with demand in dense urban areas (source). Only in the Capital Region did prices race so far ahead that income growth became irrelevant to the affordability question.</p>
+      </div>
+
+      <div class="figure-wrap">
+        <iframe src="Figures/full_municipality_growth_map.html" class="tall" title="Growth Map: Population, Affordability, Income and sqm Price by Municipality"></iframe>
+        <p class="figure-caption">Fig. 8 · Municipal-level growth map (2008–2024). Toggle between Population Growth, Affordability Change, Income Growth, and sqm Price Growth using the buttons above the map. This is your chance to zoom in.</p>
+      </div>
+
+      <div class="body-text" style="margin-top: 2rem;">
+        <p>The map makes the story geographic. Switch to the Affordability Change view: green means housing became more affordable relative to income between 2008 and 2024, red means it became less so. A band of improvement runs through rural Jutland, where modest prices and rising incomes moved in the same direction. Surrounding Copenhagen and spreading across Zealand, the story shifts sharply — prices outpaced incomes, and affordability fell.</p>
+        <p>The Population Growth layer adds the migration paradox in visual form: the places gaining people are largely the same places where affordability deteriorated most. Switch to Income Growth and the picture flattens — almost the entire country is the same shade, confirming that the affordability crisis is not driven by unequal wage growth, but by unequal price growth.</p>
+        <p>The sqm Price Growth layer reveals the full scale of the divergence. The municipalities around Copenhagen and Aarhus dominate the top of the scale. The rest of the country looks almost static by comparison. Use the map to find your own municipality and trace its trajectory across all four dimensions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- hills -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1440" height="55" fill="#eee8d8"/>
+      <path d="M0,55 L0,35 Q300,8 600,30 Q900,52 1200,18 Q1340,5 1440,25 L1440,55 Z" fill="#f7f2e8"/>
+    </svg>
+  </div>
+
+  <!-- city skyline transition into dark closing -->
+  <div class="scene-divider">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1440" height="80" fill="#f7f2e8"/>
+      <path d="M0,80 L0,58 L40,58 L40,32 L60,32 L60,58 L120,58 L120,36 L148,18 L176,36 L176,58
+               L236,58 L236,18 L264,4  L292,18 L292,58 L352,58 L352,42 L372,26 L392,42 L392,58
+               L452,58 L452,24 L484,8  L516,24 L516,58 L576,58 L576,40 L596,24 L616,40 L616,58
+               L676,58 L676,16 L716,2  L756,16 L756,58 L816,58 L816,34 L842,16 L868,34 L868,58
+               L928,58 L928,44 L948,28 L968,44 L968,58 L1028,58 L1028,20 L1060,6 L1092,20 L1092,58
+               L1152,58 L1152,36 L1178,18 L1204,36 L1204,58 L1264,58 L1264,28 L1296,12 L1328,28
+               L1328,58 L1388,58 L1388,42 L1414,28 L1440,42 L1440,80 Z"
+        fill="#1e3040"/>
+    </svg>
+  </div>
+
+  <!-- ════════════════════ CLOSING ════════════════════ -->
+  <section class="closing reveal" id="section-conclusion">
+    <div class="closing-inner">
+      <p class="section-number">09 · Conclusion</p>
+      <h2 class="section-headline">A Country Quietly Divided</h2>
+      <p class="section-subhead">The distribution of affordability has flattened. The middle is hollowing out. The gap between the best and worst has never been wider.</p>
+
+      <div class="body-text">
+        <p>The distribution charts tell the final, clearest version of the story. In 2008, the spread of affordability across Danish municipalities was relatively compressed — most places clustered tightly around the national average, with a sharp peak and a narrow range.</p>
+        <p>By 2024, that distribution has flattened and spread. The peak is lower, the tails are longer. Some municipalities have become dramatically more affordable; others have become dramatically less so. The middle is hollowing out.</p>
+      </div>
+
+      <div class="figure-wrap">
+        <iframe src="Figures/affordability_distribution.html" class="dual" title="Affordability Inequality Over Time and Distribution Across Municipalities"></iframe>
+        <p class="figure-caption">Fig. 9 · Distribution of affordability across municipalities, selected years.</p>
+      </div>
+
+      <div class="body-text">
+        <p></p>
+        <p>Denmark is not unique in this. Cities across the wealthy world are grappling with the same divergence between urban and rural housing markets (source). But the Danish case is striking precisely because Denmark prides itself on equality — on a social contract that offers everyone a fair share of prosperity (source).</p>
+        <p>The data suggests that contract is under pressure. Not broken — but bent, in ways that will shape the next generation's geography, opportunity, and quality of life. The question for Danish society is whether this divergence is an acceptable consequence of economic geography, or a policy failure that demands a response.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ REFERENCES ════════════════════ -->
+  <section class="references-section" id="section-references">
+    <div class="references-inner">
+      <p class="section-number" style="color:var(--gold-light);">10 · References</p>
+      <h2 class="section-headline">Data Sources</h2>
+
+      <div class="ref-grid">
+        <div class="ref-card">
+          <div class="ref-type">Income Data</div>
+          <div class="ref-title">Statistics Denmark — Municipal Income Register (INDKF132)</div>
+          <a class="ref-link" href="https://www.statistikbanken.dk/statbank5a/SelectVarVal/define.asp?MainTable=INDKF132&PLanguage=1&Tabstrip=&PXSId=0&SessID=618176180&FF=20&tfrequency=1" target="_blank" rel="noopener">
+            statistikbanken.dk · INDKF132
+          </a>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-type">Housing Transactions</div>
+          <div class="ref-title">Danish Residential Housing Prices 1992–2024 — Kaggle Dataset</div>
+          <a class="ref-link" href="https://www.kaggle.com/datasets/martinfrederiksen/danish-residential-housing-prices-1992-2024/data" target="_blank" rel="noopener">
+            kaggle.com · martinfrederiksen/danish-residential-housing-prices-1992-2024
+          </a>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-type">Population Data</div>
+          <div class="ref-title">Statistics Denmark — Population by Municipality (FOLK1E)</div>
+          <a class="ref-link" href="https://www.statistikbanken.dk/FOLK1E" target="_blank" rel="noopener">
+            statistikbanken.dk · FOLK1E
+          </a>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-type">GeoJSON — Municipal Boundaries</div>
+          <div class="ref-title">Denmark Municipalities GeoJSON — Code for Germany</div>
+          <a class="ref-link" href="https://github.com/codeforgermany/click_that_hood/blob/main/public/data/denmark-municipalities.geojson" target="_blank" rel="noopener">
+            github.com · codeforgermany/click_that_hood
+          </a>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-type">GeoJSON — Alternative Source</div>
+          <div class="ref-title">Denmark Municipalities GeoJSON — Pernille Matthews (GitHub Gist)</div>
+          <a class="ref-link" href="https://gist.github.com/PernilleMatthews/70fd81c96b3572e5494603b07eda250f" target="_blank" rel="noopener">
+            gist.github.com · PernilleMatthews/70fd81c96b3572e5494603b07eda250f
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ FOOTER ════════════════════ -->
+  <footer>
+    <p>Data: Danish housing transactions 2008–2024 · Municipal income &amp; population registers</p>
+    <p>Social Data Analysis · DTU · 2026</p>
+  </footer>
 
 <script>
+  /* ── Scroll progress bar ── */
+  const progressBar = document.getElementById('scroll-progress');
+  function updateProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+
+  /* ── Sticky nav visibility ── */
+  const siteNav = document.getElementById('site-nav');
+  function updateNav() {
+    const heroHeight = document.querySelector('.hero').offsetHeight;
+    if (window.scrollY > heroHeight * 0.5) {
+      siteNav.classList.add('visible');
+    } else {
+      siteNav.classList.remove('visible');
+    }
+  }
+
+  /* ── Active nav link ── */
+  const navLinks = document.querySelectorAll('.nav-link[data-section]');
+  const sections = [];
+  navLinks.forEach(link => {
+    const id = link.getAttribute('data-section');
+    const el = document.getElementById(id);
+    if (el) sections.push({ id, el, link });
+  });
+
+  function updateActiveLink() {
+    const scrollMid = window.scrollY + window.innerHeight * 0.4;
+    let active = null;
+    for (const s of sections) {
+      if (s.el.offsetTop <= scrollMid) active = s;
+    }
+    navLinks.forEach(l => l.classList.remove('active'));
+    if (active) active.link.classList.add('active');
+  }
+
+  /* ── Reveal on scroll ── */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -906,6 +1231,18 @@
   }, { threshold: 0.07 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── Bind all scroll events ── */
+  window.addEventListener('scroll', () => {
+    updateProgress();
+    updateNav();
+    updateActiveLink();
+  }, { passive: true });
+
+  /* ── Initial call ── */
+  updateProgress();
+  updateNav();
+  updateActiveLink();
 </script>
 
 </body>
