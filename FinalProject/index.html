@@ -655,6 +655,46 @@
   }
   .ref-link:hover { color: var(--gold-light); }
 
+  .ref-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold-light);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.1em;
+  }
+
+
+  .notebook-button {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--house), var(--gold-light));
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.6rem;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+  }
+
+  .notebook-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    filter: brightness(1.05);
+  }
+
+  .notebook-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+  }
+
+  .notebook-link:hover {
+    color: var(--gold-light);
+  }
   /* ══════════════════════════════════
      FOOTER
   ══════════════════════════════════ */
@@ -675,6 +715,22 @@
     letter-spacing: 0.1em;
     color: rgba(255,255,255,0.28);
     text-transform: uppercase;
+  }
+
+  /* ══════════════════════════════════
+     CITATION
+  ══════════════════════════════════ */
+  .cite {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    vertical-align: super;
+    color: var(--gold-light);
+    text-decoration: none;
+    margin-left: 2px;
+  }
+
+  .cite:hover {
+    color: var(--house);
   }
 
   /* ══════════════════════════════════
@@ -830,7 +886,7 @@
     <div class="body-text">
       <p>Housing is one of the most fundamental parts of life — it shapes where you live, how much you spend, and what your future looks like. But over the past two decades, the answer to whether a typical Dane can afford to buy a home has become increasingly complicated.</p>
       <p>To measure affordability, we use a simple but powerful index: how much annual income does it take to buy one square meter of housing? The higher the number, the more affordable housing is relative to your earnings. Think of it as your purchasing power in the housing market.</p>
-      <p>In 2008, Denmark was coming off a housing bubble (source). Prices had run far ahead of incomes, and the financial crisis hit just as the market was most stretched. The affordability index sat at its lowest point in our dataset — around 19.5.</p>
+      <p>In 2008, Denmark was coming off a housing bubble. Prices had run far ahead of incomes, and the financial crisis hit just as the market was most stretched <a class="cite" href="#ref-1">[1]</a>. The affordability index sat at its lowest point in our dataset — around 19.5.</p>
       <p>Then something changed. As the financial crisis unwound, house prices fell and incomes slowly recovered. By 2012–2014, affordability had climbed to its best level in years — around 25 — a 25% improvement in just six years. For a brief window, Denmark felt accessible again.</p>
       <div class="pull-quote">By 2022, interest rates spiked from near zero to over 3% in months — and affordability fell off a cliff.</div>
       <p>But that window didn't stay open. From 2015 onward, affordability began a slow decline. Prices kept rising faster than incomes. And then came 2022 — interest rates spiked sharply, and affordability dropped faster than at any point since the financial crisis. By 2024, the national index sits at roughly 23.7.</p>
@@ -857,9 +913,9 @@
       <h2 class="section-headline">The Interest Rate Story Nobody Talks About</h2>
       <p class="section-subhead">Much of the 2010s affordability improvement was built on borrowed time — and when rates rose in 2022, both affordability and market activity collapsed together.</p>
       <div class="body-text">
-        <p>To understand what drives housing affordability, you have to understand interest rates. For most of the 2010s, Denmark — like much of Europe — lived in an era of near-zero interest rates (source). Borrowing money to buy a house was extraordinarily cheap. Monthly mortgage payments shrank. Buyers could afford more. Prices rose, but so did affordability, because low rates made even expensive homes manageable.</p>
+        <p>To understand what drives housing affordability, you have to understand interest rates. For most of the 2010s, Denmark — like much of Europe — lived in an era of near-zero interest rates <a class="cite" href="#ref-2">[2]</a>. Borrowing money to buy a house was extraordinarily cheap. Monthly mortgage payments shrank. Buyers could afford more. Prices rose, but so did affordability, because low rates made even expensive homes manageable.</p>
         <p>Look at the chart. The green line tracks affordability. The red dashed line tracks nominal interest rates. The relationship is almost a mirror image — when rates fell, affordability rose. When rates held near zero through 2015–2021, affordability plateaued at a new, higher level. Danes had quietly become accustomed to cheap money.</p>
-        <p>Then in 2022, the European Central Bank began raising rates aggressively to fight inflation. Danish mortgage rates followed (source). Almost overnight, the monthly cost of buying the same home jumped by thousands of kroner.</p>
+        <p>Then in 2022, the European Central Bank began raising rates aggressively to fight inflation. Danish mortgage rates followed <a class="cite" href="#ref-3">[3]</a>. Almost overnight, the monthly cost of buying the same home jumped by thousands of kroner.</p>
         <div class="pull-quote">The affordability improvement of the 2010s was not earned — it was lent.</div>
         <p>Much of the "affordability improvement" between 2009 and 2021 was borrowed — built on historically anomalous interest rates, not on a structural improvement in the relationship between wages and housing costs. Now that rates have normalised, the underlying tension is exposed again.</p>
       </div>
@@ -915,7 +971,7 @@
       <p>A national average is useful — but it can also lie. When we break Denmark's affordability story down by its five regions, the single line fractures into something far more complicated, and far more unequal.</p>
       <p>North Jutland and Zealand consistently show the highest affordability scores — regularly above 25, sometimes approaching 29. Housing there is genuinely within reach for ordinary households. Central Jutland and Southern Denmark sit in the middle: affordable, but less dramatically so.</p>
       <p>And then there is the Capital Region. Its affordability line sits so far below the others that it almost looks like it belongs to a different country. While other regions sat around 24–28 in 2015, the Capital Region had already slipped to 16. By 2021, it hit 14. By 2024, it remains stubbornly low at around 14.7.</p>
-      <p>What this means in practice: a household in North Jutland earns roughly the same income as one near Copenhagen (source), but their money goes nearly twice as far in the housing market. Two Danes, similar jobs, similar salaries — but one can afford a family home, and the other is locked in an expensive rental. This is not a temporary blip. It is a structural, deepening divide.</p>
+      <p>What this means in practice: If a household in North Jutland earns roughly the same income as one near Copenhagen, their money goes nearly twice as far in the housing market. Two Danes, similar jobs, similar salaries — but one can afford a family home, and the other is locked in an expensive rental. This is not a temporary blip. It is a structural, deepening divide.</p>
     </div>
 
     <div class="figure-wrap">
@@ -962,8 +1018,10 @@
         <p>Abstract index numbers can feel distant. So let's make the affordability gap concrete. This chart answers a specific question: compared to 2008, how much additional annual income would a household need today to have the same housing affordability they had back then?</p>
         <p>For urban households, the answer is sobering. At the worst point — around 2015 — an urban household would have needed approximately 170,000 DKK more per year just to stand still in affordability terms. By 2024, thanks to some income growth and modest price corrections, that figure remains deeply negative: roughly 160,000–165,000 DKK per year.</p>
         <p>Rural households face a smaller but still significant gap — roughly 70,000–80,000 DKK per year by 2024.</p>
-        <div class="pull-quote">The median Danish salary is around 500,000 DKK (source). Closing the urban gap would require earning 30% more — just to afford what your parents had.</div>
-        <p>This is the number behind the headlines about young people struggling to buy homes. It is not about lifestyle choices. It is a structural, measurable gap between what people earn and what housing costs — and it has been there for over a decade.</p>
+        <div class="pull-quote">The average Danish salary is around 780,000 DKK <a class="cite" href="#ref-4">[4]</a>. Closing the urban gap would require earning 20% more — just to afford what your parents had.</div>
+        <p> In urban areas, closing the gap would require an income increase on the order of 20% or more relative to the average household income level — simply to restore 2008 housing affordability conditions.
+
+This is the number behind the headlines about young people struggling to buy homes. It is not about lifestyle choices. It is a structural, measurable gap between incomes and housing costs — and it has persisted for over a decade.</p>
       </div>
 
       <div class="figure-wrap">
@@ -994,7 +1052,7 @@
         <p>The scatter plot shows each municipality in 2008, plotting its affordability against how much its population grew over the following 16 years. If affordability drove migration decisions, we would expect a positive relationship — affordable places would attract people. The trend line points in the opposite direction. The more affordable a place was in 2008, the more likely it was to lose population over the next 16 years.</p>
         <p>The box plot makes this even clearer. Municipalities where affordability improved the most had the lowest population growth. Municipalities where affordability declined — meaning housing got more expensive relative to income — tended to grow fastest.</p>
         <div class="pull-quote">People choose cities knowing full well housing will consume a large share of their income — because the alternative offers fewer paths forward.</div>
-        <p>This is what economists call an amenity premium (source). People choose where to live based on jobs, education, culture, social networks, and opportunity — not housing prices alone. The result is a feedback loop: demand in cities drives prices up, affordability falls, but migration continues anyway, driving prices still higher.</p>
+        <p>This means that people choose where to live based on jobs, education, culture, social networks, and opportunity — not housing prices alone. The result is a feedback loop: demand in cities drives prices up, affordability falls, but migration continues anyway, driving prices still higher.</p>
       </div>
 
       <div class="figure-wrap">
@@ -1034,7 +1092,7 @@
 
       <div class="body-text">
         <p>The municipal rankings make the inequality concrete and personal. In 2024, the most affordable municipality in Denmark is Vejen, with an affordability index of 56.4. The least affordable? Frederiksberg, at just 9. That is a gap of more than six to one.</p>
-        <p>The top ten most affordable places share a profile: they are rural, relatively small, located in Jutland or on the smaller islands — Holstebro, Skive, Lemvig, Lolland, Ærø. These are communities that have struggled with population decline and economic stagnation (source) — but if you want to own a home without devoting your entire income to it, they offer something Copenhagen simply cannot.</p>
+        <p>The top ten most affordable places share a profile: they are rural, relatively small, located in Jutland or on the smaller islands. These are also mostly communities that have struggled with population decline and economic stagnation <a class="cite" href="#ref-5">[5]</a> — but if you want to own a home without devoting your entire income to it, they offer something Copenhagen simply cannot.</p>
         <p>The ten least affordable municipalities tell the opposite story: Frederiksberg, Copenhagen, Rødovre, Hvidovre, Gladsaxe, Tårnby — all tightly clustered in and around the capital. Aarhus, Denmark's second city, also makes the least affordable list.</p>
         <div class="pull-quote">The places with the best jobs and culture are exactly where ordinary people are being squeezed out of homeownership.</div>
         <p>Use the animation to scroll back through time. In 2008, the picture was more compressed. Watch how the gap widens year by year. The divergence is not an accident — it is the cumulative result of two decades of uneven growth.</p>
@@ -1067,7 +1125,7 @@
         <p>It would be easy to assume that the affordability crisis in the Capital Region is partly explained by higher incomes — that people in Copenhagen earn so much more that they can absorb the higher prices. The income data tells a more nuanced story.</p>
         <p>Incomes have grown across all five regions at a remarkably similar pace. From 2008 to 2024, every region saw incomes roughly double — a consistent, broad-based rise driven by wage growth, education, and a tight labour market. The Capital Region does pull ahead slightly in recent years, but the divergence in income is modest.</p>
         <p>The divergence in prices is not modest at all. In the Capital Region, average square metre prices surged from around 20,000–25,000 DKK in 2008 to 55,000–65,000 DKK by 2024 in some municipalities — a rise of 150–170%. Meanwhile, in Southern Denmark, North Jutland and Central Jutland, prices rose 20–40% in real terms over the same period.</p>
-        <p>This is the core of the affordability problem: it is not a failure of wage growth, it is a failure of housing supply to keep pace with demand in dense urban areas (source). Only in the Capital Region did prices race so far ahead that income growth became irrelevant to the affordability question.</p>
+        <p>This is the core of the affordability problem: it is not a failure of wage growth, it is a failure of housing supply to keep pace with demand in dense urban areas <a class="cite" href="#ref-6">[6]</a>. Only in the Capital Region did prices race so far ahead that income growth became irrelevant to the affordability question.</p>
       </div>
 
       <div class="figure-wrap">
@@ -1125,7 +1183,7 @@
 
       <div class="body-text">
         <p></p>
-        <p>Denmark is not unique in this. Cities across the wealthy world are grappling with the same divergence between urban and rural housing markets (source). But the Danish case is striking precisely because Denmark prides itself on equality — on a social contract that offers everyone a fair share of prosperity (source).</p>
+        <p>Denmark is not unique in this. Cities across the wealthy world are grappling with the same divergence between urban and rural housing markets <a class="cite" href="#ref-7">[7]</a>. But the Danish case is striking precisely because Denmark prides itself on equality — on a social contract that offers everyone a fair share of prosperity <a class="cite" href="#ref-8">[8]</a>.</p>
         <p>The data suggests that contract is under pressure. Not broken — but bent, in ways that will shape the next generation's geography, opportunity, and quality of life. The question for Danish society is whether this divergence is an acceptable consequence of economic geography, or a policy failure that demands a response.</p>
       </div>
     </div>
@@ -1164,23 +1222,101 @@
 
         <div class="ref-card">
           <div class="ref-type">GeoJSON — Municipal Boundaries</div>
-          <div class="ref-title">Denmark Municipalities GeoJSON — Code for Germany</div>
+          <div class="ref-title">Denmark Municipalities GeoJSON</div>
           <a class="ref-link" href="https://github.com/codeforgermany/click_that_hood/blob/main/public/data/denmark-municipalities.geojson" target="_blank" rel="noopener">
             github.com · codeforgermany/click_that_hood
           </a>
         </div>
 
-        <div class="ref-card">
-          <div class="ref-type">GeoJSON — Alternative Source</div>
-          <div class="ref-title">Denmark Municipalities GeoJSON — Pernille Matthews (GitHub Gist)</div>
-          <a class="ref-link" href="https://gist.github.com/PernilleMatthews/70fd81c96b3572e5494603b07eda250f" target="_blank" rel="noopener">
-            gist.github.com · PernilleMatthews/70fd81c96b3572e5494603b07eda250f
-          </a>
-        </div>
+       
       </div>
-      <p>"</p>
-      <h2 class="section-headline">Written Sources</h2>
+      <div class="section-inner">
+        <p>""</p>
+
+  <h2 class="section-headline"> Other Sources</h2>
+
+  <div class="ref-grid">
+
+    <div class="ref-card" id="ref-1">
+      <div class="ref-num">[1]</div>
+      <div class="ref-title">Danish property bubble and post-2008 correction</div>
+      <a class="ref-link" href="https://en.wikipedia.org/wiki/Danish_property_bubble_of_2000s" target="_blank">
+        wikipedia.org / Danish property bubble of 2000s
+      </a>
     </div>
+
+    <div class="ref-card" id="ref-2">
+      <div class="ref-num">[2]</div>
+      <div class="ref-title">Low interest rate era and negative-rate environment in Europe</div>
+      <a class="ref-link" href="https://statbase.org/datasets/finance/real-interest-rate/?syear=2025&mo=164558&filter=&sort=" target="_blank">
+        statbase.org / Real interest rate
+      </a>
+    </div>
+
+    <div class="ref-card" id="ref-3">
+      <div class="ref-num">[3]</div>
+      <div class="ref-title">ECB raising rates 2022–2024 </div>
+      <a class="ref-link" href="https://www.statista.com/statistics/621489/fluctuation-of-fixed-rate-interest-rates-ecb/?srsltid=AfmBOopoeD91cBZ4ZAKxQsQ_B4XmAIJkeEdjvandfyUtlREg8BBlyqJA" target="_blank">
+        statista.com / Fluctuation of fixed rate
+      </a>
+    </div>
+
+    <div class="ref-card" id="ref-4">
+      <div class="ref-num">[4]</div>
+      <div class="ref-title">Average Danish earnings in 2024</div>
+      <a class="ref-link" href="https://m.statbank.dk/TableInfo/FU19?lang=da" target="_blank">
+        statbank.dk / Income levels
+      </a>
+    </div>
+
+
+    <div class="ref-card" id="ref-5">
+      <div class="ref-num">[5]</div>
+      <div class="ref-title">Rural depopulation in Jutland, Lolland, and peripheral Denmark</div>
+      <a class="ref-link" href="https://lex.dk/kommuner_med_st%C3%B8rst_v%C3%A6kst_og_fald_i_befolkningstallet" target="_blank">
+        lex.dk / Municipalities with decline in population
+      </a>
+    </div>
+
+    <div class="ref-card" id="ref-6">
+      <div class="ref-num">[6]</div>
+      <div class="ref-title">Housing supply constraints in high-demand urban regions</div>
+      <a class="ref-link" href="https://www.oecd-ilibrary.org/en/topics/urban-housing.html?" target="_blank">
+        OECD / Urban housing 
+      </a>
+    </div>
+
+    <div class="ref-card" id="ref-7">
+      <div class="ref-num">[7]</div>
+      <div class="ref-title"> The state of housing affordability in European cities</div>
+      <a class="ref-link" href="https://monitor.eurocities.eu/housing-affordability/?" target="_blank">
+        monitor.eurcities.eu / Housing affordability
+      </a>
+    </div>
+
+    <div class="ref-card" id="ref-8">
+      <div class="ref-num">[8]</div>
+      <div class="ref-title">Danish welfare state, equality norms, and housing pressures</div>
+      <a class="ref-link" href="https://www.oecd.org/en/publications/oecd-economic-surveys-denmark-2026_3d6cb4b8-en.html" target="_blank">
+        OECD / Denmark economic surveys
+      </a>
+    </div>
+
+  </div>
+</div>
+    <div style="text-align:center; margin-top: 2.5rem;">
+    
+    <a href="ExplainerNotebook.html" target="_blank" class="notebook-button">
+      View Explainer Notebook
+    </a>
+
+    <div style="margin-top: 0.6rem;">
+      <a href="ExplainerNotebook.ipynb" target="_blank" class="notebook-link">
+        (or download .ipynb)
+      </a>
+    </div>
+
+  </div>
   </section>
 
   <!-- ════════════════════ FOOTER ════════════════════ -->
